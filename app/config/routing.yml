@@ -1,0 +1,13 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+kidzy:
+    resource: "@KidzyBundle/Resources/config/routing.yml"
+    prefix:   /kidzy
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

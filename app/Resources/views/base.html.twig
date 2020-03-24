@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Kidzy{% endblock %}</title>
+    {% block stylesheets %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
+
+        <!--Material Icon -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('front/css/materialdesignicons.min.css') }}"/>
+
+        <link href="{{ asset('back/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css"/>
+
+        <!--pe-7 Icon -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('front/css/pe-icon-7-stroke.css') }}"/>
+
+        <!-- Magnific-popup -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('front/css/magnific-popup.css') }}">
+
+        <!-- Custom  sCss -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('front/css/style.css') }}"/>
+
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('front/images/favicon.ico') }}">
+</head>
+<body>
+<div id="preloader">
+    <div id="status">
+        <div class="spinner">Loading...</div>
+    </div>
+</div>
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark">
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a class="logo text-uppercase" href="">
+                <img src="{{ asset('front/images/logo-light.png') }}" alt="" class="logo-light" height="18"/>
+                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-dark" height="18"/>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
+                    <li class="nav-item active">
+                        <a href="" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Demos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('pricing') }}" class="nav-link">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('fos_user_profile_show') }}" class="nav-link"> Profile </a>
+                    </li>
+                    <li class="nav-item">
+                        {% for role in app.user.roles %}
+                            {% if  role == "ROLE_SUPER_ADMIN" %}
+                                <a href="{{ path('admin_homepage') }}" class="nav-link">Admin Dashboard</a>
+                            {% elseif role =="ROLE_MAITRESSE" %}
+                                <a href="{{ path('Maitresse_homepage') }}" class="nav-link">Maitresse Dashboard</a>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('fos_user_security_logout') }}" class="nav-link">
+                            {{ 'layout.logout'| trans({}, 'FOSUserBundle') }}
+                        </a>
+                        {% endif %}
+                    </li>
+                    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('fos_user_security_login') }}"><span> <i class="dripicons-enter"></i> </span>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                            </a></li>
+                    {% endif %}
+                    <li class="nav-item">
+                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a class="nav-link" href="{{ path('fos_user_registration_register') }}"> <span><i class="dripicons-article"></i> </span> Créer Compte</a>
+
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('front/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('front/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('front/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('front/js/scrollspy.min.js') }}"></script>
+
+    <!-- Magnific Popup -->
+    <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
+
+    <!-- counter js -->
+    <script src="{{ asset('front/js/counter.int.js') }}"></script>
+
+    <!-- custom js -->
+    <script src="{{ asset('front/js/app.js') }}"></script>
+{% endblock %}
+</body>
+</html>

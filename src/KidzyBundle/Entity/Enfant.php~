@@ -1,0 +1,307 @@
+<?php
+
+namespace KidzyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Enfant
+ *
+ * @ORM\Table(name="enfant", indexes={@ORM\Index(name="fk_id_p", columns={"id"}), @ORM\Index(name="fk_id_classe", columns={"id_classe"})})
+ * @ORM\Entity
+ */
+class Enfant
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_enfant", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idEnfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_enfant", type="string", length=50, nullable=false)
+     */
+    private $nomEnfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom_enfant", type="string", length=50, nullable=false)
+     */
+    private $prenomEnfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_enfant", type="string", length=255, nullable=false)
+     */
+    private $imageEnfant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dateN_enfant", type="string", length=255, nullable=false)
+     */
+    private $datenEnfant;
+
+    /**
+     * @var \Classe
+     *
+     * @ORM\ManyToOne(targetEntity="Classe")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_classe", referencedColumnName="id_classe")
+     * })
+     */
+    private $idClasse;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
+     */
+    private $id;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="enfants")
+     * @ORM\JoinColumn(name="id_parent", referencedColumnName="id")
+     */
+    private $idParent;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Facture", mappedBy="idEnf")
+     */
+    private $factures;
+
+
+
+
+
+    /**
+     * Get idEnfant
+     *
+     * @return integer
+     */
+    public function getIdEnfant()
+    {
+        return $this->idEnfant;
+    }
+
+    /**
+     * Set nomEnfant
+     *
+     * @param string $nomEnfant
+     *
+     * @return Enfant
+     */
+    public function setNomEnfant($nomEnfant)
+    {
+        $this->nomEnfant = $nomEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get nomEnfant
+     *
+     * @return string
+     */
+    public function getNomEnfant()
+    {
+        return $this->nomEnfant;
+    }
+
+    /**
+     * Set prenomEnfant
+     *
+     * @param string $prenomEnfant
+     *
+     * @return Enfant
+     */
+    public function setPrenomEnfant($prenomEnfant)
+    {
+        $this->prenomEnfant = $prenomEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get prenomEnfant
+     *
+     * @return string
+     */
+    public function getPrenomEnfant()
+    {
+        return $this->prenomEnfant;
+    }
+
+    /**
+     * Set imageEnfant
+     *
+     * @param string $imageEnfant
+     *
+     * @return Enfant
+     */
+    public function setImageEnfant($imageEnfant)
+    {
+        $this->imageEnfant = $imageEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get imageEnfant
+     *
+     * @return string
+     */
+    public function getImageEnfant()
+    {
+        return $this->imageEnfant;
+    }
+
+    /**
+     * Set datenEnfant
+     *
+     * @param string $datenEnfant
+     *
+     * @return Enfant
+     */
+    public function setDatenEnfant($datenEnfant)
+    {
+        $this->datenEnfant = $datenEnfant;
+
+        return $this;
+    }
+
+    /**
+     * Get datenEnfant
+     *
+     * @return string
+     */
+    public function getDatenEnfant()
+    {
+        return $this->datenEnfant;
+    }
+
+    /**
+     * Set idClasse
+     *
+     * @param \KidzyBundle\Entity\Classe $idClasse
+     *
+     * @return Enfant
+     */
+    public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse = null)
+    {
+        $this->idClasse = $idClasse;
+
+        return $this;
+    }
+
+    /**
+     * Get idClasse
+     *
+     * @return \KidzyBundle\Entity\Classe
+     */
+    public function getIdClasse()
+    {
+        return $this->idClasse;
+    }
+
+    /**
+     * Set id
+     *
+     * @param \KidzyBundle\Entity\User $id
+     *
+     * @return Enfant
+     */
+    public function setId(\KidzyBundle\Entity\User $id = null)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return \KidzyBundle\Entity\User
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add facture
+     *
+     * @param \KidzyBundle\Entity\Facture $facture
+     *
+     * @return Enfant
+     */
+    public function addFacture(\KidzyBundle\Entity\Facture $facture)
+    {
+        $this->factures[] = $facture;
+
+        return $this;
+    }
+
+    /**
+     * Remove facture
+     *
+     * @param \KidzyBundle\Entity\Facture $facture
+     */
+    public function removeFacture(\KidzyBundle\Entity\Facture $facture)
+    {
+        $this->factures->removeElement($facture);
+    }
+
+    /**
+     * Get factures
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFactures()
+    {
+        return $this->factures;
+    }
+
+    /**
+     * Set idParent
+     *
+     * @param \UserBundle\Entity\User $idParent
+     *
+     * @return Enfant
+     */
+    public function setIdParent(\UserBundle\Entity\User $idParent = null)
+    {
+        $this->idParent = $idParent;
+
+        return $this;
+    }
+
+    /**
+     * Get idParent
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getIdParent()
+    {
+        return $this->idParent;
+    }
+}

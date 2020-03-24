@@ -1,0 +1,43 @@
+<li class="dropdown notification-list">
+    <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button"
+       aria-haspopup="false" aria-expanded="false">
+        <i class="fe-bell noti-icon"></i>
+        <span class="badge badge-danger rounded-circle noti-icon-badge">{{ notif | length }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+        <!-- item-->
+        <div class="dropdown-item noti-title">
+            <h5 class="m-0">
+                                    <span class="float-right">
+                                        <a href="" class="text-dark">
+                                            <small>Clear All</small>
+                                        </a>
+                                    </span>Notification
+            </h5>
+        </div>
+
+        <div class="slimscroll noti-scroll">
+            {% for facture in notif %}
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon">
+                        <i class="mdi mdi-cart-plus h1 text-success"></i>
+                    </div>
+                    <p class="notify-details">{{ facture.pack.nomPack }}</p>
+                    <p class="text-muted mb-0 user-msg">
+                        <small><b>Parent :</b> {{ facture.idParent.nom }} {{ facture.idParent.prenom }} | <b>Total
+                                :</b> {{ facture.total }} DT </small>
+                    </p>
+                </a>
+            {% endfor %}
+        </div>
+
+        <!-- All-->
+        <a href="javascript:void(0);"
+           class="dropdown-item text-center text-primary notify-item notify-all">
+            View all
+            <i class="fi-arrow-right"></i>
+        </a>
+
+    </div>
+</li>

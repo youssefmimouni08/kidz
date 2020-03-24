@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <section class="section bg-gradient" id="home" style="padding-bottom: 0px !important">
+    </section>
+    <section class="section bg-light" id="pricing">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="title text-center mb-4">
+                        <h6 class="text-primary small-title">Nos Tarifs</h6>
+                        <h4>Our Pricing plans</h4>
+                        <p class="text-muted">At solmen va esser far uniform grammatica.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+            <div class="row">
+                {% for pack in packs %}
+                    <div class="col-lg-4">
+                        <form action="{{ path('buy', { 'idPack': pack.idPack }) }}">
+                            <div class="pricing-plans bg-white text-center p-4 mt-4">
+                                <h5 class="plan-title mt-2 mb-4">{{ pack.nomPack }}</h5>
+
+                                <div class="plan-price">
+                                    <h4 class="mb-3 price">{{ pack.prixPack }}<sup><small>DT</small></sup></h4>
+                                    <h5 class="plan-duration text-muted font-18">{{ pack.descriptionPack }}</h5>
+                                </div>
+                                <div class="pricing-content p-4 text-muted">
+                                    {% for frai in frais %}
+                                        <p>{{ frai.titre }} ( {{ frai.prix }} DT )
+                                            {% if frai in pack.frais %}
+                                                <i class="ti-check text-success"></i>
+                                            {% else %}
+                                                <i class="ti-close text-danger"></i>
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
+                                    {#{% for frai in pack.frais %}
+                                        <p>{{ frai.titre }} ( {{ frai.prix }} DT )</p>
+                                    {% endfor %}#}
+                                </div>
+                                <div class="text-muted">
+                                    <h5 class="mb-3">Choisissez votre enfant : </h5>
+                                    <select class="form-control" id="enfant" name="enfant">
+                                        {% for enfant in parent.enfants %}
+                                            <option value="{{ enfant.idEnfant }}">{{ enfant.nomEnfant }} {{ enfant.prenomEnfant }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="pt-4">
+                                    <input type="submit" class="btn btn-custom btn-block" value="S'inscrire">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container-fluid -->
+    </section>
+{% endblock %}
