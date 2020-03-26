@@ -2,7 +2,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: 3308
-    database_name: kidzy222
+    database_name: kidzy
     database_user: root
     database_password: null
     mailer_transport: smtp
