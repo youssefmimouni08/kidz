@@ -1,6 +1,6 @@
 classe:
     resource: "@ClasseBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /Classe
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
