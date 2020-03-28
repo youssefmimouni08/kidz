@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25f844f6-038e-4710-b82e-ab4376047bc6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/ClasseBundle.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Controller/ClasseController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Controller/DefaultController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/config/routing.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/config/routing/classe.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/config/services.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/Default/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/classe/edit.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/classe/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/classe/new.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/classe/show.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClasseBundle/form/ClasseType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KidzyBundle/Tests/Controller/ClasseControllerTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/ClasseBundle/Controller/DefaultControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AppKernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/baseadmin.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/baseadmin.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KidzyBundle/Resources/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/KidzyBundle/Resources/config/routing.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/Default/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClasseBundle/Resources/views/Default/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,6 +183,7 @@
       <workItem from="1585243088562" duration="3407000" />
       <workItem from="1585263703813" duration="576000" />
       <workItem from="1585395107173" duration="4963000" />
+      <workItem from="1585406188368" duration="338000" />
     </task>
     <servers />
   </component>
@@ -289,6 +271,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1584276739153" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1585406200409">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1585406200409" />
     <state x="580" y="332" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585402153698">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
