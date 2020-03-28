@@ -1,11 +1,12 @@
 kidzy_frais:
     resource: "@KidzyBundle/Resources/config/routing/frais.yml"
     prefix:   /frais
-
 kidzy_packs:
     resource: "@KidzyBundle/Resources/config/routing/pack.yml"
     prefix:   /packs
-
+kidzy_classe:
+    resource: "@ClasseBundle/Resources/config/routing/classe.yml"
+    prefix:   /classes
 kidzy_homepage:
     path:     /
     defaults: { _controller: KidzyBundle:Default:index }
