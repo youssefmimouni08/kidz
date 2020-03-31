@@ -35,6 +35,19 @@ class Classe
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Enfant", mappedBy="idClasse")
+     */
+    private $enfants;
+
+    /**
+     * Classe constructor.
+     */
+    public function __construct()
+    {
+        $this->enfants =  new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 
 
     /**
