@@ -3,12 +3,12 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Club
  *
  * @ORM\Table(name="Club")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\inscriptionRepository")
  */
 class Club
 {
@@ -24,12 +24,20 @@ class Club
     /**
      * @var string
      *
-     * @ORM\Column(name="nom_club", type="string", length=20, nullable=false)
+     * @ORM\Column(name="nomClub", type="string", length=20, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le Nom doit contenir au moins {{ limit }} caractéres ",
+     *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank(message="le champ nom est obligatoire")
      */
     private $nomClub;
 
     /**
-     * @ORM\Column(type="string",length=255)
+     * @ORM\Column(name="descriptionClub",type="string",length=255)
+     * @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $descriptionClub;
 
@@ -98,6 +106,7 @@ class Club
     }
     /**
      * @ORM\Column(type="string",length=255)
+     * @Assert\NotBlank(message="le champ adresse est obligatoire")
      */
     private $adresseClub;
 }

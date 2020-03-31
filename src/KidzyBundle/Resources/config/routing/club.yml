@@ -1,0 +1,22 @@
+club:
+    path:     /affichage
+    defaults: { _controller: KidzyBundle:Club:index}
+clubParent:
+    path:     /liste
+    defaults: { _controller: KidzyBundle:Club:indexParent}
+club_new:
+    path:   admin/new
+    defaults: { _controller: KidzyBundle:Club:new }
+    methods:  [GET, POST]
+club_show:
+    path:     admin/{idClub}/show
+    defaults: { _controller: KidzyBundle:Club:show }
+    methods:  GET
+club_delete:
+    path:     admin/{idClub}/delete
+    defaults: { _controller: KidzyBundle:Club:delete }
+    methods:  DELETE
+club_edit:
+    path:     admin/{idClub}/edit
+    defaults: { _controller: KidzyBundle:Club:edit }
+    methods:  [GET, POST]
