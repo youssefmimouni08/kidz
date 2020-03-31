@@ -1,0 +1,24 @@
+
+inscription_enfantAdmin:
+    path:     admin/{idClub}/liste
+    defaults: { _controller: KidzyBundle:Inscription:liste }
+    methods:  [GET, POST]
+    
+
+inscription_show:
+    path:     admin/show/{idInscrit}/{idEnfant}/{idClub}
+    defaults: { _controller: KidzyBundle:Inscription:show }
+    methods:  GET
+inscription_new:
+    path:   admin/{idClub}/new
+    defaults: { _controller: KidzyBundle:Inscription:new }
+    methods:  [GET, POST]
+
+inscription_delete:
+    path:     admin/delete/{idInscrit}/{idClub}
+    defaults: { _controller: KidzyBundle:Inscription:delete }
+    methods:  DELETE
+inscription_edit:
+    path:     admin/{idInscrit}/edit
+    defaults: { _controller: KidzyBundle:Inscription:edit }
+    methods:  [GET, POST]
