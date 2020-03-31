@@ -13,6 +13,12 @@ kidzy_inscription:
 kidzy_club:
     resource: "@KidzyBundle/Resources/config/routing/club.yml"
     prefix:   /club
+kidzy_avis:
+    resource: "@KidzyBundle/Resources/config/routing/avis.yml"
+    prefix:   /avis
+kidzy_reclamations:
+    resource: "@KidzyBundle/Resources/config/routing/reclamations.yml"
+    prefix:   /reclamations
 
 kidzy_homepage:
     path:     /
