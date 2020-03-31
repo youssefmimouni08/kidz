@@ -90,10 +90,9 @@ class AvisController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $avis = $em->getRepository('KidzyBundle:Avis')->findAll();
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         return $this->render('@Kidzy/avis/avisF.html.twig', array(
             'avis' => $avis,
-            'parent' => $user
+       
 
         ));
     }
