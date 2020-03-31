@@ -1,7 +1,10 @@
 <?php
 
 namespace KidzyBundle\Entity;
+
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Enfant
@@ -22,6 +25,13 @@ class Enfant
 
     /**
      * @var string
+     *  @Assert\Length(
+     *  min = 3,
+     *  max = 30,
+     *  minMessage = "Le Titre doit contenir au moins {{ limit }} caractéres ",
+     *  maxMessage = "Le Titre doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="nom_enfant", type="string", length=50, nullable=false)
      */
@@ -31,19 +41,27 @@ class Enfant
      * @var string
      *
      * @ORM\Column(name="prenom_enfant", type="string", length=50, nullable=false)
+     *  @Assert\Length(
+     *  min = 3,
+     *  max = 30,
+     *  minMessage = "Le Titre doit contenir au moins {{ limit }} caractéres ",
+     *  maxMessage = "Le Titre doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank
      */
     private $prenomEnfant;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank
      * @ORM\Column(name="image_enfant", type="string", length=255, nullable=false)
      */
     private $imageEnfant;
 
     /**
      * @var string
-     *
+     *  @Assert\NotBlank
      * @ORM\Column(name="dateN_enfant", type="string", length=255, nullable=false)
      */
     private $datenEnfant;
@@ -51,12 +69,25 @@ class Enfant
     /**
      * @var \Classe
      *
-     * @ORM\ManyToOne(targetEntity="Classe")
+     * @Assert\NotBlank
+     *
+     * @ORM\ManyToOne(targetEntity="KidzyBundle\Entity\Classe", inversedBy="enfants")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_classe", referencedColumnName="id_classe")
      * })
      */
     private $idClasse;
+
+    /**
+     * @var \Garde
+     *
+     * @ORM\ManyToOne(targetEntity="KidzyBundle\Entity\Garde", inversedBy="enfants")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_garde",referencedColumnName="id_garde")
+     * })
+     */
+
+    private $idGarde;
 
     /**
      * @var \User
@@ -303,4 +334,22 @@ class Enfant
     {
         return $this->idParent;
     }
+
+    /**
+     * @return \Garde
+     */
+    public function getIdGarde()
+    {
+        return $this->idGarde;
+    }
+
+    /**
+     * @param \Garde $idGarde
+     */
+    public function setIdGarde($idGarde)
+    {
+        $this->idGarde = $idGarde;
+    }
+
+
 }
