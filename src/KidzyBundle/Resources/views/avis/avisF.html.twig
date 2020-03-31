@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <section class="section bg-gradient" id="home" style="padding-bottom: 0px !important">
+    </section>
+    <section class="section bg-light" id="pricing">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="title text-center mb-4">
+                        <h6 class="text-primary small-title"></h6>
+                        <h4>LES AVIS</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-xl-4">
+                    <a href="{{ path('avis_new') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
+                       data-overlaySpeed="200" data-overlayColor="#36404a"><i class="mdi mdi-plus-circle-outline"></i> Ajouter avis </a>
+                    <a href="{{ path('Mesavis') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
+                       data-overlaySpeed="200" data-overlayColor="#e83e8c"><i class="pt-4"></i> Consulter mes avis </a>
+                </div>
+            </div>
+            <!-- end row -->
+            <div class="row">
+
+                {% for enfant in parent.avis %}
+
+
+                    <div class="col-lg-4">
+                        <form action="">
+
+                            <div class="pricing-plans bg-white text-center p-4 mt-4">
+                                <div class="dropdown float-right">
+
+
+                                </div>
+                                <div>
+
+
+                                    <div class="text-left">
+                                        <p class="text-muted font-13"><strong>Nom  :</strong> <span class="ml-2"> {{ enfant.id}}   </span></p>
+
+                                        <p class="text-muted font-13"><strong>Description:</strong><span class="ml-2">{{ enfant.descriptionAvis}} </span></p>
+
+                                        <p class="text-muted font-13"><strong>Date :</strong> <span class="ml-2"> {{ enfant.dateAvis |date}}</span></p>
+
+
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div> <!-- end col -->
+                {% endfor %}
+
+            </div>
+        </div>
+        <!-- end container-fluid -->
+
+    </section>
+{% endblock %}

@@ -90,6 +90,27 @@ class User extends BaseUser
      */
     private $enfants;
 
+    /**
+     * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Avis", mappedBy="id")
+     */
+    private $avis;
+
+    /**
+     * @return mixed
+     */
+    public function getAvis()
+    {
+        return $this->avis;
+    }
+
+    /**
+     * @param mixed $avis
+     */
+    public function setAvis($avis)
+    {
+        $this->avis = $avis;
+    }
+
     public function __construct()
     {
         parent::__construct();

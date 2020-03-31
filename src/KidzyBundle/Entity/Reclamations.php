@@ -24,9 +24,10 @@ class Reclamations
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_rec", type="date", nullable=true)
+     * @ORM\Column(name="date_rec", type="date", nullable=false)
      */
-    private $dateRec = '2020-02-27';
+
+    private $dateRec;
 
     /**
      * @var string
@@ -59,7 +60,7 @@ class Reclamations
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_M", referencedColumnName="id")
      * })
@@ -69,7 +70,7 @@ class Reclamations
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id", referencedColumnName="id")
      * })
