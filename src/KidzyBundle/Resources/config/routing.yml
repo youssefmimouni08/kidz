@@ -7,6 +7,12 @@ kidzy_packs:
 kidzy_classe:
     resource: "@ClasseBundle/Resources/config/routing/classe.yml"
     prefix:   /classes
+kidzy_avis:
+    resource: "@KidzyBundle/Resources/config/routing/avis.yml"
+    prefix:   /avis
+kidzy_reclamations:
+    resource: "@KidzyBundle/Resources/config/routing/reclamations.yml"
+    prefix:   /reclamations
 kidzy_homepage:
     path:     /
     defaults: { _controller: KidzyBundle:Default:index }
