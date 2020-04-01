@@ -8,8 +8,8 @@ kidzy_classe:
     resource: "@ClasseBundle/Resources/config/routing/classe.yml"
     prefix:   /classe
 kidzy_inscription:
-        resource: "@KidzyBundle/Resources/config/routing/inscription.yml"
-        prefix:   /inscription
+    resource: "@KidzyBundle/Resources/config/routing/inscription.yml"
+    prefix:   /inscription
 kidzy_club:
     resource: "@KidzyBundle/Resources/config/routing/club.yml"
     prefix:   /club
@@ -19,6 +19,15 @@ kidzy_avis:
 kidzy_reclamations:
     resource: "@KidzyBundle/Resources/config/routing/reclamations.yml"
     prefix:   /reclamations
+kidzy_event:
+    resource: "@KidzyBundle/Resources/config/routing/event.yml"
+    prefix:   /event
+kidzy_enfants:
+    resource: "@KidzyBundle/Resources/config/routing/enfant.yml"
+    prefix:   /enfant
+kidzy_garde:
+    resource: "@KidzyBundle/Resources/config/routing/garde.yml"
+    prefix:   /garde
 
 kidzy_homepage:
     path:     /
