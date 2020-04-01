@@ -12,6 +12,6 @@ class DefaultController extends Controller
     }
     public function feedAction()
     {
-        return $this->render('@Kidzy/avis/feed.html.twig');
+        return $this->render('@Kidzy/feed/feed.html.twig');
     }
 }
