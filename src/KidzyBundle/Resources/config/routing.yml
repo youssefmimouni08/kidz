@@ -28,7 +28,9 @@ kidzy_enfants:
 kidzy_garde:
     resource: "@KidzyBundle/Resources/config/routing/garde.yml"
     prefix:   /garde
-
+kidzy_feed:
+    path:     /myfeed
+    defaults: { _controller: KidzyBundle:Default:feed }
 kidzy_homepage:
     path:     /
     defaults: { _controller: KidzyBundle:Default:index }

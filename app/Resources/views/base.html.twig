@@ -42,7 +42,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
                     <li class="nav-item active">
-                        <a href="" class="nav-link">Home</a>
+                        <a href="{{ path('user_homepage') }}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('kidzy_feed') }}" class="nav-link">my feed</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('clubParent') }}" class="nav-link">Club</a>

@@ -4,8 +4,11 @@ namespace KidzyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @UniqueEntity(fields={"nomPack"},errorPath="nomPack",message="Il semble que vous avez déjà enregistré un Pack avec ce nom.")
  * Pack
  *
  * @ORM\Table(name="pack")
@@ -26,6 +29,13 @@ class Pack
      * @var string
      *
      * @ORM\Column(name="nom_pack", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} caractéres ",
+     *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank
      */
     private $nomPack;
 
@@ -33,6 +43,7 @@ class Pack
      * @var float
      *
      * @ORM\Column(name="prix_pack", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotBlank
      */
     private $prixPack;
 
@@ -40,6 +51,13 @@ class Pack
      * @var string
      *
      * @ORM\Column(name="description_pack", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} caractéres ",
+     *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank
      */
     private $descriptionPack;
 

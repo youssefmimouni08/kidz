@@ -43,6 +43,7 @@ class inscriptionRepository extends EntityRepository
 
         return $query = $qb->getResult();
 
+
     }
     public function myfinfEnfant($idParent)
     {
