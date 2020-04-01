@@ -8,7 +8,7 @@
                 <div class="col-lg-6">
                     <div class="title text-center mb-4">
                         <h4> </h4>
-                        <h4 class="text-primary small-title">Mes clubs </h4>
+                        <h4 class="text-primary small-title">Autres clubs </h4>
 
                     </div>
                 </div>
@@ -22,14 +22,17 @@
                                 <h5 class="plan-title mt-2 mb-4">{{ c.nomClub }}</h5>
 
                                 <div class="plan-price">
-                                    <h5 class="plan-duration text-muted font-18">{{  c.nomEnfant|escape }} {{  c.prenomEnfant }}</h5>
+                                    <h5 class="plan-duration text-muted font-18">{{ c.descriptionClub|escape }} </h5>
+                                </div>
+                                <div class="plan-price">
+                                    <h5 class="plan-duration text-muted font-18">{{ c.adresseClub }} </h5>
                                 </div>
 
 
 
 
                                 <div class="pt-4">
-                                    <a  class="btn btn-custom btn-block" href="{{ path('club_showParent', { 'idClub': c.idClub ,'idEnfant':c.idEnfant,'idInscrit':c.idInscrit}) }}">Details</a>
+                                    <a  class="btn btn-custom btn-block" href="{{ path('inscription_newFront', { 'idClub': c.idClub })}}">S'inscrire</a>
                                 </div>
                             </div>
                         </form>
@@ -45,8 +48,8 @@
             <div class="title text-center mb-4">
 
 
-                <a align ="right"class="btn btn-secondary waves-effect waves-light" href="{{ path('clubindexFront')}}">
-                   Autre  Clubs
+                <a align ="right"class="btn btn-secondary waves-effect waves-light" href="{{ path('clubParent')}}">
+                   Retour
                 </a>
             </div>
             <!-- end row -->

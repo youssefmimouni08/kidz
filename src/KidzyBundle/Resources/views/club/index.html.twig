@@ -26,9 +26,9 @@
                                     <th>Nom</th>
                                     <th>Descriptions</th>
                                     <th>Adresse</th>
-                                    <th>Autres</th>
-
-
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
 
                                 </tr>
                                 </thead>
@@ -42,9 +42,9 @@
                                         <td>{{ c.descriptionClub }}</td>
                                         <td>{{ c.adresseClub }}</td>
                                         <td>
-                                            <a  href="{{ path('inscription_enfantAdmin', { 'idClub': c.idClub }) }}">
+                                            <h4>  <a  href="{{ path('inscription_enfantAdmin', { 'idClub': c.idClub }) }}">
                                                 Liste des enfants
-                                            </a></td>
+                                            </a></h4></td>
                                         <td>
                                             <a class="btn btn-primary waves-effect waves-light mr-1" href ="{{ path('club_show', { 'idClub': c.idClub }) }}">
                                                 Details
@@ -60,8 +60,12 @@
 
                             <ul>
                                 <li>
-                                    <a href="{{ path('club_new') }}">Ajouter Club</a>
+                                <h4>
+
+                                <a href="{{ path('club_new') }}">Ajouter Club</a>
+                                </h4>
                                 </li>
+
                             </ul>
                         </div> <!-- end card-box -->
                     </div><!-- end col -->

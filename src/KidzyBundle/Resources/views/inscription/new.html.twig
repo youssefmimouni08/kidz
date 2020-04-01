@@ -8,10 +8,12 @@
             <!-- Start Content-->
             <div class="container-fluid">
 
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
                             <h4 class="header-title mt-0 mb-3">Ajout d'un enfant</h4>
+
                             {{ form_start(form, {'attr': {'class': 'form-horizontal' , 'role' : 'form' , 'novalidate': 'novalidate' }}) }}
                             <div class="form-group row">
                                 <label class ="col-sm-4 col-form-label" for="street">Enfant </label><span class="text-danger"> </span>
@@ -40,8 +42,16 @@
                             <div class="form-group row">
                                 <div class="offset-sm-4 col-sm-8">
                                     {{ form_widget(form) }}
+
+                                    {% for message in app.flashes('info') %}
+
+                                        <div class="alert alert-success">
+                                            {{ message }}
+
+                                        </div>
+                                    {% endfor %}
                                     <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Confimer">
-                                    <a class="btn btn-secondary waves-effect waves-light" href="{{ path('club') }}">
+                                    <a class="btn btn-secondary waves-effect waves-light" href="{{ path('inscription_enfantAdmin', {'idClub':club}) }}">
                                         Annuler
                                     </a>
                                 </div>
@@ -55,5 +65,6 @@
 
         </div> <!-- content -->
     </div>
+
 
 {% endblock %}

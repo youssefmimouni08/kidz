@@ -37,9 +37,28 @@ class inscriptionRepository extends EntityRepository
     }
     public function myfinfClub($idParent)
     {
-        $qb = $this->getEntityManager()->createQuery("select  c.nomClub , c.descriptionClub,c.adresseClub from KidzyBundle:Inscription i JOIN i.idEnfant e JOIN i.idClub c where  e.idParent<>:idParent")
+        $qb = $this->getEntityManager()->createQuery("select i.idInscrit, c.nomClub ,e.idEnfant, e.nomEnfant , e.prenomEnfant, c.descriptionClub,c.adresseClub,c.idClub from KidzyBundle:Inscription i JOIN i.idEnfant e JOIN i.idClub c where  e.idParent<>:idParent")
 
             ->setParameter('idParent', $idParent);
+
+        return $query = $qb->getResult();
+
+    }
+    public function myfinfEnfant($idParent)
+    {
+        $qb = $this->getEntityManager()->createQuery("select  e.prenomEnfant from KidzyBundle:Enfant e where  e.idParent<>:idParent")
+
+            ->setParameter('idParent', $idParent);
+
+        return $query = $qb->getResult();
+
+    }
+    public function myfinfClubDetails($idClub,$idEnfant,$idInscrit)
+    {
+        $qb = $this->getEntityManager()->createQuery("select c.nomClub , e.nomEnfant , e.prenomEnfant, c.descriptionClub,c.adresseClub,c.idClub from KidzyBundle:Inscription i JOIN i.idEnfant e JOIN i.idClub c where i.idClub=:idClub and  i.idEnfant=:idEnfant and i.idInscrit=:idInscrit")
+            ->setParameter('idClub', $idClub)
+            ->setParameter('idInscrit', $idInscrit)
+            ->setParameter('idEnfant', $idEnfant);
 
         return $query = $qb->getResult();
 
@@ -50,7 +69,7 @@ class inscriptionRepository extends EntityRepository
 
             ->setParameter('idClub', $idClub);
 
-        return $query = $qb->getQuery()->getSingleScalarResult();
+        return $query = $qb->getSingleScalarResult();
 
 
 
