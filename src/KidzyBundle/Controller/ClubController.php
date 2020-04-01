@@ -27,6 +27,16 @@ class ClubController extends Controller
             'club' => $club,
         ));
     }
+    public function indexClubAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $club = $em->getRepository('KidzyBundle:Club')->findAll();
+
+        return $this->render('@Kidzy/club/AutreClubFront.html.twig', array(
+            'club' => $club,
+        ));
+    }
     public function indexParentAction()
     {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $idParent = $user->getId();
@@ -53,7 +63,6 @@ public function newAction(Request $request)
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
-
             return $this->redirectToRoute('club_show', array('idClub' => $club->getIdClub()));
         }
 
@@ -75,6 +84,7 @@ public function newAction(Request $request)
             'delete_form' => $deleteForm->createView()
         ));
     }
+
     public function deleteAction(Request $request, Club $club)
     {
         $form = $this->createDeleteForm( $club);
@@ -84,6 +94,7 @@ public function newAction(Request $request)
             $em = $this->getDoctrine()->getManager();
             $em->remove( $club);
             $em->flush();
+
         }
 
         return $this->redirectToRoute('club');
@@ -105,9 +116,10 @@ public function newAction(Request $request)
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'Club modifié avec succés');
 
             return $this->redirectToRoute('club_edit', array('idClub' => $club->getIdClub()));
-        }
+        }else {}
 
         return $this->render('@Kidzy/club/edit.html.twig', array(
             'club' => $club,
