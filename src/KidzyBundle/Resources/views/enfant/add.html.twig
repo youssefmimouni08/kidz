@@ -56,8 +56,8 @@
                                     <p class="text-muted font-13"><strong>Classe :</strong> </p>
 
                                     <select class="form-control" id="enfant" name="enfant">
-                                        {% for classes in classe %}
-                                            <option  value="{{ classes.idClasse }}">{{ classes.libelleCla}}</option>
+                                        {% for classe in classe %}
+                                            <option value="{{ classe.idClasse }}">{{ classe.libelleCla }}</option>
                                         {% endfor %}
                                     </select>
 
