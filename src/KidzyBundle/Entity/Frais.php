@@ -3,9 +3,12 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
+ * @UniqueEntity(fields={"titre"},errorPath="titre",message="Il semble que vous avez déjà enregistré un frais avec ce titre.")
  * Frais
  *
  * @ORM\Table(name="frais")
@@ -33,6 +36,7 @@ class Frais
      *      maxMessage = "Le Titre doit contenir au plus {{ limit }} caractéres "
      * )
      * @Assert\NotBlank
+     *
      */
     private $titre;
 

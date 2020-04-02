@@ -122,12 +122,14 @@ class EnfantController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
+        $user = $this->getUser();
         if ($request->isMethod("POST")) {
             $enfant->setImageEnfant($request->get('imageEnfant'));
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-            $enfant->setIdClasse($request->get('idClasse'));
+           $enfant->setIdClasse($request->get('idClasse'));
             $enfant->setDatenEnfant($request->get('datenEnfant'));
+            $enfant->setIdParent($user);
 
             $em->persist($enfant);
             $em->flush();
@@ -135,7 +137,7 @@ class EnfantController extends Controller
             return $this->redirectToRoute('enfant');
         }
 
-        return $this->render('@Kidzy/enfant/add.html.twig', array('classe' => $classe ));
+        return $this->render('@Kidzy/enfant/add.html.twig', array('classe' => $classe   ));
     }
 
 
@@ -150,21 +152,22 @@ class EnfantController extends Controller
         return $this->redirectToRoute("enfant" );
     }
 
-    public function modifierAction( Request $request,$idEnfant)
+    public function modifierAction( Request $request,$id)
     {
         $em=$this->getDoctrine()->getManager();
-        $enfant =$em ->getRepository(Enfant::class) ->find($idEnfant);
+        $enfant =$em ->getRepository(Enfant::class) ->find($id);
+        $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
         if ($request->isMethod('POST')) {
             $enfant->setImageEnfant($request->get('imageEnfant'));
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-            $enfant->setIdClasse($request->get('idClasse'));
+           // $enfant->setIdClasse($request->get('idClasse'));
             $enfant->setDatenEnfant($request->get('datenEnfant'));
 
             $em->flush();
-            return $this->redirectToRoute('modifier',array('idEnfant' =>$enfant->getIdEnfant()));
+            return $this->redirectToRoute('enfant');
         }
-        return $this->render('@Kidzy/enfant/modifier.html.twig',array('enfant'=>$enfant));
+        return $this->render('@Kidzy/enfant/modifier.html.twig',array('enfant'=>$enfant , 'classe' => $classe));
 
     }
 

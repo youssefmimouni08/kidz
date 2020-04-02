@@ -31,8 +31,8 @@
         <div class="container-fluid">
             <!-- LOGO -->
             <a class="logo text-uppercase" href="">
-                <img src="{{ asset('front/images/logo-light.png') }}" alt="" class="logo-light" height="18"/>
-                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-dark" height="18"/>
+                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-light" height="70"/>
+                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-dark" height="70"/>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -42,7 +42,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
                     <li class="nav-item active">
-                        <a href="" class="nav-link">Home</a>
+                        <a href="{{ path('user_homepage') }}" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('kidzy_feed') }}" class="nav-link">my feed</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('clubParent') }}" class="nav-link">Club</a>
@@ -55,6 +58,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('enfant') }}" class="nav-link">Enfant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('garde') }}" class="nav-link">Garde</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('pricing') }}" class="nav-link">Pricing</a>

@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('@Kidzy/Default/index.html.twig');
     }
+    public function feedAction()
+    {
+        return $this->render('@Kidzy/feed/feed.html.twig');
+    }
 }

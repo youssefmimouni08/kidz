@@ -118,4 +118,22 @@ class GardeController extends Controller
             ;
     }
 
+    public function listAction(Request $request, Garde $garde)
+    {
+
+        return $this->render('@Kidzy/garde/list.html.twig', array(
+            'garde' => $garde,
+
+        ));
+
+    }
+
+
+    public function gardeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $gardes = $em->getRepository('KidzyBundle:Garde')->findAll();
+
+        return $this->render('@Kidzy/garde/garde.html.twig' , array('gardes' => $gardes  ));
+    }
 }

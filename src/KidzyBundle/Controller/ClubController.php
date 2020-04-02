@@ -40,8 +40,12 @@ class ClubController extends Controller
     public function indexParentAction()
     {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $idParent = $user->getId();
+
         $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
         $listenfants=$repository->myfinfClub($idParent);
+        var_dump($idParent);
+        var_dump($listenfants);
+        die();
 
         return $this->render('@Kidzy/club/ClubFront.html.twig', array(
             'club' => $listenfants,
@@ -78,6 +82,7 @@ public function newAction(Request $request)
         $idClub = $request->get('idClub');
 
         $nbrenfants=$repository->myfinfnbre($idClub);
+
         return $this->render('@Kidzy/club/show.html.twig', array(
             'club' => $club,
             'nbre' => $nbrenfants,

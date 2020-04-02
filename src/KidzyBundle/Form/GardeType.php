@@ -15,9 +15,8 @@ class GardeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nomGarde')
-            ->add('prixGarde',MoneyType::class,['currency'=>'TND'])
-            ->add('dureeGarde')
-            ->add('descriptionGarde');    }/**
+
+            ->add('dureeGarde');    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

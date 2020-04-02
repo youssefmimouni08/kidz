@@ -41,6 +41,8 @@ class Club
      */
     private $descriptionClub;
 
+
+
     /**
      * @return int
      */
