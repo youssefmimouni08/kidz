@@ -26,12 +26,14 @@
                         </li>
                     </ul>
                     <div class="custom-modal-text text-left">
-                        <form action="{{ path('enfant_add')}}">
+
+                        <form action="{{ path('enfant_add')}}"  method="POST" enctype="multipart/form-data">
+
                             <div class="form-group">
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Image :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="description"value=>
+                                    <input type ="text" class="form-control"name="imageEnfant">
 
                                 </div>
                             </div>
@@ -39,7 +41,7 @@
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Nom :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="description">
+                                    <input type ="text" class="form-control"name="nomEnfant">
 
                                 </div>
                             </div>
@@ -47,7 +49,7 @@
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Prenom :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="description">
+                                    <input type ="text" class="form-control"name="prenomEnfant">
 
                                 </div>
                             </div>
@@ -55,9 +57,9 @@
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Classe :</strong> </p>
 
-                                    <select class="form-control" id="enfant" name="enfant">
-                                        {% for classe in classe %}
-                                            <option value="{{ classe.idClasse }}">{{ classe.libelleCla }}</option>
+                                    <select class="form-control" id="idClasse" name="idClasse">
+                                        {% for classes in classe %}
+                                            <option  value="{{ classes.idClasse }}">{{ classes.libelleCla}}</option>
                                         {% endfor %}
                                     </select>
 
@@ -68,12 +70,10 @@
 
                                     <p class="text-muted font-13"><strong>Date de naissnace :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="description">
+                                    <input type ="text" class="form-control"name="datenEnfant">
 
                                 </div>
                             </div>
-
-
 
 
                             <div class="form-group">

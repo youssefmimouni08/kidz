@@ -82,6 +82,7 @@ public function newAction(Request $request)
         $idClub = $request->get('idClub');
 
         $nbrenfants=$repository->myfinfnbre($idClub);
+
         return $this->render('@Kidzy/club/show.html.twig', array(
             'club' => $club,
             'nbre' => $nbrenfants,
