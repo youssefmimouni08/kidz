@@ -251,6 +251,14 @@ class User extends BaseUser
     }
 
     /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
+    }
+
+    /**
      * Add enfant
      *
      * @param \KidzyBundle\Entity\Enfant $enfant

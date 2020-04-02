@@ -33,7 +33,7 @@ enfant_add:
     methods:  [GET, POST]
 
 modifier:
-    path:     /{idEnfant}/modifier
+    path:     modifier/{id}
     defaults: { _controller: "KidzyBundle:Enfant:modifier" }
     methods:  [GET, POST]
 
