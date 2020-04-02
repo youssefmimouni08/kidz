@@ -69,6 +69,13 @@ class Inscription
     /**
      * @param int $idInscrit
      */
+
+
+
+
+
+
+
     public function setIdInscrit($idInscrit)
     {
         $this->idInscrit = $idInscrit;
