@@ -107,4 +107,38 @@ class Classe
     {
         return $this->description;
     }
+
+    /**
+     * Add enfant
+     *
+     * @param \KidzyBundle\Entity\Enfant $enfant
+     *
+     * @return Classe
+     */
+    public function addEnfant(\KidzyBundle\Entity\Enfant $enfant)
+    {
+        $this->enfant[] = $enfant;
+
+        return $this;
+    }
+
+    /**
+     * Remove enfant
+     *
+     * @param \KidzyBundle\Entity\Enfant $enfant
+     */
+    public function removeEnfant(\KidzyBundle\Entity\Enfant $enfant)
+    {
+        $this->enfant->removeElement($enfant);
+    }
+
+    /**
+     * Get enfant
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfant()
+    {
+        return $this->enfant;
+    }
 }

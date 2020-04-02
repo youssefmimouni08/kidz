@@ -28,3 +28,7 @@ garde_list:
     defaults: { _controller: "KidzyBundle:Garde:list" }
     methods:  GET
 
+garde:
+    path:     /garde
+    defaults: { _controller: "KidzyBundle:Garde:garde" }
+

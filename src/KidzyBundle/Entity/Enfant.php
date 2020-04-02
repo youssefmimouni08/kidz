@@ -232,7 +232,6 @@ class Enfant
     public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse = null)
     {
         $this->idClasse = $idClasse;
-
         return $this;
     }
 
