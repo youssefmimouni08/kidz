@@ -14,4 +14,9 @@ class DefaultController extends Controller
     {
         return $this->render('@Kidzy/feed/feed.html.twig');
     }
+
+    public function pingAction()
+    {
+
+    }
 }

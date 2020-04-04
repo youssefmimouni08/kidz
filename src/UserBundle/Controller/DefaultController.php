@@ -23,14 +23,22 @@ class DefaultController extends Controller
     public function notificationAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
+        /*$qb = $em->createQueryBuilder();
 
         $results = $qb->select('e')
             ->from('KidzyBundle:Facture', 'e')
-            ->where('e.dateFacture >= :dateFacture')
-            ->setParameter('dateFacture', new \DateTime('-48 hours'))
+           ->where('e.status >= :status')
+           ->setParameter('status', '0')
             ->getQuery()
-            ->getResult();
+            ->getResult();*/
+        $query = $em->createQuery(
+            'SELECT f
+    FROM KidzyBundle:Facture f
+    WHERE f.status = :price'
+        )->setParameter('price', 0);
+
+        $results = $query->getResult();
+
 
         return $this->render('@User/Default/notifications.html.twig',['notif' => $results]);
     }

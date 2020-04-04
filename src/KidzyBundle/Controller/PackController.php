@@ -2,6 +2,8 @@
 
 namespace KidzyBundle\Controller;
 
+define('HUB_URL', 'http://localhost:3000/.well-known/mercure');
+define('JWT', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.CpZcJeRbvGNb9DPgRmnCuwinrypLk7UWdppPr-g4iHc');
 use Doctrine\ORM\Query;
 use http\Client\Response;
 use KidzyBundle\Entity\Facture;
@@ -9,6 +11,9 @@ use KidzyBundle\Entity\Pack;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mercure\Publisher;
+use Symfony\Component\Mercure\Update;
+use Symfony\Component\Mercure\Jwt\StaticJwtProvider;
 
 /**
  * Pack controller.
@@ -156,8 +161,8 @@ class PackController extends Controller
                 'currency' => 'usd',
                 'quantity' => 1,
             ]],
-            'success_url' => 'http://localhost:8000/kidzy/packs/success/'.$id.'/'.$idEnfant.'/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => 'http://localhost:8000/kidzy/packs/'.$id.'/buy?enfant='.$idEnfant,
+            'success_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/success/'.$id.'/'.$idEnfant.'/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/'.$id.'/buy?enfant='.$idEnfant,
         ]);
 
 
@@ -183,8 +188,12 @@ class PackController extends Controller
         $facture->setTotal($pack->getPrixPack());
         $facture->setIdParent($user);
         $facture->setIdEnf($enfant);
+        $facture->setStatus(0);
         $em->persist($facture);
         $em->flush();
+        $publisher = new Publisher(HUB_URL, new StaticJwtProvider(JWT));
+        $publisher(new Update('ping', '$facture'));
+
 
         return $this->render('@Kidzy/pack/success.html.twig' , array('user' => $user , 'pack' => $pack , 'enfant' => $enfant ,'facture' => $facture));
     }

@@ -54,6 +54,12 @@ class Facture
      * @ORM\Column(name="paye", type="boolean", nullable=false)
      */
     private $paye;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
 
     /**
      *
@@ -71,7 +77,29 @@ class Facture
     {
         return $this->idFacture;
     }
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Facture
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
     /**
      * Set total
      *

@@ -1,13 +1,13 @@
 <li class="dropdown notification-list">
     <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button"
        aria-haspopup="false" aria-expanded="false">
-        <i class="fe-bell noti-icon"></i>
-        <span class="badge badge-danger rounded-circle noti-icon-badge">{{ notif | length }}</span>
+        <i class="fe-bell noti-icon" id="ping"></i>
+
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
         <!-- item-->
-        <div class="dropdown-item noti-title">
+        <div class="dropdown-item noti-title" id="text_notif">
             <h5 class="m-0">
                                     <span class="float-right">
                                         <a href="" class="text-dark">
@@ -17,7 +17,27 @@
             </h5>
         </div>
 
-        <div class="slimscroll noti-scroll">
+
+
+        <!-- All-->
+        <a href="javascript:void(0);"
+           class="dropdown-item text-center text-primary notify-item notify-all">
+            View all
+            <i class="fi-arrow-right"></i>
+        </a>
+
+    </div>
+</li>
+
+<script>
+    const url = new URL('http://localhost:3000/.well-known/mercure');
+    url.searchParams.append('topic','ping');
+    const eventSource = new EventSource(url);
+    eventSource.onmessage = e => {
+
+        document.getElementById("ping").insertAdjacentHTML('afterend',`<span class="badge badge-danger rounded-circle noti-icon-badge" id="notif_count">{{notif|length}}</span>`)
+        document.getElementById("text_notif").insertAdjacentHTML('afterend',`<div class="slimscroll noti-scroll">
+
             {% for facture in notif %}
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <div class="notify-icon">
@@ -30,14 +50,11 @@
                     </p>
                 </a>
             {% endfor %}
-        </div>
+        </div>`)
 
-        <!-- All-->
-        <a href="javascript:void(0);"
-           class="dropdown-item text-center text-primary notify-item notify-all">
-            View all
-            <i class="fi-arrow-right"></i>
-        </a>
+    }
 
-    </div>
-</li>
+
+
+</script>
+
