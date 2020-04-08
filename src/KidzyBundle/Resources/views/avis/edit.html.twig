@@ -1,41 +1,37 @@
-{% extends 'baseadmin.html.twig' %}
-
+{% extends 'base.html.twig' %}
 {% block content %}
-
-    <div class="content-page">
-        <div class="content">
-
-            <!-- Start Content-->
-            <div class="container-fluid">
+<section class="section bg-gradient" id="home" style="padding-bottom: 0px !important">
+</section>
+<section class="section bg-light" id="pricing">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="title text-center mb-4">
+                    <h6 class="text-primary small-title"></h6>
+                    <h4>Modifier Avis</h4>
+                </div>
+            </div>
+        </div>
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h4 class="header-title mt-0 mb-3">Modifier Frais</h4>
+                            <h4 class="header-title mt-0 mb-3"></h4>
 
                             {{ form_start(edit_form, {'attr': {'class': 'form-horizontal' , 'role' : 'form' , 'novalidate': 'novalidate' }}) }}
                             <div class="form-group row">
-                                {{ form_label(edit_form.titre ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
+                                {{ form_label(edit_form.descriptionAvis ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
                                 <div class="col-sm-7">
-                                    {{ form_widget(edit_form.titre , {'attr': {'class': 'form-control' , 'placeholder': 'Titre'}}) }}
+                                    {{ form_widget(edit_form.descriptionAvis, {'attr': {'class': 'form-control' , 'placeholder': 'Titre'}}) }}
                                 </div>
-                                {{ form_errors(edit_form.titre) }}
+                                {{ form_errors(edit_form.descriptionAvis) }}
                             </div>
-                            <div class="form-group row">
-                                {{ form_label(edit_form.prix ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
-                                <div class="col-sm-7">
-                                    {{ form_widget(edit_form.prix , {'attr': {'class': 'form-control' , 'placeholder': 'Prix' }}) }}
-                                </div>
-                                {{ form_errors(edit_form.prix) }}
-                            </div>
+
                             <div class="button-list d-flex justify-content-start">
                                 {{ form_widget(edit_form) }}
-                                <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Modifier">
+                                <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Confirmer">
                                 {{ form_end(edit_form) }}
-                                {{ form_start(delete_form) }}
-                                <input type="submit" class="btn btn-danger waves-effect width-md waves-light" value="Supprimer">
-                                {{ form_end(delete_form) }}
-                                <a class="btn btn-secondary waves-effect waves-light" href="{{ path('avis_index') }}"> Retour </a>
+
                             </div>
 
 
@@ -47,5 +43,5 @@
 
         </div> <!-- content -->
     </div>
-
+</section>
 {% endblock %}

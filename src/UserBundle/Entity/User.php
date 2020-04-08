@@ -97,6 +97,27 @@ class User extends BaseUser
     private $avis;
 
     /**
+     * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Reclamations", mappedBy="id")
+     */
+    private $rec;
+
+    /**
+     * @return mixed
+     */
+    public function getRec()
+    {
+        return $this->rec;
+    }
+
+    /**
+     * @param mixed $rec
+     */
+    public function setRec($rec)
+    {
+        $this->rec = $rec;
+    }
+
+    /**
      * @return mixed
      */
     public function getAvis()
