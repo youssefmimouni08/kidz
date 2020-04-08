@@ -6,9 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Inscription
- *
  * @ORM\Table(name="Inscription", indexes={@ORM\Index(name="fk_id_enff", columns={"id_enfant"}), @ORM\Index(name="id_club", columns={"id_club"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\inscriptionRepository")
  */
 class Inscription
 {
@@ -17,7 +16,7 @@ class Inscription
      *
      * @ORM\Column(name="id_inscrit", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idInscrit;
 
@@ -38,8 +37,8 @@ class Inscription
     /**
      * @var \Enfant
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     *
+     *
      * @ORM\OneToOne(targetEntity="Enfant")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_enfant", referencedColumnName="id_enfant")
@@ -50,8 +49,8 @@ class Inscription
     /**
      * @var \Club
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     *
+     *
      * @ORM\OneToOne(targetEntity="Club")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_club", referencedColumnName="id_club")
@@ -70,6 +69,13 @@ class Inscription
     /**
      * @param int $idInscrit
      */
+
+
+
+
+
+
+
     public function setIdInscrit($idInscrit)
     {
         $this->idInscrit = $idInscrit;

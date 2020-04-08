@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
@@ -268,6 +269,14 @@ class User extends BaseUser
     public function getFactures()
     {
         return $this->factures;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
     }
 
     /**

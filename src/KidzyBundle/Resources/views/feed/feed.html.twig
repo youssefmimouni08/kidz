@@ -1,0 +1,366 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('back/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
+
+    <!-- App css -->
+    <link href="{{ asset('back/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('back/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('back/assets/css/app.min.css') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark"  >
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a class="logo text-uppercase" href="">
+                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-light" height="70"/>
+                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-dark" height="70"/>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
+                    <li class="nav-item active">
+                        <a href="{{ path('user_homepage') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Home</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ path('kidzy_feed') }}" class="nav-link"  style="color:rgba(40, 40, 46, 0.8) !important">my feed</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ path('clubParent') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Club</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ path('avisF') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Avis</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Réclamations</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ path('enfant') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Enfant</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a href="{{ path('pricing') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Pricing</a>
+                    </li>
+                    <li class="nav-item" >
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('fos_user_profile_show') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important"> Profile </a>
+                    </li>
+                    <li class="nav-item">
+                        {% for role in app.user.roles %}
+                            {% if  role == "ROLE_SUPER_ADMIN" %}
+                                <a href="{{ path('admin_homepage') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Admin Dashboard</a>
+                            {% elseif role =="ROLE_MAITRESSE" %}
+                                <a href="{{ path('Maitresse_homepage') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">Maitresse Dashboard</a>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('fos_user_security_logout') }}" class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important">
+                            {{ 'layout.logout'| trans({}, 'FOSUserBundle') }}
+                        </a>
+                        {% endif %}
+                    </li>
+                    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important" href="{{ path('fos_user_security_login') }}"><span> <i class="dripicons-enter"></i> </span>{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                            </a></li>
+                    {% endif %}
+                    <li class="nav-item">
+                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a class="nav-link" style="color:rgba(40, 40, 46, 0.8) !important" href="{{ path('fos_user_registration_register') }}"> <span><i class="dripicons-article"></i> </span> Créer Compte</a>
+
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+    <section class="bg-home bg-gradient" id="home" style="padding: 50px 0px 0px !important">
+
+
+        <div class="content-page" style="margin-left: 0px !important">
+            <div class="content">
+
+                <!-- Start Content-->
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card-box task-detail">
+                                <div class="dropdown float-right">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                    </div>
+                                </div>
+                                <div class="media mb-3">
+                                    <img class="d-flex mr-3 rounded-circle avatar-md" alt="64x64"
+                                         src="{{ asset('back/assets/images/users/user-2.jpg') }}">
+                                    <div class="media-body">
+                                        <h4 class="media-heading mt-0">Michael Zenaty</h4>
+                                        <span class="badge badge-danger">Urgent</span>
+                                    </div>
+                                </div>
+
+                                <h4>Code HTML email template for welcome email</h4>
+
+                                <p class="text-muted">
+                                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                                    praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+                                    excepturi sint cupiditate non sunt in culpa qui officia deserunt animi est laborum
+                                    et
+                                </p>
+
+                                <p class="text-muted">
+                                    Consectetur adipisicing elit. Voluptates, illo, iste
+                                    itaque voluptas corrupti ratione reprehenderit magni similique Tempore quos
+                                    delectus asperiores libero voluptas quod perferendis erum ipsum dolor sit.
+                                </p>
+
+                                <div class="row task-dates mb-0 mt-2">
+                                    <div class="col-lg-6">
+                                        <h5 class="font-600 m-b-5">Start Date</h5>
+                                        <p> 22 March 2016 <small class="text-muted">1:00 PM</small></p>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <h5 class="font-600 m-b-5">Due Date</h5>
+                                        <p> 17 April 2016 <small class="text-muted">12:00 PM</small></p>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                                <div class="task-tags mt-2">
+                                    <h5>Tags</h5>
+                                    <div class="bootstrap-tagsinput"><span class="tag label label-info">Amsterdam<span
+                                                    data-role="remove"></span></span> <span
+                                                class="tag label label-info">Washington<span data-role="remove"></span></span>
+                                        <span class="tag label label-info">Sydney<span data-role="remove"></span></span>
+                                        <input type="text" placeholder="add tags"></div>
+                                    <input type="text" value="Amsterdam,Washington,Sydney" data-role="tagsinput"
+                                           placeholder="add tags" style="display: none;">
+                                </div>
+
+                                <div class="assign-team mt-4">
+                                    <h5>Assign to</h5>
+                                    <div>
+                                        <a href="#"> <img class="rounded-circle avatar-sm" alt="64x64"
+                                                          src="{{ asset('back/assets/images/users/user-2.jpg') }}"> </a>
+                                        <a href="#"> <img class="rounded-circle avatar-sm" alt="64x64"
+                                                          src="{{ asset('back/assets/images/users/user-3.jpg') }}"> </a>
+                                        <a href="#"> <img class="rounded-circle avatar-sm" alt="64x64"
+                                                          src="{{ asset('back/assets/images/users/user-5.jpg') }}"> </a>
+                                        <a href="#"> <img class="rounded-circle avatar-sm" alt="64x64"
+                                                          src="{{ asset('back/assets/images/users/user-8.jpg') }}"> </a>
+                                        <a href="#"><span class="add-new-plus"><i class="mdi mdi-plus"></i> </span></a>
+                                    </div>
+                                </div>
+
+                                <div class="attached-files mt-4">
+                                    <h5>Attached Files </h5>
+                                    <ul class="list-inline files-list">
+                                        <li class="list-inline-item file-box">
+                                            <a href=""><img
+                                                        src="{{ asset('back/assets/images/attached-files/img-1.jpg') }}"
+                                                        class="img-fluid img-thumbnail" alt="attached-img"
+                                                        width="80"></a>
+                                            <p class="font-13 mb-1 text-muted"><small>File one</small></p>
+                                        </li>
+                                        <li class="list-inline-item file-box">
+                                            <a href=""><img
+                                                        src="{{ asset('back/assets/images/attached-files/img-2.jpg') }}"
+                                                        class="img-fluid img-thumbnail" alt="attached-img"
+                                                        width="80"></a>
+                                            <p class="font-13 mb-1 text-muted"><small>Attached-2</small></p>
+                                        </li>
+                                        <li class="list-inline-item file-box">
+                                            <a href=""><img
+                                                        src="{{ asset('back/assets/images/attached-files/img-3.jpg') }}"
+                                                        class="img-fluid img-thumbnail" alt="attached-img"
+                                                        width="80"></a>
+                                            <p class="font-13 mb-1 text-muted"><small>Dribbble shot</small></p>
+                                        </li>
+                                        <li class="list-inline-item file-box ml-2">
+                                            <div class="fileupload add-new-plus">
+                                                <span><i class="mdi-plus mdi"></i></span>
+                                                <input type="file" class="upload">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="text-right m-t-30">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">
+                                                    Save
+                                                </button>
+                                                <button type="button" class="btn btn-light waves-effect">Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- end col -->
+
+                        <div class="col-md-4">
+                            <div class="card-box">
+                                <div class="dropdown float-right">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                    </div>
+                                </div>
+
+                                <h4 class="header-title mt-0 mb-3">Comments (6)</h4>
+
+                                <div>
+
+                                    <div class="media mb-3">
+                                        <div class="d-flex mr-3">
+                                            <a href="#"> <img class="media-object rounded-circle avatar-sm" alt="64x64"
+                                                              src="{{ asset('back/assets/images/users/user-1.jpg') }}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Mat Helme</h5>
+                                            <p class="font-13 text-muted mb-0">
+                                                <a href="" class="text-primary">@Michael</a>
+                                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                                ante sollicitudin commodo.
+                                            </p>
+                                            <a href="" class="text-success font-13">Reply</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="media mb-3">
+                                        <div class="d-flex mr-3">
+                                            <a href="#"> <img class="media-object rounded-circle avatar-sm" alt="64x64"
+                                                              src="{{ asset('back/assets/images/users/user-2.jpg') }}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Media heading</h5>
+                                            <p class="font-13 text-muted mb-0">
+                                                <a href="" class="text-primary">@Michael</a>
+                                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                                sollicitudin purus odio.
+                                            </p>
+                                            <a href="" class="text-success font-13">Reply</a>
+
+                                            <div class="media my-2">
+                                                <div class="d-flex mr-3">
+                                                    <a href="#"> <img class="media-object rounded-circle avatar-sm"
+                                                                      alt="64x64"
+                                                                      src="{{ asset('back/assets/images/users/user-3.jpg') }}">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="mt-0">Nested media heading</h5>
+                                                    <p class="font-13 text-muted mb-0">
+                                                        <a href="" class="text-primary">@Michael</a>
+                                                        Cras sit amet nibh libero, in gravida nulla vel metus
+                                                        scelerisque ante sollicitudin purus odio.
+                                                    </p>
+                                                    <a href="" class="text-success font-13">Reply</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="media mb-3">
+                                        <div class="d-flex mr-3">
+                                            <a href="#"> <img class="media-object rounded-circle avatar-sm" alt="64x64"
+                                                              src="{{ asset('back/assets/images/users/user-1.jpg') }}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Mat Helme</h5>
+                                            <p class="font-13 text-muted mb-0">
+                                                <a href="" class="text-primary">@Michael</a>
+                                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                                ante sollicitudin commodo cras purus.
+                                            </p>
+                                            <a href="" class="text-success font-13">Reply</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="media mb-3">
+                                        <div class="d-flex mr-3">
+                                            <a href="#"> <img class="media-object rounded-circle avatar-sm" alt="64x64"
+                                                              src="{{ asset('back/assets/images/users/user-1.jpg') }}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0">Mat Helme</h5>
+                                            <p class="font-13 text-muted mb-0">
+                                                <a href="" class="text-primary">@Michael</a>
+                                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+                                                ante sollicitudin commodo cras.
+                                            </p>
+                                            <a href="" class="text-success font-13">Reply</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="media mb-3">
+                                        <div class="d-flex mr-3">
+                                            <a href="#"> <img class="media-object rounded-circle avatar-sm" alt="64x64"
+                                                              src="{{ asset('back/assets/images/users/user-1.jpg') }}">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <input type="text" class="form-control input-sm"
+                                                   placeholder="Some text value...">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- container-fluid -->
+
+            </div> <!-- content -->
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('back/assets/js/vendor.min.js') }}"></script>
+
+    <!-- plugin -->
+    <script src="{{ asset('back/assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+
+    <!-- App js -->
+    <script src="{{ asset('back/assets/js/app.min.js') }}"></script>
+{% endblock %}

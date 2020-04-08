@@ -38,3 +38,7 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+
+    KidzyBundle\Listener\ImageCacheSubscriber:
+        tags:
+        - { name: doctrine.event_subsciber }

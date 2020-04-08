@@ -72,17 +72,18 @@
                         </a>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="fe-lock"></i>
-                            <span>Lock Screen</span>
+                        <a href="{{ path('user_homepage') }}" class="dropdown-item notify-item">
+                            <i class="dripicons-home"></i>
+                            <span>Acceuil</span>
                         </a>
 
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="fe-log-out"></i>
-                            <span>Logout</span>
+                        <a href="{{ path('fos_user_registration_register') }}" class="dropdown-item notify-item">
+                            <span><i class="fe-log-out"></i> </span>
+                            {{ 'layout.logout'| trans({}, 'FOSUserBundle') }}
+                        </a>
                         </a>
 
                     </div>
@@ -154,6 +155,20 @@
                                     <span> Dashboard </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ path('enfant_index') }}">
+                                    <i class="mdi mdi-currency-usd"></i>
+                                    <span> Gestion Des Enfants </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('garde_index') }}">
+                                    <i class="mdi mdi-currency-usd"></i>
+                                    <span> Gestion Du Garderie </span>
+                                </a>
+                            </li>
+
 
                             <li>
                                 <a href="{{ path('frais_index') }}">
@@ -190,6 +205,18 @@
                                 <a href="{{ path('avis_index') }}">
                                     <i class="mdi mdi-file-table-outline"></i>
                                     <span> Gestion Des Avis </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('club') }}">
+                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <span> Gestion des clubs </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('event_index') }}">
+                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <span> Gestion Des evenements </span>
                                 </a>
                             </li>
                         </ul>
