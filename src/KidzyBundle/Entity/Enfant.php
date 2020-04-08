@@ -256,7 +256,7 @@ class Enfant
      *
      * @return Enfant
      */
-    public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse = null)
+    public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse )
     {
         $this->idClasse = $idClasse;
         return $this;
