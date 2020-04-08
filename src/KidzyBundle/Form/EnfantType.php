@@ -4,6 +4,7 @@ namespace KidzyBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,9 +16,13 @@ class EnfantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nomEnfant', null, array('label' => 'Nom :','label_attr' => array('idEnfant' => 'nomEnfant')))
-            ->add('prenomEnfant', null, array('label' => 'Prénom :','label_attr' => array('idEnfant' => 'nomEnfant')))
-            ->add('imageEnfant', null, array('label' => 'Image :','label_attr' => array('idEnfant' => 'nomEnfant')))
-            ->add('datenEnfant', null, array('label' => 'Date de naissance :','label_attr' => array('idEnfant' => 'nomEnfant')))
+            ->add('prenomEnfant', null, array('label' => 'Prénom :','label_attr' => array('idEnfant' => 'prenomEnfant')))
+
+            ->add('imageFile', FileType::class, array('label' => 'Image :','label_attr' => array('idEnfant' => 'imageFile')) ,
+                [
+                'required'=>false
+            ])
+            ->add('datenEnfant', null, array('label' => 'Date de naissance :','label_attr' => array('idEnfant' => 'datenEnfant')))
             ->add('idClasse',EntityType::class,
                 array(
                     'class'=>'KidzyBundle:Classe',
