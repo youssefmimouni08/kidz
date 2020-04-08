@@ -1,7 +1,6 @@
 <?php
 
 namespace KidzyBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +33,7 @@ class Reclamations
      *
      * @ORM\Column(name="etat_rec", type="string", length=11, nullable=false)
      */
-    private $etatRec = 'non traite';
+    private $etatRec ;
 
     /**
      * @var string
@@ -55,27 +54,60 @@ class Reclamations
      *
      * @ORM\Column(name="archive", type="string", length=255, nullable=false)
      */
-    private $archive = 'non';
+    private $archive ;
 
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="rec")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_M", referencedColumnName="id")
      * })
      */
+
     private $idM;
+
+    /**
+     * @return \User
+     */
+    public function getIdM()
+    {
+        return $this->idM;
+    }
+
+    /**
+     * @param \User $idM
+     */
+    public function setIdM($idM)
+    {
+        $this->idM = $idM;
+    }
 
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="rec")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id", referencedColumnName="id")
      * })
      */
     private $id;
+
+    /**
+     * @return \User
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param \User $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
 
@@ -209,51 +241,5 @@ class Reclamations
         return $this->archive;
     }
 
-    /**
-     * Set idM
-     *
-     * @param \KidzyBundle\Entity\User $idM
-     *
-     * @return Reclamations
-     */
-    public function setIdM(\KidzyBundle\Entity\User $idM = null)
-    {
-        $this->idM = $idM;
 
-        return $this;
-    }
-
-    /**
-     * Get idM
-     *
-     * @return \KidzyBundle\Entity\User
-     */
-    public function getIdM()
-    {
-        return $this->idM;
-    }
-
-    /**
-     * Set id
-     *
-     * @param \KidzyBundle\Entity\User $id
-     *
-     * @return Reclamations
-     */
-    public function setId(\KidzyBundle\Entity\User $id = null)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return \KidzyBundle\Entity\User
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

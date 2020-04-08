@@ -81,6 +81,49 @@ class ReclamationsController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    public function MesRecAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $rec = $em->getRepository('KidzyBundle:Reclamations')->findAll();
+        return $this->render('@Kidzy/reclamations/Mesrec.html.twig', array(
+            'parent' => $user,
+            'rec' => $rec
+
+
+
+
+        ));
+    }
+    public function newAction(Request $request)
+    {
+        {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $reclamation = new Reclamations();
+            $form = $this->createForm('KidzyBundle\Form\ReclamationsAType', $reclamation);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $reclamation->setId($user);
+                $today = new \DateTime('now');
+                $reclamation ->setDateRec($today);
+                $reclamation ->setEtatRec("non");
+                $reclamation ->setReponseRec(" ");
+                $reclamation ->setArchive("non archiver");
+                $em->persist($reclamation);
+                $em->flush();
+
+                return $this->redirectToRoute('MesRec', array('idRec' => $reclamation->getIdRec()));
+            }
+
+            return $this->render('@Kidzy/reclamations/new.html.twig', array('form' => $form->createView()));
+        }
+
+
+    }
+
+
 
 
 }

@@ -8,59 +8,41 @@
                 <div class="col-lg-6">
                     <div class="title text-center mb-4">
                         <h6 class="text-primary small-title"></h6>
-                        <h4>LES AVIS</h4>
+                        <h4>Mes Avis </h4>
                     </div>
                 </div>
             </div>
             <!-- end row -->
 
-            <div class="row">
-                <div class="col-xl-4">
-                    <a href="{{ path('avis_new') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
-                       data-overlaySpeed="200" data-overlayColor="#36404a"><i class="mdi mdi-plus-circle-outline"></i> Ajouter avis </a>
-                    <a href="{{ path('Mesavis') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
-                       data-overlaySpeed="200" data-overlayColor="#e83e8c"><i class="pt-4"></i> Consulter mes avis </a>
-                </div>
-            </div>
             <!-- end row -->
             <div class="row">
 
-                {% for enfant in parent.avis %}
+        {% for enfant in parent.avis %}
+            <div class="col-md-6 col-xl-3">
 
+                <div class="card">
 
-                    <div class="col-lg-4">
-                        <form action="">
+                    <div class="card-body">
+                        <h4 class="card-title">Description</h4>
+                        <p class="card-text">{{ enfant.descriptionAvis}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Date </li>
+                        <li class="list-group-item">{{ enfant.dateAvis |date}}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{{ path('avis_supprimer', { 'idAvis': enfant.idAvis }) }}" class="card-link">Supprimer</a>
 
-                            <div class="pricing-plans bg-white text-center p-4 mt-4">
-                                <div class="dropdown float-right">
+                        <a href="{{ path('avis_edit', { 'idAvis': enfant.idAvis }) }}" class="card-link">Modifier</a>
 
-
-                                </div>
-                                <div>
-
-
-                                    <div class="text-left">
-                                        <p class="text-muted font-13"><strong>Nom  :</strong> <span class="ml-2"> {{ enfant.id}}   </span></p>
-
-                                        <p class="text-muted font-13"><strong>Description:</strong><span class="ml-2">{{ enfant.descriptionAvis}} </span></p>
-
-                                        <p class="text-muted font-13"><strong>Date :</strong> <span class="ml-2"> {{ enfant.dateAvis |date}}</span></p>
-
-
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
-                        </form>
-                    </div> <!-- end col -->
-                {% endfor %}
+                    </div>
+                </div>
 
             </div>
-        </div>
-        <!-- end container-fluid -->
+        {% endfor %}
 
+        <!-- end container-fluid -->
+            </div>
+        </div>
     </section>
 {% endblock %}
