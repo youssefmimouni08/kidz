@@ -3,7 +3,9 @@
 namespace KidzyBundle\Controller;
 
 use KidzyBundle\Entity\Club;
+use KidzyBundle\Entity\Event;
 use KidzyBundle\Entity\Inscription;
+use KidzyBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,6 +19,20 @@ class ClubController extends Controller
      * Lists all Club entities.
      *
      */
+    public function showEventAction( $idClub)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $event=$repository->myfinfEvent($idClub);
+        $clubs = $em->getRepository('KidzyBundle:Club')->find($idClub);
+
+        return $this->render('@Kidzy/club/EventFront.html.twig', array(
+            'event' => $event,
+            'club' => $clubs
+
+        ));
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -43,9 +59,7 @@ class ClubController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
         $listenfants=$repository->myfinfClub($idParent);
-        var_dump($idParent);
-        var_dump($listenfants);
-        die();
+
 
         return $this->render('@Kidzy/club/ClubFront.html.twig', array(
             'club' => $listenfants,
@@ -67,6 +81,16 @@ public function newAction(Request $request)
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
+            $notifications=new Notification();
+            $notifications->setTitle('nouveau Club')
+                ->setDescription($club->getNomClub())
+                ->setRoute('user')
+                ->setParameters(array('id'=>$club->getIdClub()));
+            $em->persist($notifications);
+            $em->flush();
+            $pusher = $this->get('mrad.pusher.notificaitons');
+            $pusher->trigger($notifications);
+
             return $this->redirectToRoute('club_show', array('idClub' => $club->getIdClub()));
         }
 

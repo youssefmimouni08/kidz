@@ -44,10 +44,19 @@ class inscriptionRepository extends EntityRepository
         return $query = $qb->getResult();
 
 
-    }
+    } public function myfinfEvent($idClub)
+{
+    $qb = $this->getEntityManager()->createQuery("select e.nomEvent from KidzyBundle:Event e  where  e.club=:idClub")
+
+        ->setParameter('idClub', $idClub);
+
+    return $query = $qb->getResult();
+
+
+}
     public function myfinfEnfant($idParent)
     {
-        $qb = $this->getEntityManager()->createQuery("select  e.prenomEnfant from KidzyBundle:Enfant e where  e.idParent<>:idParent")
+        $qb = $this->getEntityManager()->createQuery("select  e.nomEnfant, e.prenomEnfant from KidzyBundle:Enfant e where  e.idParent=:idParent")
 
             ->setParameter('idParent', $idParent);
 
