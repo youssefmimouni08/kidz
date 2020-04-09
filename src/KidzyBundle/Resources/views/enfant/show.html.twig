@@ -12,7 +12,19 @@
                         <div class="card-box">
                             <h4 class="header-title mt-0 mb-3">Details Enfant</h4>
 
-                            <img src="{{ asset('front/images/features-img/img-4.jpg') }}" class="rounded-circle avatar-xl img-thumbnail mb-2" alt="profile-image">
+
+
+                            {% if enfant.imageEnfant %}
+
+                                <img src="{{ vich_uploader_asset(enfant ,'imageFile') | imagine_filter('thumb') }}" class="rounded-circle avatar-xl img-thumbnail mb-2" alt="profile-image">
+                                {% else%}
+
+                                    <img src="{{ '/images/enfants/enfant.png' | imagine_filter('thumb') }}" class="rounded-circle avatar-xl img-thumbnail mb-2" alt="profile-image">
+                            {% endif %}
+
+
+
+
                             <div class="form-group row">
 
                                 <label class="col-sm-2  col-form-label" for="simpleinput">ID : </label>

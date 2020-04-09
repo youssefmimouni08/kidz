@@ -22,3 +22,6 @@ reclamations_delete:
     path:     admin/{idRec}/delete
     defaults: { _controller: "KidzyBundle:Reclamations:delete" }
     methods:  DELETE
+MesRec:
+    path:     /Mesrec
+    defaults: { _controller: "KidzyBundle:Reclamations:MesRec" }
