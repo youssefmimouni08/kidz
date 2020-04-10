@@ -197,7 +197,7 @@ class InscriptionController extends Controller
             $this->addFlash('info', 'Enfant inscrit déja');
 
 
-        }
+        }else{ }
 
 
 

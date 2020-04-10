@@ -28,25 +28,25 @@ class AvisController extends Controller
     }
     public function newAction(Request $request)
     {
-        $avis = new Avis();
-        $form = $this->createForm('KidzyBundle\Form\AvisType', $avis);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+
+
+        $avis = new Avis();
+        $form = $this->createForm(AvisType::class, $avis);
+        $form = $form->handleRequest($request);
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $today = new \DateTime('now');
             $avis->setDateAvis($today);
+            $avis->setId($user);
             $em->persist($avis);
             $em->flush();
 
-            return $this->redirectToRoute('Mesavis', array('idAvis' => $avis->getIdAvis() ));
+            return $this->redirectToRoute('Mesavis',array("avis"=>$avis));
         }
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        return $this->render('@Kidzy/avis/new.html.twig', array(
-            'avis' => $avis,
-            'parent' => $user,
-            'form' => $form->createView(),
-        ));
+        return $this->render('@Kidzy/avis/new.html.twig', array('form'=>$form->createView()));
     }
 
     public function showAction(Avis $avi)
@@ -112,6 +112,39 @@ class AvisController extends Controller
         ));
     }
 
+    public function supprimerAction($idAvis)
+    {
+
+        $em=$this->getDoctrine()->getManager();
+        $avis =$em ->getRepository(Avis::class) ->find($idAvis);
+        $em->remove($avis);
+        $em->flush();
+        return $this->redirectToRoute("Mesavis" );
+    }
+
+
+    public function editAction(Request $request, Avis $avis)
+    {
+        $deleteForm = $this->createDeleteForm($avis);
+        $editForm = $this->createForm('KidzyBundle\Form\AvisType', $avis);
+        $editForm->handleRequest($request);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('Mesavis', array('idAvis' => $avis->getIdAvis()));
+        }
+
+        return $this->render('@Kidzy/avis/edit.html.twig', array(
+            'avis' => $avis,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
 
 
 }
+

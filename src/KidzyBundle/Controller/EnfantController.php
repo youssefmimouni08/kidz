@@ -96,6 +96,8 @@ class EnfantController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $today = new \DateTime('now');
+            $enfant->setUpdatedAt($today);
             $em->persist($enfant);
             $em->flush();
 
@@ -124,10 +126,10 @@ class EnfantController extends Controller
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
         $user = $this->getUser();
         if ($request->isMethod("POST")) {
-            $enfant->setImageEnfant($request->get('imageEnfant'));
+            $enfant->setImageEnfant($request->get('imageFile'));
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-           $enfant->setIdClasse($request->get('idClasse'));
+           $enfant->setIdClasse($classe);
             $enfant->setDatenEnfant($request->get('datenEnfant'));
             $enfant->setIdParent($user);
 
@@ -158,7 +160,7 @@ class EnfantController extends Controller
         $enfant =$em ->getRepository(Enfant::class) ->find($id);
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
         if ($request->isMethod('POST')) {
-            $enfant->setImageEnfant($request->get('imageEnfant'));
+            $enfant->setImageEnfant($request->get('imageFile'));
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
            // $enfant->setIdClasse($request->get('idClasse'));

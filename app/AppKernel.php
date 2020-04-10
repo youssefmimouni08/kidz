@@ -11,6 +11,7 @@ class AppKernel extends Kernel
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
@@ -22,6 +23,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new ClasseBundle\ClasseBundle(),
+
+            new Vich\UploaderBundle\VichUploaderBundle(),
 
         ];
 
