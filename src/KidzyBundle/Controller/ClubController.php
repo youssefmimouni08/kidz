@@ -43,9 +43,6 @@ class ClubController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
         $listenfants=$repository->myfinfClub($idParent);
-        var_dump($idParent);
-        var_dump($listenfants);
-        die();
 
         return $this->render('@Kidzy/club/ClubFront.html.twig', array(
             'club' => $listenfants,

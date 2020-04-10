@@ -38,3 +38,9 @@ success_payment:
 print:
     path:     /print/{idPack}/{idEnfant}/{idParent}/{idFacture}
     defaults: { _controller: "KidzyBundle:Pack:print" }
+count:
+    path:     /count
+    defaults: { _controller: "KidzyBundle:Pack:count" }
+status:
+    path:     /status
+    defaults: { _controller: "KidzyBundle:Pack:status" }

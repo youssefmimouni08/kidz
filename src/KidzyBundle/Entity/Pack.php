@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
 
 /**
  * @UniqueEntity(fields={"nomPack"},errorPath="nomPack",message="Il semble que vous avez déjà enregistré un Pack avec ce nom.")
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="pack")
  * @ORM\Entity
  */
-class Pack
+class Pack implements JsonSerializable
 {
     /**
      * @var integer
@@ -233,5 +234,19 @@ class Pack
     public function getFactures()
     {
         return $this->factures;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return
+            [
+                'idpack'   => $this->getIdPack(),
+                'nom_pack' => $this->getNomPack(),
+                'prix_pack' => $this->getPrixPack(),
+                'description' => $this ->getDescriptionPack()
+            ];
     }
 }

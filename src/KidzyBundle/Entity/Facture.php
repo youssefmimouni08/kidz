@@ -3,6 +3,7 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * Facture
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="facture", indexes={@ORM\Index(name="foreign_parent", columns={"id_parent"}), @ORM\Index(name="foreign_enfant", columns={"id_enf"}), @ORM\Index(name="foreign_pack", columns={"id_pack"})})
  * @ORM\Entity
  */
-class Facture
+class Facture implements JsonSerializable
 {
     /**
      * @var integer
@@ -242,5 +243,19 @@ class Facture
     public function getPack()
     {
         return $this->pack;
+    }
+    public function jsonSerialize()
+    {
+        return
+            [
+                'id'   => $this->getIdFacture(),
+                'enfant' => $this->getIdEnf(),
+                'parent' => $this->getIdParent(),
+                'pack' => $this ->getPack(),
+                'total' =>$this ->getTotal(),
+                'date facture' =>$this ->getDateFacture(),
+                'paye'=>$this->getPaye(),
+                'status'=>$this->getStatus()
+            ];
     }
 }

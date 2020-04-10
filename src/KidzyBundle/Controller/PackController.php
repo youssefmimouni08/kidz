@@ -192,7 +192,7 @@ class PackController extends Controller
         $em->persist($facture);
         $em->flush();
         $publisher = new Publisher(HUB_URL, new StaticJwtProvider(JWT));
-        $publisher(new Update('ping', '$facture'));
+        $publisher(new Update('ping',json_encode($facture)."\n" ));
 
 
         return $this->render('@Kidzy/pack/success.html.twig' , array('user' => $user , 'pack' => $pack , 'enfant' => $enfant ,'facture' => $facture));
@@ -234,4 +234,30 @@ class PackController extends Controller
             'facture.pdf'
         );
     }
+    public function statusAction(){
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $q = $qb->update('KidzyBundle:Facture', 'f')
+            ->set('f.status', '?1')
+            ->where('f.status = ?2')
+            ->setParameter(1, 1)
+            ->setParameter(2, 0)
+            ->getQuery();
+        $p = $q->execute();
+
+        $query = $em->createQuery('SELECT f FROM KidzyBundle:Facture f WHERE f.status = :status')->setParameter('status', 0);
+
+        $results = $query->getResult();
+        return $this->json(['code' => 200,'message'=>'status updated','count'=>$results],200);
+    }
+    public function countAction(){
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT f FROM KidzyBundle:Facture f WHERE f.status = :status')->setParameter('status', 0);
+        $results = $query->getResult();
+        return $this->render('@Kidzy/pack/notif_count.html.twig', array(
+            'count' => $results,
+        ));
+    }
+
+
 }

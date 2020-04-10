@@ -23,6 +23,7 @@ class DefaultController extends Controller
     public function notificationAction()
     {
         $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
         /*$qb = $em->createQueryBuilder();
 
         $results = $qb->select('e')
@@ -37,10 +38,10 @@ class DefaultController extends Controller
     WHERE f.status = :price'
         )->setParameter('price', 0);
 
-        $results = $query->getResult();
+        $result = $query->getResult();
 
 
-        return $this->render('@User/Default/notifications.html.twig',['notif' => $results]);
+        return $this->render('@User/Default/notifications.html.twig',['notif' => $result]);
     }
     public function accountInfo()
     {
@@ -60,6 +61,10 @@ class DefaultController extends Controller
 
         // ...
     }
+    public function enfantgarde(){
+
+    }
+
 
 
 }
