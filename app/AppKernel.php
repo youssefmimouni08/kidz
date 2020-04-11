@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new ClasseBundle\ClasseBundle(),
+            new Yectep\PhpSpreadsheetBundle\PhpSpreadsheetBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
 
         ];
