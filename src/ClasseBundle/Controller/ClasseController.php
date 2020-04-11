@@ -26,52 +26,7 @@ class ClasseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $classes = $em->getRepository('KidzyBundle:Classe')->findAll();
-        $spreadsheet = new Spreadsheet();
-        // Get active sheet - it is also possible to retrieve a specific sheet
-        $sheet = $spreadsheet->getActiveSheet();
 
-        // Set cell name and merge cells
-        $sheet->setCellValue('A1', 'liste des classes')->mergeCells('A1:D1');
-
-        // Set column names
-        $columnNames = [
-            'id',
-            'libele',
-            'description',
-        ];
-        $columnLetter = 'A';
-        foreach ($columnNames as $columnName) {
-            // Allow to access AA column if needed and more
-            $columnLetter++;
-            $sheet->setCellValue($columnLetter.'2', $columnName);
-        }
-
-        // Add data for each column
-        foreach ($classes as $i => $item){
-            $columnValues = [
-
-
-                ['azaeazra', 'Google Inc.', 'September 2, 2008'],
-
-
-            ];}
-
-
-
-        $i = 3; // Beginning row for active sheet
-        foreach ($columnValues as $columnValue) {
-            $columnLetter = 'A';
-            foreach ($columnValue as $value) {
-                $columnLetter++;
-            $sheet->setCellValue($columnLetter.$i, $value);
-        }
-            $i++;
-        }
-        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
-        $excelFilepath =  $webDirectory . '/testing.xlsx';
-        $writerXlsx = $this->get('phpoffice.spreadsheet')->createWriter($spreadsheet, 'Xlsx');
-        $writerXlsx->save($excelFilepath);
-        //return $spreadsheet;
         return $this->render('@Classe/classe/index.html.twig', array(
             'classes' => $classes,
         ));
@@ -185,9 +140,22 @@ class ClasseController extends Controller
             ->getForm()
         ;
     }
-    public function excelCreate()
+    public function exportAction()
     {
-        $spreadsheet = $this->get('phpspreadsheet')->createSpreadsheet();
-
+        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
+        $excelFilepath =  $webDirectory . '/classe.csv';
+        $em= $this->getDoctrine()->getManager();
+        $classes = $em->getRepository('KidzyBundle:Classe')->findAll();
+        #Writer
+        $writer = $this->container->get('egyg33k.csv.writer');
+        $csv = $writer::createFromFileObject(new \SplTempFileObject());
+        $csv->insertOne(['Liste des classee']);
+        $csv->insertOne(['    ']);
+        $csv->insertOne(['id_classe' , 'Libelle classe' , 'Description']);
+        foreach ($classes as $classe) {
+            $csv->insertOne([$classe->getIdClasse() , $classe->getLibelleCla() ,$classe->getDescription()]);
+        }
+        $csv->output('classe.csv');
+        die;
     }
 }

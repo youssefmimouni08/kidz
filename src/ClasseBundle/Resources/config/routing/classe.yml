@@ -22,3 +22,6 @@ classe_delete:
     path:     admin/{idClasse}/delete
     defaults: { _controller: "ClasseBundle:Classe:delete" }
     methods:  DELETE
+classe_export:
+    path:     admin/export
+    defaults: { _controller: "ClasseBundle:Classe:export" }
