@@ -49,6 +49,7 @@ class ClasseController extends Controller
             'classe' => $classe,
             'form' => $form->createView(),
         ));
+
     }
 
     /**

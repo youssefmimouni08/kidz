@@ -27,12 +27,12 @@
 </head>
 <body>
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark"  >
         <div class="container-fluid">
             <!-- LOGO -->
             <a class="logo text-uppercase" href="">
-                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-light" height="70"/>
-                <img src="{{ asset('front/images/logo-dark.png') }}" alt="" class="logo-dark" height="70"/>
+                <img src="{{ asset('front/images/unnamed.png') }}" alt="" class="logo-light" height="70"/>
+                <img src="{{ asset('front/images/unnamed.png') }}" alt="" class="logo-dark" style="display: none !important" height="70"/>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -100,6 +100,7 @@
         </div>
     </nav>
 {% endblock %}
+
 {% block content %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block javascripts %}
