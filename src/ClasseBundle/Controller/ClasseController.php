@@ -3,8 +3,13 @@
 namespace ClasseBundle\Controller;
 
 use KidzyBundle\Entity\Classe;
+use PhpOffice\PhpSpreadsheetBundle;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use \PhpOffice\PhpSpreadsheet\Writer;
+use \PhpOffice\PhpSpreadsheet\Reader;
+
 
 /**
  * Classe controller.
@@ -21,7 +26,52 @@ class ClasseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $classes = $em->getRepository('KidzyBundle:Classe')->findAll();
+        $spreadsheet = new Spreadsheet();
+        // Get active sheet - it is also possible to retrieve a specific sheet
+        $sheet = $spreadsheet->getActiveSheet();
 
+        // Set cell name and merge cells
+        $sheet->setCellValue('A1', 'liste des classes')->mergeCells('A1:D1');
+
+        // Set column names
+        $columnNames = [
+            'id',
+            'libele',
+            'description',
+        ];
+        $columnLetter = 'A';
+        foreach ($columnNames as $columnName) {
+            // Allow to access AA column if needed and more
+            $columnLetter++;
+            $sheet->setCellValue($columnLetter.'2', $columnName);
+        }
+
+        // Add data for each column
+        foreach ($classes as $i => $item){
+            $columnValues = [
+
+
+                ['azaeazra', 'Google Inc.', 'September 2, 2008'],
+
+
+            ];}
+
+
+
+        $i = 3; // Beginning row for active sheet
+        foreach ($columnValues as $columnValue) {
+            $columnLetter = 'A';
+            foreach ($columnValue as $value) {
+                $columnLetter++;
+            $sheet->setCellValue($columnLetter.$i, $value);
+        }
+            $i++;
+        }
+        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
+        $excelFilepath =  $webDirectory . '/testing.xlsx';
+        $writerXlsx = $this->get('phpoffice.spreadsheet')->createWriter($spreadsheet, 'Xlsx');
+        $writerXlsx->save($excelFilepath);
+        //return $spreadsheet;
         return $this->render('@Classe/classe/index.html.twig', array(
             'classes' => $classes,
         ));
@@ -33,6 +83,19 @@ class ClasseController extends Controller
      */
     public function newAction(Request $request)
     {
+
+
+//        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
+//        $excelFilepath =  $webDirectory . '/testing.xlsx';
+//        $spreadsheet = $this->get('phpoffice.spreadsheet')->createSpreadsheet();
+//        $spreadsheet->getActiveSheet()->setCellValue('A1', 'Hello world');
+//
+//        $writerXlsx = $this->get('phpoffice.spreadsheet')->createWriter($spreadsheet, 'Xlsx');
+//        $writerXlsx->save($excelFilepath);
+//        $readerXlsx  = $this->get('phpoffice.spreadsheet')->createReader('Xlsx');
+//        $sheet = $readerXlsx->load($excelFilepath);
+//        $data = $this->createDataFromSpreadsheet($sheet);
+
         $classe = new Classe();
         $form = $this->createForm('ClasseBundle\form\ClasseType', $classe);
         $form->handleRequest($request);
@@ -120,5 +183,10 @@ class ClasseController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    public function excelCreate()
+    {
+        $spreadsheet = $this->get('phpspreadsheet')->createSpreadsheet();
+
     }
 }
