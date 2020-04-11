@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new ClasseBundle\ClasseBundle(),
             new Yectep\PhpSpreadsheetBundle\PhpSpreadsheetBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
-
+            new Egyg33k\CsvBundle\Egyg33kCsvBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
