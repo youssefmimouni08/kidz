@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
@@ -94,6 +95,27 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Avis", mappedBy="id")
      */
     private $avis;
+
+    /**
+     * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Reclamations", mappedBy="id")
+     */
+    private $rec;
+
+    /**
+     * @return mixed
+     */
+    public function getRec()
+    {
+        return $this->rec;
+    }
+
+    /**
+     * @param mixed $rec
+     */
+    public function setRec($rec)
+    {
+        $this->rec = $rec;
+    }
 
     /**
      * @return mixed
@@ -247,6 +269,14 @@ class User extends BaseUser
     public function getFactures()
     {
         return $this->factures;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
     }
 
     /**

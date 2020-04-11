@@ -2,12 +2,14 @@
 
 namespace KidzyBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Garde
  *
- * @ORM\Table(name="garde", indexes={@ORM\Index(name="fk_id_enffantt", columns={"id_enfant"})})
+ * @ORM\Table(name="garde")
  * @ORM\Entity
  */
 class Garde
@@ -24,40 +26,51 @@ class Garde
     /**
      * @var string
      *
-     * @ORM\Column(name="activite_garde", type="string", length=255, nullable=false)
+     * @ORM\Column(name="nom_garde", type="string", length=255, nullable=true)
+     *  @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le Titre doit contenir au moins {{ limit }} caractéres ",
+     *      maxMessage = "Le Titre doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank
      */
-    private $activiteGarde;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prix_garde", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixGarde;
+    private $nomGarde;
 
     /**
      * @var string
      *
      * @ORM\Column(name="duree_garde", type="string", length=50, nullable=false)
+     *  @Assert\NotBlank
      */
     private $dureeGarde;
 
     /**
-     * @var \Enfant
-     *
-     * @ORM\ManyToOne(targetEntity="Enfant")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_enfant", referencedColumnName="id_enfant")
-     * })
+     * @ORM\OneToMany(targetEntity="Enfant", mappedBy="idGarde")
      */
-    private $idEnfant;
+    private $enfants;
 
 
 
     /**
-     * Get idGarde
-     *
-     * @return integer
+     * @return mixed
+     */
+    public function getEnfants()
+    {
+        return $this->enfants;
+    }
+
+    /**
+     * @param mixed $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
+    }
+
+
+    /**
+     * @return int
      */
     public function getIdGarde()
     {
@@ -65,70 +78,32 @@ class Garde
     }
 
     /**
-     * Set activiteGarde
-     *
-     * @param string $activiteGarde
-     *
-     * @return Garde
+     * @param int $idGarde
      */
-    public function setActiviteGarde($activiteGarde)
+    public function setIdGarde($idGarde)
     {
-        $this->activiteGarde = $activiteGarde;
-
-        return $this;
+        $this->idGarde = $idGarde;
     }
 
     /**
-     * Get activiteGarde
-     *
      * @return string
      */
-    public function getActiviteGarde()
+    public function getNomGarde()
     {
-        return $this->activiteGarde;
+        return $this->nomGarde;
     }
 
     /**
-     * Set prixGarde
-     *
-     * @param float $prixGarde
-     *
-     * @return Garde
+     * @param string $nomGarde
      */
-    public function setPrixGarde($prixGarde)
+    public function setNomGarde($nomGarde)
     {
-        $this->prixGarde = $prixGarde;
-
-        return $this;
+        $this->nomGarde = $nomGarde;
     }
 
-    /**
-     * Get prixGarde
-     *
-     * @return float
-     */
-    public function getPrixGarde()
-    {
-        return $this->prixGarde;
-    }
+
 
     /**
-     * Set dureeGarde
-     *
-     * @param string $dureeGarde
-     *
-     * @return Garde
-     */
-    public function setDureeGarde($dureeGarde)
-    {
-        $this->dureeGarde = $dureeGarde;
-
-        return $this;
-    }
-
-    /**
-     * Get dureeGarde
-     *
      * @return string
      */
     public function getDureeGarde()
@@ -137,26 +112,49 @@ class Garde
     }
 
     /**
-     * Set idEnfant
+     * @param string $dureeGarde
+     */
+    public function setDureeGarde($dureeGarde)
+    {
+        $this->dureeGarde = $dureeGarde;
+    }
+
+
+
+    /**
+     * Add enfant
      *
-     * @param \KidzyBundle\Entity\Enfant $idEnfant
+     * @param \KidzyBundle\Entity\Enfant $enfant
      *
      * @return Garde
      */
-    public function setIdEnfant(\KidzyBundle\Entity\Enfant $idEnfant = null)
+    public function addEnfant(\KidzyBundle\Entity\Enfant $enfant)
     {
-        $this->idEnfant = $idEnfant;
+        $this->enfant[] = $enfant;
 
         return $this;
     }
 
     /**
-     * Get idEnfant
+     * Remove enfant
      *
-     * @return \KidzyBundle\Entity\Enfant
+     * @param \KidzyBundle\Entity\Enfant $enfant
      */
-    public function getIdEnfant()
+    public function removeEnfant(\KidzyBundle\Entity\Enfant $enfant)
     {
-        return $this->idEnfant;
+        $this->enfant->removeElement($enfant);
     }
+
+    /**
+     * Get enfant
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEnfant()
+    {
+        return $this->enfant;
+    }
+
+
+
 }

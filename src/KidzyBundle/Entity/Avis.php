@@ -1,7 +1,7 @@
 <?php
 
 namespace KidzyBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +32,8 @@ class Avis
      * @var string
      *
      * @ORM\Column(name="description_avis", type="string", length=600, nullable=false)
+     * @Assert\NotBlank(message="le champ description est obligatoire")
+     * @Assert\Length(min=5,max=50)
      */
     private $descriptionAvis;
 
@@ -46,6 +48,22 @@ class Avis
 
 
     private $id;
+
+    /**
+     * @return \User
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param \User $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
 
 
@@ -107,27 +125,5 @@ class Avis
         return $this->descriptionAvis;
     }
 
-    /**
-     * Set id
-     *
-     * @param \KidzyBundle\Entity\User $id
-     *
-     * @return Avis
-     */
-    public function setId(\KidzyBundle\Entity\User $id = null)
-    {
-        $this->id = $id;
 
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return \KidzyBundle\Entity\User
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }

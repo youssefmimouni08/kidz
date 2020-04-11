@@ -20,7 +20,13 @@
                             <h1>Liste des enfants</h1>
 
                             <table id="datatable" class="table table-bordered dt-responsive nowrap">
-
+                                <thead>
+                                <tr>
+                                    <th ></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
 
 
                                 <tbody>
@@ -47,16 +53,18 @@
                                 </tbody>
                             </table>
 
+
+
+
                             <ul>
-                                <li>
-                                    <a align="center" class="btn btn-primary waves-effect waves-light mr-1" href="{{ path('inscription_new', {'idClub':idClub}) }}">
+                                <ul align="left">
+                                    <li>
+                                    <h5>   <a align="center" href="{{ path('inscription_new', {'idClub':idClub}) }}">
                                         Ajouter un enfant</a>
-                                </li>
-                            </ul>
+                                </h5> </li></ul>
                                 <ul align="right">
-                                    <a align="center"  class="btn btn-danger waves-effect width-md waves-light" href ="{{ path('club') }}">
-                                        Retour
-                                    </a>                               </ul>
+                                    <a align="center" class="btn btn-danger waves-effect width-md waves-light"  href ="{{ path('club') }}">
+                                        Retour </a>                 </ul>  </ul>
 
                         </div> <!-- end card-box -->
                     </div><!-- end col -->

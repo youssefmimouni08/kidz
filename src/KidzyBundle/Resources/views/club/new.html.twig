@@ -37,6 +37,13 @@
 
                             <div class="form-group row">
                                 <div class="offset-sm-4 col-sm-8">
+                                    {% for message in app.flashes('info') %}
+
+                                        <div class="alert alert-success">
+                                            {{ message }}
+
+                                        </div>
+                                    {% endfor %}
                                     {{ form_widget(form) }}
                                     <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Confimer">
                                     <a class="btn btn-secondary waves-effect waves-light" href="{{ path('club') }}">
