@@ -38,35 +38,12 @@ class Garde
     private $nomGarde;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="prix_garde", type="float", precision=10, scale=0, nullable=false)
-     *  @Assert\NotBlank
-     */
-    private $prixGarde;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="duree_garde", type="string", length=50, nullable=false)
      *  @Assert\NotBlank
      */
     private $dureeGarde;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_garde", type="string", length=255, nullable=false)
-     *
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 30,
-     *      minMessage = "Le Titre doit contenir au moins {{ limit }} caractéres ",
-     *      maxMessage = "Le Titre doit contenir au plus {{ limit }} caractéres "
-     * )
-     * @Assert\NotBlank
-     */
-    private $descriptionGarde;
 
     /**
      * @ORM\OneToMany(targetEntity="Enfant", mappedBy="idGarde")
@@ -124,21 +101,7 @@ class Garde
         $this->nomGarde = $nomGarde;
     }
 
-    /**
-     * @return float
-     */
-    public function getPrixGarde()
-    {
-        return $this->prixGarde;
-    }
 
-    /**
-     * @param float $prixGarde
-     */
-    public function setPrixGarde($prixGarde)
-    {
-        $this->prixGarde = $prixGarde;
-    }
 
     /**
      * @return string
@@ -156,21 +119,7 @@ class Garde
         $this->dureeGarde = $dureeGarde;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescriptionGarde()
-    {
-        return $this->descriptionGarde;
-    }
 
-    /**
-     * @param string $descriptionGarde
-     */
-    public function setDescriptionGarde($descriptionGarde)
-    {
-        $this->descriptionGarde = $descriptionGarde;
-    }
 
     /**
      * Add enfant

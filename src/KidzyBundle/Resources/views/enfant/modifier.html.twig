@@ -27,11 +27,18 @@
                     </ul>
                     <div class="custom-modal-text text-left">
 
+                        <form action="{{ path('modifier',{'id': enfant.idEnfant}) }} "  method="POST" enctype="multipart/form-data">
+                            <div class="text-center">
+
+                            <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-xl img-thumbnail mb-2" alt="profile-image">
+
+                            </div>
+
                         <div class="form-group">
                             <div class="col-sm-7">
                                 <p class="text-muted font-13"><strong>Image :</strong> </p>
 
-                                <input type ="text" class="form-control"name="description"value={{ enfant.imageEnfant}}>
+                                <input type ="text" class="form-control"name="imageFile"value={{ enfant.imageFile}}>
 
                             </div>
                         </div>
@@ -40,7 +47,7 @@
                             <div class="col-sm-7">
                                 <p class="text-muted font-13"><strong>Nom :</strong> </p>
 
-                                <input type ="text" class="form-control"name="description"value={{ enfant.nomEnfant}}>
+                                <input type ="text" class="form-control"name="nomEnfant"value={{ enfant.nomEnfant}}>
 
                             </div>
 
@@ -51,7 +58,7 @@
                             <div class="col-sm-7">
                                 <p class="text-muted font-13"><strong>Prenom :</strong> </p>
 
-                                <input type ="text" class="form-control"name="description"value={{ enfant.prenomEnfant}}>
+                                <input type ="text" class="form-control"name="prenomEnfant"value={{ enfant.prenomEnfant}}>
 
                             </div>
 
@@ -61,7 +68,11 @@
                             <div class="col-sm-7">
                                 <p class="text-muted font-13"><strong>Classe :</strong> </p>
 
-                                <input type ="text" class="form-control"name="description"value={{ enfant.idClasse.libelleCla}}>
+                          <select class="form-control" id="enfant" name="idClasse">
+                                    {% for classes in classe %}
+                                        <option  value="{{ classes.idClasse }}">{{ classes.libelleCla}}</option>
+                                    {% endfor %}
+                                </select>
 
                             </div>
 
@@ -72,29 +83,28 @@
                             <div class="col-sm-7">
                                 <p class="text-muted font-13"><strong>Date de naissnace :</strong> </p>
 
-                                <input type ="text" class="form-control"name="description"value={{ enfant.datenEnfant}}>
+                                <input type ="text" class="form-control"name="datenEnfant"value={{ enfant.datenEnfant}}>
 
                             </div>
 
                         </div>
 
+
                         <div class="form-group">
 
 
+                           <input type="submit" class="btn btn-success btn-md waves-effect waves-light" value="Modifier">
 
-                            <a class="btn btn-success btn-md waves-effect waves-light" href="{{ path('modifier',{'idEnfant': enfant.idEnfant}) }} ">
-                                Enregistrer
-                            </a>
                             <a class="btn btn-danger waves-effect width-md waves-light" href="{{ path('enfant_supprimer',{'idEnfant': enfant.idEnfant}) }} ">
-                                Supprimer
+                                   Supprimer
                             </a>
                             <a class="btn btn-light waves-effect waves-light mr-1" href="{{ path('enfant') }}">
-                                Annuler
-                            </a>
+                                     Annuler
+                             </a>
 
 
                         </div>
-
+                        </form>
                     </div>
                     <!-- end tab-content -->
                 </div>

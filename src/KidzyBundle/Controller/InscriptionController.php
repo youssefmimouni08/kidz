@@ -48,7 +48,30 @@ class InscriptionController extends Controller
 
         ));
     }
+    public function showParentAction(Request $request,Inscription $inscription)
+    {
+        $id = $request->get('idInscrit');
 
+        $idClub = $request->get('idClub');
+        $idEnfant = $request->get('idEnfant');
+        $em = $this->getDoctrine()->getManager();
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->find($idEnfant);
+        $clubs = $em->getRepository('KidzyBundle:Club')->find($idClub);
+        $inscrit = $em->getRepository('KidzyBundle:Inscription')->find($id);
+
+        $deleteForm = $this->createDeleteFrontForm($inscription);
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+
+
+        $details=$repository->myfinfClubDetails($idClub,$idEnfant,$id);
+        return $this->render('@Kidzy/club/showParent.html.twig', array(
+            'enfant' => $enfant,
+            'clubs' => $clubs,
+            'inscription' => $inscrit,
+
+            'delete_form' => $deleteForm->createView()
+        ));
+    }
     private function createDeleteForm(Inscription $Inscription,$idClub)
     {
         return $this->createFormBuilder()
@@ -57,7 +80,14 @@ class InscriptionController extends Controller
             ->getForm()
             ;
     }
-
+    private function createDeleteFrontForm(Inscription $Inscription)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('inscription_delete_Front', array('idInscrit' => $Inscription->getIdInscrit())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
     public function deleteAction(Request $request, Inscription $club, $idClub)
     {
         $form = $this->createDeleteForm( $club,$idClub);
@@ -67,8 +97,19 @@ class InscriptionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove( $club);
             $em->flush();
+
         } return $this->redirectToRoute('inscription_enfantAdmin',array('idClub' => $idClub));
-    }
+    } public function deleteFrontAction(Request $request, Inscription $club)
+{
+    $form = $this->createDeleteFrontForm( $club);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove( $club);
+        $em->flush();
+    } return $this->redirectToRoute('clubParent');
+}
 
     public function newAction(Request $request)
 
@@ -84,26 +125,86 @@ class InscriptionController extends Controller
         $inscription = new Inscription();
         $form = $this->createForm('KidzyBundle\Form\InscriptionType', $inscription);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
-            $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
-            if ($existe) {
-                $this->addFlash('message', 'Enfant inscrit déja');
+        if ($form->isSubmitted() && $form->isValid()&& !$existe) {
 
-            }else {
+            $today = new \DateTime('now');
+            $inscription->setDateInscrit($today);
+            $em->persist($inscription);
+            $em->flush();
 
-                $today = new \DateTime('now');
-                $inscription->setDateInscrit($today);
-                $em->persist($inscription);
-                $em->flush();
-                $this->addFlash('message', 'Enfant inscrit avec succés');
+            $this->addFlash('info', 'Enfant inscrit avec succés');
+            return $this->redirectToRoute('inscription_enfantAdmin',array('idClub' => $club->getIdClub()));
+
+
+
+        }else if ($existe)  {
+
+            $this->addFlash('info', 'Enfant inscrit déja');
+
+
             }
-         return $this->redirectToRoute('inscription_enfantAdmin',array('idClub' => $club->getIdClub()));
-        }
+
+
 
         return $this->render('@Kidzy/inscription/new.html.twig', array(
+
+        'club' => $idClub,
+
+            'inscription' => $inscription,
+            'liste' => $listenfants,
+            'form' => $form->createView(),
+        ));
+    }
+    public function newFrontAction(Request $request)
+
+    {
+        $idClub = $request->get('idClub');
+        $em = $this->getDoctrine()->getManager();
+
+        $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $listenfants=$repository->myfinfDomaine($idClub);
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $idParent = $user->getId();
+        $inscription = new Inscription();
+        $form = $this->createForm('KidzyBundle\Form\InscriptionType', $inscription);
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
+
+
+        if ($form->isSubmitted() && $form->isValid()&& !$existe) {
+
+            $today = new \DateTime('now');
+            $inscription->setDateInscrit($today);
+            $em->persist($inscription);
+            $em->flush();
+
+            $this->addFlash('info', 'Enfant inscrit avec succés');
+            return $this->redirectToRoute('clubindexFront');
+
+
+
+        }else if ($existe)  {
+
+            $this->addFlash('info', 'Enfant inscrit déja');
+
+
+        }else{ }
+
+
+
+        return $this->render('@Kidzy/inscription/newFront.html.twig', array(
+
+            'club' => $idClub,
+
             'inscription' => $inscription,
             'liste' => $listenfants,
             'form' => $form->createView(),

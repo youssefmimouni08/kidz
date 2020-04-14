@@ -4,13 +4,18 @@ namespace KidzyBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Enfant
  *
  * @ORM\Table(name="enfant", indexes={@ORM\Index(name="fk_id_p", columns={"id"}), @ORM\Index(name="fk_id_classe", columns={"id_classe"})})
  * @ORM\Entity
+ *
+ * @Vich\Uploadable
  */
 class Enfant
 {
@@ -52,18 +57,31 @@ class Enfant
     private $prenomEnfant;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @Assert\NotBlank
+     *
      * @ORM\Column(name="image_enfant", type="string", length=255, nullable=false)
      */
     private $imageEnfant;
+
+    /**
+     *
+     * @Vich\UploadableField(mapping="enfant_image", fileNameProperty="imageEnfant")
+     *
+     * @var File|null
+     * @Assert\Image(
+     *     mimeTypes= { "image/png" , "image/jpeg"  },
+     *
+     * )
+     */
+    private $imageFile;
 
     /**
      * @var string
      *  @Assert\NotBlank
      * @ORM\Column(name="dateN_enfant", type="string", length=255, nullable=false)
      */
+
     private $datenEnfant;
 
     /**
@@ -108,9 +126,18 @@ class Enfant
 
 
     /**
+     * @ORM\Column(type="datetime",nullable=true)
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="Facture", mappedBy="idEnf")
      */
     private $factures;
+
 
 
 
@@ -229,10 +256,9 @@ class Enfant
      *
      * @return Enfant
      */
-    public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse = null)
+    public function setIdClasse(\KidzyBundle\Entity\Classe $idClasse )
     {
         $this->idClasse = $idClasse;
-
         return $this;
     }
 
@@ -349,6 +375,43 @@ class Enfant
     public function setIdGarde($idGarde)
     {
         $this->idGarde = $idGarde;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile ) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
 

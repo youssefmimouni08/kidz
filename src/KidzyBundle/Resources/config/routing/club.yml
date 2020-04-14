@@ -4,6 +4,9 @@ club:
 clubParent:
     path:     /liste
     defaults: { _controller: KidzyBundle:Club:indexParent}
+clubindexFront:
+    path:     /listes
+    defaults: { _controller: KidzyBundle:Club:indexClub}
 club_new:
     path:   admin/new
     defaults: { _controller: KidzyBundle:Club:new }

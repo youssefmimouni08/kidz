@@ -27,7 +27,12 @@ avisF:
     path:     /avisF
     defaults: { _controller: "KidzyBundle:Avis:avisF" }
 
+
 Mesavis:
     path:     /Mesavis
     defaults: { _controller: "KidzyBundle:Avis:Mesavis" }
+
+avis_supprimer:
+    path:     /{idAvis}/supprimer
+    defaults: { _controller: "KidzyBundle:Avis:supprimer" }
 

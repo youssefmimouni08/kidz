@@ -30,21 +30,6 @@
                                 {{ form_errors(edit_form.dureeGarde) }}
                             </div>
 
-                            <div class="form-group row">
-                                {{ form_label(edit_form.prixGarde ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
-                                <div class="col-sm-7">
-                                    {{ form_widget(edit_form.prixGarde , {'attr': {'class': 'form-control' , 'placeholder': 'Prix' }}) }}
-                                </div>
-                                {{ form_errors(edit_form.prixGarde) }}
-                            </div>
-
-                            <div class="form-group row">
-                                {{ form_label(edit_form.descriptionGarde ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
-                                <div class="col-sm-7">
-                                    {{ form_widget(edit_form.descriptionGarde , {'attr': {'class': 'form-control' , 'placeholder': 'Description'}}) }}
-                                </div>
-                                {{ form_errors(edit_form.descriptionGarde) }}
-                            </div>
 
                             <div class="button-list d-flex justify-content-start">
                                 {{ form_end(edit_form) }}

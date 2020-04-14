@@ -97,6 +97,27 @@ class User extends BaseUser
     private $avis;
 
     /**
+     * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Reclamations", mappedBy="id")
+     */
+    private $rec;
+
+    /**
+     * @return mixed
+     */
+    public function getRec()
+    {
+        return $this->rec;
+    }
+
+    /**
+     * @param mixed $rec
+     */
+    public function setRec($rec)
+    {
+        $this->rec = $rec;
+    }
+
+    /**
      * @return mixed
      */
     public function getAvis()
@@ -248,6 +269,14 @@ class User extends BaseUser
     public function getFactures()
     {
         return $this->factures;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $enfants
+     */
+    public function setEnfants($enfants)
+    {
+        $this->enfants = $enfants;
     }
 
     /**

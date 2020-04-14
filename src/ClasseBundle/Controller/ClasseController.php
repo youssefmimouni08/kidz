@@ -3,8 +3,11 @@
 namespace ClasseBundle\Controller;
 
 use KidzyBundle\Entity\Classe;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
+
 
 /**
  * Classe controller.
@@ -26,7 +29,6 @@ class ClasseController extends Controller
             'classes' => $classes,
         ));
     }
-
     /**
      * Creates a new classe entity.
      *
@@ -120,5 +122,23 @@ class ClasseController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    public function exportAction()
+    {
+        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
+        $excelFilepath =  $webDirectory . '/classe.csv';
+        $em= $this->getDoctrine()->getManager();
+        $classes = $em->getRepository('KidzyBundle:Classe')->findAll();
+        #Writer
+        $writer = $this->container->get('egyg33k.csv.writer');
+        $csv = $writer::createFromFileObject(new \SplTempFileObject());
+        $csv->insertOne(['Liste des classee']);
+        $csv->insertOne(['    ']);
+        $csv->insertOne(['id_classe' , 'Libelle classe' , 'Description']);
+        foreach ($classes as $classe) {
+            $csv->insertOne([$classe->getIdClasse() , $classe->getLibelleCla() ,$classe->getDescription()]);
+        }
+        $csv->output('classe.csv');
+        die;
     }
 }
