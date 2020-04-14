@@ -1,7 +1,6 @@
 <?php
 
 namespace KidzyBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
