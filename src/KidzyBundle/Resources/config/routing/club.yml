@@ -23,3 +23,15 @@ club_edit:
     path:     admin/{idClub}/edit
     defaults: { _controller: KidzyBundle:Club:edit }
     methods:  [GET, POST]
+club_showEvent:
+    path:     front/{idClub}/showEvent
+    defaults: { _controller: KidzyBundle:Club:showEvent }
+    methods:  GET
+club_charts:
+    path:     admin/charts
+    defaults: { _controller: KidzyBundle:Club:charts }
+    methods:  GET
+print_club:
+    path:     front/{idEnfant}/{idInscrit}/{idClub}/print
+    defaults: { _controller: KidzyBundle:Club:print }
+    methods:  GET
