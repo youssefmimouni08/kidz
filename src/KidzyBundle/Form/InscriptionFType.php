@@ -5,10 +5,11 @@ namespace KidzyBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InscriptionType extends AbstractType
+class InscriptionFType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,17 +17,17 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('descriptionInscrit')->add('idEnfant',EntityType::class,
-                array(
-                    'class'=>'KidzyBundle:Enfant',
-                    'choice_label'=>'prenomEnfant',
-                    'multiple'=>false
-                ))->add('idClub',EntityType::class,
-                array(
-                    'class'=>'KidzyBundle:Club',
-                    'choice_label'=>'nomClub',
-                    'multiple'=>false
-                ));
-
+            array(
+                'class'=>'KidzyBundle:Enfant',
+                'choice_label'=>'prenomEnfant',
+                'multiple'=>false
+            ))->add('idClub',EntityType::class,
+            array(
+                'class'=>'KidzyBundle:Club',
+                'choice_label'=>'nomClub',
+                'attr' => ['readonly' => true],
+                'multiple'=>false
+            ));
     }/**
      * {@inheritdoc}
      */

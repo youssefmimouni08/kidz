@@ -8,29 +8,27 @@
                 <div class="col-lg-6">
                     <div class="title text-center mb-4">
                         <h4> </h4>
-                        <h4 class="text-primary small-title">Autres clubs </h4>
+                        <h4 class="text-primary small-title">Mes evenements </h4>
 
                     </div>
                 </div>
             </div>
             <!-- end row -->
             <div class="row">
-                {% for c in club %}
+                {% for c in event %}
 
                     <div class="col-lg-4">
                             <div class="pricing-plans bg-white text-center p-4 mt-4">
-                                <h5 class="plan-title mt-2 mb-4">{{ c.nomClub }}</h5>
+                                <h5 class="plan-title mt-2 mb-4">{{ c.nomEvent}}</h5>
+                                <h5 class="plan-title mt-2 mb-4">{{ club.nomClub}}</h5>
 
-                                <div class="plan-price">
-                                    <h5 class="plan-duration text-muted font-18">{{ c.descriptionClub|escape }} </h5>
-                                </div>
 
 
 
 
 
                                 <div class="pt-4">
-                                    <a  class="btn btn-custom btn-block" href="{{ path('club_showParentA', { 'idClub': c.idClub }) }}">Details</a>
+                                    <a  class="btn btn-custom btn-block">Details</a>
                                 </div>
                             </div>
                         </form>
@@ -43,14 +41,7 @@
                 <h5>      </h5>
 
             </div>
-            <div class="title text-center mb-4">
 
-
-                <a align ="right"class="btn btn-secondary waves-effect waves-light" href="{{ path('clubParent')}}">
-                   Retour
-                </a>
-                    <a   align ="right"class="btn btn-secondary waves-effect waves-light" href="{{ path('inscription_newFront')}}">S'inscrire</a>
-            </div>
             <!-- end row -->
         </div>
 
