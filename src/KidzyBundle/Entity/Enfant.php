@@ -127,7 +127,7 @@ class Enfant
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      *
      * @var \DateTimeInterface|null
      */
