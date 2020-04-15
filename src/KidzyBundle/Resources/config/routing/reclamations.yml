@@ -25,3 +25,11 @@ reclamations_delete:
 MesRec:
     path:     /Mesrec
     defaults: { _controller: "KidzyBundle:Reclamations:MesRec" }
+
+print:
+    path:     /print/{idRec}
+    defaults: { _controller: "KidzyBundle:Reclamations:print" }
+
+chartsR:
+    path:     /chartsR
+    defaults: { _controller: "KidzyBundle:Reclamations:chartsR" }
