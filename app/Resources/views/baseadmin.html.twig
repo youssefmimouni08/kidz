@@ -18,6 +18,25 @@
 
 </head>
 <body class="left-side-menu-dark">
+{# Call NotificationsBundles's assets #}
+{{ notifications_assets() }}
+<script>
+    /**
+     * After calling notifications_assets() "pusher" is now available
+     * and you can use it this way
+     */
+
+        // select the channel you want to listen to
+    var channel = pusher.subscribe("notifications");// notifications channel
+    channel.bind("my-event", function(data) {
+        console.log('from notifications channel', data);
+    });
+
+    var channel = pusher.subscribe("messages");// messages channel
+    channel.bind("my-event", function(data) {
+        console.log('from messages channel', data);
+    });
+</script>
 
 <div id="preloader">
     <div id="status">
@@ -150,8 +169,9 @@
                             <li class="menu-title">Navigation</li>
 
                             <li>
-                                <a href="{{ path('admin_homepage') }}">
+                                <a href="{{ path('club_charts') }}">
                                     <i class="mdi mdi-view-dashboard"></i>
+
                                     <span> Dashboard </span>
                                 </a>
                             </li>
