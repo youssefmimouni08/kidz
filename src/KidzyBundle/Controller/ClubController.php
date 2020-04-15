@@ -2,10 +2,12 @@
 
 namespace KidzyBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use KidzyBundle\Entity\Club;
 use KidzyBundle\Entity\Event;
 use KidzyBundle\Entity\Inscription;
 use KidzyBundle\Entity\Notification;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -155,5 +157,58 @@ public function newAction(Request $request)
             'edit_form' => $editForm->createView(),
             'delete_form' => $Form->createView(),
         ));
+    }
+    public function chartsAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $club = $em->getRepository('KidzyBundle:Club')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
+            $listes= $repository->myfinfnbres();
+        $data=array();
+        $a=['nomClub', 'NB'];
+        array_push($data,$a);
+        foreach($listes as $c) {
+
+            $a=array($c['nomClub'],$c['NB']);
+            array_push($data,$a);
+
+        }
+            $pieChart->getData()->setArrayToDataTable(
+                $data
+            );
+            $pieChart->getOptions()->setTitle('Clubs ');
+            $pieChart->getOptions()->setHeight(500);
+            $pieChart->getOptions()->setWidth(900);
+            $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+            $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+            $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+            $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+            $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('@Kidzy/club/Chart.html.twig', array('piechart' => $pieChart));
+    }
+    public function printAction(Request $request)
+    {
+        $idClub = $request->get('idClub');
+        $idEnfant = $request->get('idEnfant');
+        $idInscrit= $request->get('idInscrit');
+        $em = $this->getDoctrine()->getManager();
+        $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->find($idEnfant);
+        $inscrit = $em->getRepository('KidzyBundle:Inscription')->find($idInscrit);
+
+
+        $html = $this->renderView('@Kidzy/club/print.html.twig', array(
+            'enfant'  => $enfant,
+            'club' => $club,
+            'inscrit' => $inscrit
+        ));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'clubn.pdf'
+        );
     }
 }

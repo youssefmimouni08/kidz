@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new ClasseBundle\ClasseBundle(),
             new SBC\NotificationsBundle\NotificationsBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
 
         ];
 
@@ -67,4 +68,5 @@ class AppKernel extends Kernel
         });
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
 }

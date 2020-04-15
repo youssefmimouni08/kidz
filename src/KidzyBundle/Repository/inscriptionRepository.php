@@ -75,11 +75,24 @@ class inscriptionRepository extends EntityRepository
     }
     public function myfinfnbre($idClub)
     {
-        $qb = $this->getEntityManager()->createQuery("select count(i.idEnfant) from KidzyBundle:Inscription i where  i.idClub=:idClub")
+        $qb = $this->getEntityManager()->createQuery("select count(i.idEnfant) from KidzyBundle:Inscription i JOIN i.idClub c where  i.idClub=:idClub
+        group by c.idClub ")
 
             ->setParameter('idClub', $idClub);
 
         return $query = $qb->getSingleScalarResult();
+
+
+
+    }
+    public function myfinfnbres()
+    {
+        $qb = $this->getEntityManager()->createQuery(
+            "select c.nomClub nomClub , count(i.idEnfant) NB 
+            from KidzyBundle:Inscription i JOIN i.idClub c    group by c.idClub");
+
+
+        return $query = $qb->getResult();
 
 
 

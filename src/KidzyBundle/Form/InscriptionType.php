@@ -18,7 +18,7 @@ class InscriptionType extends AbstractType
         $builder->add('descriptionInscrit')->add('idEnfant',EntityType::class,
                 array(
                     'class'=>'KidzyBundle:Enfant',
-                    'choice_label'=>'nomEnfant',
+                    'choice_label'=>'prenomEnfant',
                     'multiple'=>false
                 ))->add('idClub',EntityType::class,
                 array(
@@ -26,6 +26,7 @@ class InscriptionType extends AbstractType
                     'choice_label'=>'nomClub',
                     'multiple'=>false
                 ));
+
     }/**
      * {@inheritdoc}
      */

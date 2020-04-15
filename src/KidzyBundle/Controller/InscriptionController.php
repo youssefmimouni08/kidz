@@ -73,6 +73,21 @@ class InscriptionController extends Controller
             'delete_form' => $deleteForm->createView()
         ));
     }
+    public function showParentAAction(Request $request)
+    {
+
+        $idClub = $request->get('idClub');
+        $em = $this->getDoctrine()->getManager();
+        $clubs = $em->getRepository('KidzyBundle:Club')->find($idClub);
+
+
+
+        return $this->render('@Kidzy/club/showParentA.html.twig', array(
+            'clubs' => $clubs,
+
+        ));
+    }
+
     private function createDeleteForm(Inscription $Inscription,$idClub)
     {
         return $this->createFormBuilder()
@@ -163,15 +178,12 @@ class InscriptionController extends Controller
     public function newFrontAction(Request $request)
 
     {
-        $idClub = $request->get('idClub');
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $idParent = $user->getId();
-        $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
         $enfants = $em->getRepository('KidzyBundle:Enfant')->find($idParent);
 
-        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
-        $listenfants=$repository->myfinfDomaine($idClub);
+
         $repositoryF = $this->getDoctrine()->getManager()->getRepository(Enfant::class);
         $enfant=$repositoryF->myfinfEnfant($idParent);
 
@@ -181,14 +193,12 @@ class InscriptionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $editForm = $this->createForm('KidzyBundle\Form\nomClubType', $club);
-        $editForm->handleRequest($request);
         $editForms = $this->createForm('KidzyBundle\Form\nomEnfantType', $enfants);
         $editForms->handleRequest($request);
  $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
         $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
 
-        if ($form->isSubmitted() && $form->isValid()&& !$existe) {
+        if ($form->isSubmitted() && $form->isSubmitted() &&$form->isValid()&& !$existe) {
 
             $today = new \DateTime('now');
             $inscription->setDateInscrit($today);
@@ -211,14 +221,11 @@ class InscriptionController extends Controller
 
         return $this->render('@Kidzy/inscription/newFront.html.twig', array(
 
-            'club' => $idClub,
             'enfant' => $enfant,
             'inscription' => $inscription,
-            'liste' => $listenfants,
 
             'form' => $form->createView(),
-            'formE' => $editForm->createView(),
-            'formEn' => $editForms->createView(),
+
 
         ));
     }
