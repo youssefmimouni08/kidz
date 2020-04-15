@@ -28,6 +28,22 @@ class EventController extends Controller
         ));
     }
 
+    public function indexParentAction()
+    {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $idParent = $user->getId();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $listenfants=$repository->myfinfEvent($idParent);
+        var_dump($idParent);
+        var_dump($listenfants);
+        die();
+
+        return $this->render('@Kidzy/event/event.html.twig', array(
+            'event' => $listenfants,
+        ));
+    }
+
+
     /**
      * Creates a new event entity.
      *
@@ -107,13 +123,6 @@ class EventController extends Controller
         return $this->redirectToRoute('event_index');
     }
 
-    /**
-     * Creates a form to delete a event entity.
-     *
-     * @param Event $event The event entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm(Event $event)
     {
         return $this->createFormBuilder()
@@ -121,5 +130,14 @@ class EventController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    public function eventAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('KidzyBundle:Event')->findAll();
+
+        return $this->render('@Kidzy/event/event.html.twig', array(
+            'event' => $event,
+        ));
     }
 }

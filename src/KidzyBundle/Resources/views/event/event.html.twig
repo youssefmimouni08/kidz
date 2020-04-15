@@ -18,17 +18,34 @@
 
 
                 <div class="col-lg-4">
-                    <form action="">
+                    <form action="{{ path('event', { 'id': event.idEvent }) }}">
+
 
                         <div class="pricing-plans bg-white text-center p-4 mt-4">
                             <div class="dropdown float-right">
 
-
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                </div>
                             </div>
+
+
                             <div>
+
+                                {% if event.imageEvent %}
+                                    <img src="{{ asset('images/enfants/riihem.jpg') }}"  alt="profile-image">
+                                {% endif %}
 
 
                                 <div class="text-left">
+                                    <p class="text-muted font-13"><strong></strong><span class="ml-2"> </span></p>
                                     <p class="text-muted font-13"><strong>Nom  :</strong> <span class="ml-2"> {{ event.nomEvent}}   </span></p>
 
                                     <p class="text-muted font-13"><strong>Date:</strong><span class="ml-2">{{ event.dateEvent |date}} </span></p>
