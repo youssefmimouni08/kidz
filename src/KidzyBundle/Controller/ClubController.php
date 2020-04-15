@@ -2,8 +2,12 @@
 
 namespace KidzyBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use KidzyBundle\Entity\Club;
+use KidzyBundle\Entity\Event;
 use KidzyBundle\Entity\Inscription;
+use KidzyBundle\Entity\Notification;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,6 +21,20 @@ class ClubController extends Controller
      * Lists all Club entities.
      *
      */
+    public function showEventAction( $idClub)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $event=$repository->myfinfEvent($idClub);
+        $clubs = $em->getRepository('KidzyBundle:Club')->find($idClub);
+
+        return $this->render('@Kidzy/club/EventFront.html.twig', array(
+            'event' => $event,
+            'club' => $clubs
+
+        ));
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -43,9 +61,7 @@ class ClubController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
         $listenfants=$repository->myfinfClub($idParent);
-        var_dump($idParent);
-        var_dump($listenfants);
-        die();
+
 
         return $this->render('@Kidzy/club/ClubFront.html.twig', array(
             'club' => $listenfants,
@@ -67,6 +83,16 @@ public function newAction(Request $request)
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
+            $notifications=new Notification();
+            $notifications->setTitle('nouveau Club')
+                ->setDescription($club->getNomClub())
+                ->setRoute('user')
+                ->setParameters(array('id'=>$club->getIdClub()));
+            $em->persist($notifications);
+            $em->flush();
+            $pusher = $this->get('mrad.pusher.notificaitons');
+            $pusher->trigger($notifications);
+
             return $this->redirectToRoute('club_show', array('idClub' => $club->getIdClub()));
         }
 
@@ -131,5 +157,58 @@ public function newAction(Request $request)
             'edit_form' => $editForm->createView(),
             'delete_form' => $Form->createView(),
         ));
+    }
+    public function chartsAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $club = $em->getRepository('KidzyBundle:Club')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
+            $listes= $repository->myfinfnbres();
+        $data=array();
+        $a=['nomClub', 'NB'];
+        array_push($data,$a);
+        foreach($listes as $c) {
+
+            $a=array($c['nomClub'],$c['NB']);
+            array_push($data,$a);
+
+        }
+            $pieChart->getData()->setArrayToDataTable(
+                $data
+            );
+            $pieChart->getOptions()->setTitle('Clubs ');
+            $pieChart->getOptions()->setHeight(500);
+            $pieChart->getOptions()->setWidth(900);
+            $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+            $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+            $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+            $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+            $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('@Kidzy/club/Chart.html.twig', array('piechart' => $pieChart));
+    }
+    public function printAction(Request $request)
+    {
+        $idClub = $request->get('idClub');
+        $idEnfant = $request->get('idEnfant');
+        $idInscrit= $request->get('idInscrit');
+        $em = $this->getDoctrine()->getManager();
+        $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->find($idEnfant);
+        $inscrit = $em->getRepository('KidzyBundle:Inscription')->find($idInscrit);
+
+
+        $html = $this->renderView('@Kidzy/club/print.html.twig', array(
+            'enfant'  => $enfant,
+            'club' => $club,
+            'inscrit' => $inscrit
+        ));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'clubn.pdf'
+        );
     }
 }

@@ -23,8 +23,12 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new ClasseBundle\ClasseBundle(),
+            new SBC\NotificationsBundle\NotificationsBundle(),
+            new Yectep\PhpSpreadsheetBundle\PhpSpreadsheetBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
 
+            new Egyg33k\CsvBundle\Egyg33kCsvBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -66,4 +70,5 @@ class AppKernel extends Kernel
         });
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
 }

@@ -3,6 +3,7 @@
 namespace KidzyBundle\Controller;
 
 use KidzyBundle\Entity\Inscription;
+use KidzyBundle\Entity\Enfant;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,6 +73,21 @@ class InscriptionController extends Controller
             'delete_form' => $deleteForm->createView()
         ));
     }
+    public function showParentAAction(Request $request)
+    {
+
+        $idClub = $request->get('idClub');
+        $em = $this->getDoctrine()->getManager();
+        $clubs = $em->getRepository('KidzyBundle:Club')->find($idClub);
+
+
+
+        return $this->render('@Kidzy/club/showParentA.html.twig', array(
+            'clubs' => $clubs,
+
+        ));
+    }
+
     private function createDeleteForm(Inscription $Inscription,$idClub)
     {
         return $this->createFormBuilder()
@@ -155,24 +171,27 @@ class InscriptionController extends Controller
     public function newFrontAction(Request $request)
 
     {
-        $idClub = $request->get('idClub');
         $em = $this->getDoctrine()->getManager();
-
-        $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
-        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
-        $listenfants=$repository->myfinfDomaine($idClub);
-
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $idParent = $user->getId();
+        $enfants = $em->getRepository('KidzyBundle:Enfant')->find($idParent);
+
+
+        $repositoryF = $this->getDoctrine()->getManager()->getRepository(Enfant::class);
+        $enfant=$repositoryF->myfinfEnfant($idParent);
+
         $inscription = new Inscription();
-        $form = $this->createForm('KidzyBundle\Form\InscriptionType', $inscription);
+        $form = $this->createForm('KidzyBundle\Form\InscriptionFType', $inscription);
         $form->handleRequest($request);
+
         $em = $this->getDoctrine()->getManager();
 
-        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $editForms = $this->createForm('KidzyBundle\Form\nomEnfantType', $enfants);
+        $editForms->handleRequest($request);
+ $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
         $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
 
-        if ($form->isSubmitted() && $form->isValid()&& !$existe) {
+        if ($form->isSubmitted() && $form->isSubmitted() &&$form->isValid()&& !$existe) {
 
             $today = new \DateTime('now');
             $inscription->setDateInscrit($today);
@@ -190,11 +209,12 @@ class InscriptionController extends Controller
         }
         return $this->render('@Kidzy/inscription/newFront.html.twig', array(
 
-            'club' => $idClub,
-
+            'enfant' => $enfant,
             'inscription' => $inscription,
-            'liste' => $listenfants,
+
             'form' => $form->createView(),
+
+
         ));
     }
 

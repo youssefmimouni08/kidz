@@ -17,50 +17,15 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h1>Classe list</h1>
 
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap">
-                                <thead>
-                                <tr>
-                                    <th >ID</th>
-                                    <th>Libelle classe</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
+                            <div id="div_chart"></div>
+
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                                {{ gc_draw(piechart, 'div_chart') }}
+                            </script>
 
 
-                                <tbody>
-                                {% for classe in classes %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('classe_show', { 'idClasse': classe.idClasse }) }}">{{ classe.idClasse }}</a>
-                                        </td>
-                                        <td>{{ classe.libelleCla }}</td>
-                                        <td>{{ classe.description }}</td>
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ path('classe_show', { 'idClasse': classe.idClasse }) }}"><i class="dripicons-blog"></i> | Afficher Les Details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('classe_edit', { 'idClasse': classe.idClasse }) }}"><i class="dripicons-pencil"></i> | Modifier</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-
-                            <ul>
-                                <li>
-                                    <a href="{{ path('classe_new') }}">Ajouter Classe</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('classe_export') }}">exporter les données</a>
-                                </li>
-                            </ul>
                         </div> <!-- end card-box -->
                     </div><!-- end col -->
                 </div>
@@ -87,3 +52,4 @@
     <script src="{{ asset('back/assets/libs/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('back/assets/js/pages/datatables.init.js') }}"></script>
 {% endblock %}
+
