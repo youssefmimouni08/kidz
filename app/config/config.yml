@@ -99,6 +99,15 @@ knp_snappy:
         enabled:    true
         binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
         options:    []
+
+# NotificationsBundle configuration
+notifications:
+    app_id:     975645
+    app_key:    b546bbab635592e73c7a
+    app_secret: a297336c773d2eedb06a
+    cluster:    mt1
+
+
 vich_uploader:
     db_driver: orm
     mappings:
@@ -120,4 +129,6 @@ liip_imagine :
             # list of transformations to apply (the "filters")
             filters :
                 thumbnail  : { size : [100, 100], mode : outbound }
+cmen_google_charts:
+    version: "current"
 

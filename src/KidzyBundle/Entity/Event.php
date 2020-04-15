@@ -2,7 +2,6 @@
 
 namespace KidzyBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,9 +13,10 @@ use Symfony\Component\HttpFoundation\File\File;
  * Event
  *
  * @ORM\Table(name="event")
- * @ORM\Entity
+ *
  *
  * @Vich\Uploadable
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\inscriptionRepository")
  */
 class Event
 {
