@@ -2,9 +2,11 @@
 
 namespace KidzyBundle\Controller;
 
+use KidzyBundle\Entity\Enfant;
 use KidzyBundle\Entity\Garde;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use KidzyBundle\Repository\gardeRepository;
 
 class GardeController extends Controller
 {
@@ -120,13 +122,32 @@ class GardeController extends Controller
 
     public function listAction(Request $request, Garde $garde)
     {
+        $idGarde = $request->get('idGarde');
+        $repository = $this->getDoctrine()->getManager()->getRepository(Garde::class);
+        $listenfants=$repository->myListEnfant($idGarde);
 
         return $this->render('@Kidzy/garde/list.html.twig', array(
             'garde' => $garde,
+            'idGarde' => $idGarde,
+            'listenfants' => $listenfants,
 
         ));
 
     }
+
+    public function detailEnfantAction(Request $request,Garde $garde,Enfant $enfant )
+    {
+        $idGarde = $request->get('idGarde');
+        return $this->render('@Kidzy/garde/detail.html.twig', array(
+            'garde' => $garde,
+            'idGarde' => $idGarde,
+            'enfant' => $enfant,
+
+        ));
+    }
+
+
+
 
 
     public function gardeAction()
@@ -136,4 +157,14 @@ class GardeController extends Controller
 
         return $this->render('@Kidzy/garde/garde.html.twig' , array('gardes' => $gardes  ));
     }
+
+    public function newEnfantAction(Request $request)
+    {
+
+        return $this->render('@Kidzy/garde/newEnfant.html.twig', array(
+
+        ));
+    }
+
+
 }

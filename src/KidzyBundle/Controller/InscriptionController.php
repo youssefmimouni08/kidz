@@ -19,7 +19,7 @@ class InscriptionController extends Controller
      */
     public function listeAction(Request $request ,$idClub)
     {        $idClub = $request->get('idClub');
-        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class) ;
         $listenfants=$repository->myfinfDomaine($idClub);
 
         return $this->render('@Kidzy/inscription/listeAdmin.html.twig', array('liste' => $listenfants,'idClub'=>$idClub));
@@ -120,8 +120,6 @@ class InscriptionController extends Controller
         $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
         $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
         $listenfants=$repository->myfinfDomaine($idClub);
-
-
         $inscription = new Inscription();
         $form = $this->createForm('KidzyBundle\Form\InscriptionType', $inscription);
         $form->handleRequest($request);
@@ -139,16 +137,11 @@ class InscriptionController extends Controller
             $this->addFlash('info', 'Enfant inscrit avec succés');
             return $this->redirectToRoute('inscription_enfantAdmin',array('idClub' => $club->getIdClub()));
 
-
-
         }else if ($existe)  {
 
             $this->addFlash('info', 'Enfant inscrit déja');
 
-
             }
-
-
 
         return $this->render('@Kidzy/inscription/new.html.twig', array(
 
@@ -179,7 +172,6 @@ class InscriptionController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
         $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
 
-
         if ($form->isSubmitted() && $form->isValid()&& !$existe) {
 
             $today = new \DateTime('now');
@@ -190,17 +182,12 @@ class InscriptionController extends Controller
             $this->addFlash('info', 'Enfant inscrit avec succés');
             return $this->redirectToRoute('clubindexFront');
 
-
-
         }else if ($existe)  {
 
             $this->addFlash('info', 'Enfant inscrit déja');
 
 
         }
-
-
-
         return $this->render('@Kidzy/inscription/newFront.html.twig', array(
 
             'club' => $idClub,

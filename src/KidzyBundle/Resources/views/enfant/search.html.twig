@@ -26,10 +26,10 @@
                 <div class="col-md-4" id="searchWrapper">
             <li class="d-none d-sm-block right">
 
-                <form class="app-search">
-                    <div class="app-search-box">
+                <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('enfant_search') }}">
+                    <div class="input-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" class="form-control" placeholder="Search..."name ="search">
                             <div class="input-group-append">
                                 <button class="btn" type="submit">
                                     <i class="fe-search"></i>
@@ -38,6 +38,8 @@
                         </div>
                     </div>
                 </form>
+
+           
             </li>
             </div>
             </div>

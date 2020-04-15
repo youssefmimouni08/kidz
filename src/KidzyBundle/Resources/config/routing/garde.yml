@@ -32,3 +32,13 @@ garde:
     path:     /garde
     defaults: { _controller: "KidzyBundle:Garde:garde" }
 
+garde_detailEnfant:
+    path:     admin/{idGarde}/{idEnfant}/detail
+    defaults: { _controller: "KidzyBundle:Garde:detailEnfant" }
+
+garde_newEnfant:
+    path:     admin/newEnfant
+    defaults: { _controller: "KidzyBundle:Garde:newEnfant" }
+    methods:  [GET, POST]
+
+
