@@ -30,7 +30,7 @@
                 <p class="card__email">{{ user.email }}</p>
             </div>
 
-            <h1 class="card__price">{{ pack.prixPack }}<span>DT</span></h1>
+            <h1 class="card__price">{{ prix }}<span>DT</span></h1>
 
             <p class="card__method">Details Achat</p>
             <div class="card__payment">
@@ -48,7 +48,7 @@
             </div>
 
         </div>
-        <a href="{{ path('print' , { 'idPack': pack.idPack , 'idEnfant': enfant.idEnfant , 'idParent': user.id , 'idFacture': facture.idFacture } ) }}" class="btn btn-dark ">Imprimer</a>
+        <a href="{{ path('print' , { 'idPack': pack.idPack , 'idEnfant': enfant.idEnfant , 'idParent': user.id , 'idFacture': facture.idFacture,'prix':prix,'end':due } ) }}" class="btn btn-dark ">Imprimer</a>
         <a href="{{ path('user_homepage') }}"  class="btn btn-primary ">Retour</a>
     </div>
 

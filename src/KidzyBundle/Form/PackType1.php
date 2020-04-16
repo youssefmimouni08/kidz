@@ -2,7 +2,11 @@
 
 namespace KidzyBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +17,15 @@ class PackType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomPack')->add('prixPack')->add('descriptionPack')->add('frais');
+        $builder->add('nomPack')->add('prixPack',HiddenType::class , [
+            'empty_data' => 150,
+        ])->add('descriptionPack')
+            ->add('frais' , EntityType::class,[
+                'class'        => 'KidzyBundle:Frais',
+                'label' => 'Frais',
+                'expanded' => false,
+                'multiple' => true,
+            ]);
     }/**
      * {@inheritdoc}
      */

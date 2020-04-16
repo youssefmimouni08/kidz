@@ -137,6 +137,10 @@ class Enfant
      * @ORM\OneToMany(targetEntity="Facture", mappedBy="idEnf")
      */
     private $factures;
+    /**
+     * @ORM\OneToMany(targetEntity="attachment", mappedBy="idEnfant")
+     */
+    private $attachments;
 
 
 
@@ -298,6 +302,8 @@ class Enfant
     public function __construct()
     {
         $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -332,6 +338,39 @@ class Enfant
     public function getFactures()
     {
         return $this->factures;
+    }
+    /**
+     * Add attachment
+     *
+     * @param \KidzyBundle\Entity\attachment $attachment
+     *
+     * @return Enfant
+     */
+    public function addAttachment(\KidzyBundle\Entity\attachment $attachment)
+    {
+        $this->attachments[] = $attachment;
+
+        return $this;
+    }
+
+    /**
+     * Remove attachment
+     *
+     * @param \KidzyBundle\Entity\attachment $attachment
+     */
+    public function removeAttachment(\KidzyBundle\Entity\attachment $attachment)
+    {
+        $this->attachments->removeElement($attachment);
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttachements()
+    {
+        return $this->attachments;
     }
 
     /**

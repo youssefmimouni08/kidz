@@ -35,6 +35,12 @@ class Facture implements JsonSerializable
      * @ORM\Column(name="date_facture", type="date", nullable=false)
      */
     private $dateFacture;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="due_date_facture", type="string", nullable=false)
+     */
+    private $due_dateFacture;
 
     /**
      * @ORM\ManyToOne(targetEntity="Enfant", inversedBy="factures")
@@ -147,6 +153,29 @@ class Facture implements JsonSerializable
     public function getDateFacture()
     {
         return $this->dateFacture;
+    }
+    /**
+     * Set due_dateFacture
+     *
+     * @param string $due_dateFacture
+     *
+     * @return Facture
+     */
+    public function setDue_dateFacture($due_dateFacture)
+    {
+        $this->due_dateFacture = $due_dateFacture;
+
+        return $this;
+    }
+
+    /**
+     * Get due_dateFacture
+     *
+     * @return string
+     */
+    public function getDue_dateFacture()
+    {
+        return $this->due_dateFacture;
     }
 
     /**

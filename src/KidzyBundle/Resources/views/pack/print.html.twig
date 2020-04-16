@@ -33,10 +33,18 @@
                 </tr>
                 <tr>
                     <td style="padding:5px;">
-                        <strong>Date </strong>
+                        <strong>Start Date </strong>
                     </td>
                     <td style="padding:5px;">
                         {{facture.dateFacture |localizeddate('none', 'none', app.request.locale, "Europe/Paris", "cccc d MMMM Y") }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:5px;">
+                        <strong>Due Date </strong>
+                    </td>
+                    <td style="padding:5px;">
+                        {{facture.due_dateFacture |localizeddate('none', 'none', app.request.locale, "Europe/Paris", "cccc d MMMM Y") }}
                     </td>
                 </tr>
                 </tbody>
@@ -133,7 +141,7 @@
             </td>
             <td align="right" width="20%" style="border-top: 2px solid #eee; padding: 8px;">
                 <strong style="font-size: 16pt;">
-                    DT {{pack.prixPack}}
+                     {{prix}} DT
                 </strong>
             </td>
         </tr>

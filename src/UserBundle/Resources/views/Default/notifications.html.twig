@@ -75,7 +75,7 @@
                     if (data>0 ){document.getElementById("notif_count").innerHTML = data ;}
                 }});
         },1000);
-    const url = new URL('http://localhost:3000/.well-known/mercure');
+    let url = new URL('http://localhost:3000/.well-known/mercure');
     url.searchParams.append('topic', 'ping');
     const lastEventId = localStorage.getItem('lastEventId');
     if (lastEventId != null) {

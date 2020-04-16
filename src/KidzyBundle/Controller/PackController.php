@@ -4,12 +4,16 @@ namespace KidzyBundle\Controller;
 
 define('HUB_URL', 'http://localhost:3000/.well-known/mercure');
 define('JWT', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.CpZcJeRbvGNb9DPgRmnCuwinrypLk7UWdppPr-g4iHc');
+
+use AppBundle\Entity\mediaEntity;
 use Doctrine\ORM\Query;
 use http\Client\Response;
+use KidzyBundle\Entity\attachment;
 use KidzyBundle\Entity\Facture;
 use KidzyBundle\Entity\Pack;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mercure\Publisher;
 use Symfony\Component\Mercure\Update;
@@ -47,6 +51,7 @@ class PackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $pack->setPrixPackyear($pack->getPrixPack()-100);
             $em->persist($pack);
             $em->flush();
 
@@ -85,6 +90,7 @@ class PackController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $pack->setPrixPackyear($pack->getPrixPack()-100);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('pack_edit', array('idPack' => $pack->getIdpack()));
@@ -139,8 +145,10 @@ class PackController extends Controller
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         return $this->render('@Kidzy/pack/pricing.html.twig' , array('packs' => $packs ,'parent' => $user,'frais'=>$frais));
     }
-    public function buyAction(Request $request)
+    public function buyAction(Request $request )
     {
+        $end = $request->get('due');
+        $prix = $request->get('amount');
         $em = $this->getDoctrine()->getManager();
         $id = $request->get('idPack');
         $idEnfant = $request->get('enfant');
@@ -157,12 +165,12 @@ class PackController extends Controller
                 'name' => $pack->getNomPack(),
                 'description' => $pack->getDescriptionPack(),
                 'images' => ['https://image.freepik.com/free-vector/e-mail-news-subscription-promotion-flat-vector-illustration-design-newsletter-icon-flat_1200-330.jpg'],
-                'amount' => $pack->getPrixPack() * 100,
+                'amount' => $request->get('amount')*100,
                 'currency' => 'usd',
                 'quantity' => 1,
             ]],
-            'success_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/success/'.$id.'/'.$idEnfant.'/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/'.$id.'/buy?enfant='.$idEnfant,
+            'success_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/success/'.$id.'/'.$idEnfant.'/'.$prix.'/'.$end.'/{CHECKOUT_SESSION_ID}',
+            'cancel_url' => 'http://localhost/webkidzy/web/app_dev.php/kidzy/packs/'.$id.'/'.$prix.'/'.$end.'/buy?enfant='.$idEnfant,
         ]);
 
 
@@ -181,11 +189,13 @@ class PackController extends Controller
         //$parent = $userManager->findUserBy(array('id'=>$idParent));
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $facture = new Facture();
-
+        $prix = $request->get('prix');
+        $due =$request->get('end') ;
         $facture->setDateFacture(new \DateTime());
+        $facture->setDue_dateFacture($due);
         $facture->setPack($pack);
         $facture->setPaye(true);
-        $facture->setTotal($pack->getPrixPack());
+        $facture->setTotal($prix);
         $facture->setIdParent($user);
         $facture->setIdEnf($enfant);
         $facture->setStatus(0);
@@ -195,7 +205,7 @@ class PackController extends Controller
         $publisher(new Update('ping',json_encode($facture)."\n" ));
 
 
-        return $this->render('@Kidzy/pack/success.html.twig' , array('user' => $user , 'pack' => $pack , 'enfant' => $enfant ,'facture' => $facture));
+        return $this->render('@Kidzy/pack/success.html.twig' , array('due'=>$due,'prix'=>$prix,'user' => $user , 'pack' => $pack , 'enfant' => $enfant ,'facture' => $facture));
     }
 
     public function factureAction()
@@ -209,7 +219,9 @@ class PackController extends Controller
     }
 
     public function printAction(Request $request)
-    {
+    {   $prix = $request->get('prix');
+        $due = $request->get('end');
+
         $idParent = $request->get('idParent');
         $idEnfant = $request->get('idEnfant');
         $idPack = $request->get('idPack');
@@ -226,7 +238,9 @@ class PackController extends Controller
             'enfant'  => $enfant,
             'parent' => $parent,
             'pack' => $pack,
-            'facture' => $facture
+            'facture' => $facture,
+            'prix'=>$prix,
+            'enddate'=>$due
         ));
 
         return new PdfResponse(
@@ -257,6 +271,73 @@ class PackController extends Controller
         return $this->render('@Kidzy/pack/notif_count.html.twig', array(
             'count' => $results,
         ));
+    }
+    public function attachAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('@Kidzy/pack/attachement.html.twig', array(
+            'parent' => $user,
+        ));
+    }
+
+
+    public function fileUploadHandlerAction(Request $request) {
+        $output = array('uploaded' => false);
+        // get the file from the request object
+        $file = $request->files->get('file');
+        // generate a new filename (safer, better approach), but to use original filename instead, use $fileName = $file->getClientOriginalName();
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+        // set your uploads directory
+        $uploadDir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
+        if (!file_exists($uploadDir) && !is_dir($uploadDir)) {
+            mkdir($uploadDir, 0775, true);
+        }
+        if ($file->move($uploadDir, $fileName)) {
+            // get entity manager
+            $em = $this->getDoctrine()->getManager();
+
+            // create and set this mediaEntity
+            $attachment = new attachment();
+            $attachment->setFileName($fileName);
+            $id=$request->get('idEnfant');
+            $enfant = $em->getRepository('KidzyBundle:Enfant')->find($id);
+            $attachment->setIdEnfant($enfant);
+
+            // save the uploaded filename to database
+            $em->persist($attachment);
+            $em->flush();
+            $output['uploaded'] = true;
+            $output['fileName'] = $fileName;
+            $output['enfant'] = $enfant;
+            $output['mediaEntityId'] = $attachment->getId();
+            $output['originalFileName'] = $file->getClientOriginalName();
+        };
+
+        return new JsonResponse($output);
+
+    }
+
+    public function deleteResourceAction(Request $request){
+        $output = array('deleted' => false, 'error' => false);
+        $mediaID = $request->get('id');
+        $fileName = $request->get('fileName');
+        $em = $this->getDoctrine()->getManager();
+        $media = $em->find('AppBundle:mediaEntity', $mediaID);
+        if ($fileName && $media && $media instanceof attachment) {
+            $uploadDir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
+            $output['deleted'] = unlink($uploadDir.$fileName);
+            if ($output['deleted']) {
+                // delete linked mediaEntity
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($media);
+                $em->flush();
+            }
+        } else {
+            $output['error'] = 'Missing/Incorrect Media ID and/or FileName';
+        }
+        return new JsonResponse($output);
     }
 
 

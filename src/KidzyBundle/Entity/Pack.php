@@ -47,6 +47,29 @@ class Pack implements JsonSerializable
      * @Assert\NotBlank
      */
     private $prixPack;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix_pack_year", type="float", precision=10, scale=0, nullable=true)
+     *
+     */
+    private $prixPackyear;
+
+    /**
+     * @return float
+     */
+    public function getPrixPackyear()
+    {
+        return $this->prixPackyear;
+    }
+
+    /**
+     * @param float $prixPackyear
+     */
+    public function setPrixPackyear($prixPackyear)
+    {
+        $this->prixPackyear = $prixPackyear;
+    }
 
     /**
      * @var string
@@ -84,6 +107,7 @@ class Pack implements JsonSerializable
     {
         $this->frais = new \Doctrine\Common\Collections\ArrayCollection();
         $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->prixPackyear = $this->prixPack;
     }
 
     /**
@@ -143,7 +167,6 @@ class Pack implements JsonSerializable
     {
         return $this->prixPack;
     }
-
     /**
      * Set descriptionPack
      *
