@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Participation
  *
  * @ORM\Table(name="participation", indexes={@ORM\Index(name="fk_id_enff", columns={"id_enfant"}), @ORM\Index(name="id_event", columns={"id_event"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\participationRepository")
  */
 class Participation
 {
@@ -16,7 +16,7 @@ class Participation
      *
      * @ORM\Column(name="id_partici", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idPartici;
 
@@ -37,8 +37,7 @@ class Participation
     /**
      * @var \Enfant
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     *
      * @ORM\OneToOne(targetEntity="Enfant")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_enfant", referencedColumnName="id_enfant")
@@ -49,8 +48,7 @@ class Participation
     /**
      * @var \Event
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     *
      * @ORM\OneToOne(targetEntity="Event")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_event", referencedColumnName="id_event")

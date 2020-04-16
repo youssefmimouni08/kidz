@@ -131,13 +131,45 @@ class EventController extends Controller
             ->getForm()
         ;
     }
-    public function eventAction(){
+    public function eventAction(Request $request){
         $em = $this->getDoctrine()->getManager();
 
         $event = $em->getRepository('KidzyBundle:Event')->findAll();
-
         return $this->render('@Kidzy/event/event.html.twig', array(
             'event' => $event,
+
         ));
     }
+    public function chartseAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('KidzyBundle:Event')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $listes= $repository->myfinfnbrese();
+        $data=array();
+        $a=['nomEvent', 'NB'];
+        array_push($data,$a);
+        foreach($listes as $c) {
+
+            $a=array($c['nomEvent'],$c['NB']);
+            array_push($data,$a);
+
+        }
+        $pieChart->getData()->setArrayToDataTable(
+            $data
+        );
+        $pieChart->getOptions()->setTitle('Events ');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('@Kidzy/club/Chartse.html.twig', array('piechart' => $pieChart));
+    }
 }
+

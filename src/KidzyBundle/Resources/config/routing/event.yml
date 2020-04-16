@@ -25,3 +25,22 @@ event:
 eventParent:
     path:     /liste
     defaults: { _controller: KidzyBundle:event:indexParent}
+event_participants:
+    path:     /listeParticipants
+    defaults: { _controller: KidzyBundle:Participation:liste}
+inscription_newFront:
+    path:   admin/newFront
+    defaults: { _controller: KidzyBundle:Participation:newFront }
+    methods:  [GET, POST]
+inscription_newp:
+    path:   admin/{idEvent}/newp
+    defaults: { _controller: KidzyBundle:Participation:newp }
+    methods:  [GET, POST]
+inscription_enfantAdmin:
+    path:     admin/{idEvent}/liste
+    defaults: { _controller: KidzyBundle:Participation:liste }
+    methods:  [GET, POST]
+event_chartse:
+        path:     admin/chartse
+        defaults: { _controller: KidzyBundle:Event:chartse }
+        methods:  GET
