@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h1>Garde list</h1>
+                            <h1>Garderie list</h1>
 
                             <table id="datatable" class="table table-bordered dt-responsive nowrap">
                                 <thead>
@@ -59,8 +59,17 @@
 
                             <ul>
                                 <li>
-                                    <a href="{{ path('garde_new') }}">Ajouter Garde</a>
+                                    <a href="{{ path('garde_new') }}">Ajouter Garderie</a>
                                 </li>
+
+                                <li>
+                                    <a href="{{ path('charts')}}"> Statistiques par garderie</a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ path('garde_newEnfant')}}"> Ajouter Un Enfant Dans Une Garderie</a>
+                                </li>
+
                             </ul>
                         </div> <!-- end card-box -->
                     </div><!-- end col -->
@@ -69,6 +78,8 @@
             </div> <!-- container-fluid -->
 
         </div> <!-- content -->
+
+
     </div>
 {% endblock %}
 {% block javascripts %}
