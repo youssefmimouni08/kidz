@@ -85,26 +85,30 @@ class AvisController extends Controller
             ;
     }
 
-    public function avisFAction()
+    public function avisFAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $avis = $em->getRepository('KidzyBundle:Avis')->findAll();
+        $aviss= $this->get('knp_paginator')->paginate($avis, $request->query->get( 'page',  1), 3);
+
         return $this->render('@Kidzy/avis/avisF.html.twig', array(
             'avis' => $avis,
+            'avis' => $aviss,
        
 
         ));
     }
 
-    public function MesavisAction()
+    public function MesavisAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $avis = $em->getRepository('KidzyBundle:Avis')->findAll();
-        return $this->render('@Kidzy/avis/Mesavis.html.twig', array(
-            'parent' => $user,
-            'avis' => $avis
+        $aviss= $this->get('knp_paginator')->paginate($avis, $request->query->get( 'page',  1), 3);
+        return $this->render('@Kidzy/avis/Mesavis.html.twig', array('parent' => $user,
+            'avis' => $avis,
+            'avis' => $aviss,
 
 
 
@@ -121,6 +125,8 @@ class AvisController extends Controller
         $em->flush();
         return $this->redirectToRoute("Mesavis" );
     }
+
+
 
 
     public function editAction(Request $request, Avis $avis)
@@ -142,6 +148,7 @@ class AvisController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
 
 
 

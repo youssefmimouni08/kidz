@@ -2,23 +2,45 @@ event_index:
     path:     admin/
     defaults: { _controller: "KidzyBundle:Event:index" }
     methods:  GET
-
 event_show:
     path:     admin/{idEvent}/show
     defaults: { _controller: "KidzyBundle:Event:show" }
     methods:  GET
-
 event_new:
     path:     admin/new
     defaults: { _controller: "KidzyBundle:Event:new" }
     methods:  [GET, POST]
-
 event_edit:
     path:     admin/{idEvent}/edit
     defaults: { _controller: "KidzyBundle:Event:edit" }
     methods:  [GET, POST]
-
 event_delete:
     path:     admin/{idEvent}/delete
     defaults: { _controller: "KidzyBundle:Event:delete" }
     methods:  DELETE
+event:
+    path:     /events
+    defaults: { _controller: "KidzyBundle:Event:event" }
+    methods:  GET
+eventParent:
+    path:     /liste
+    defaults: { _controller: KidzyBundle:event:indexParent}
+event_participants:
+    path:     /listeParticipants
+    defaults: { _controller: KidzyBundle:Participation:liste}
+inscription_newFront:
+    path:   admin/newFront
+    defaults: { _controller: KidzyBundle:Participation:newFront }
+    methods:  [GET, POST]
+inscription_newp:
+    path:   admin/{idEvent}/newp
+    defaults: { _controller: KidzyBundle:Participation:newp }
+    methods:  [GET, POST]
+inscription_enfantAdmin:
+    path:     admin/{idEvent}/liste
+    defaults: { _controller: KidzyBundle:Participation:liste }
+    methods:  [GET, POST]
+event_chartse:
+        path:     admin/chartse
+        defaults: { _controller: KidzyBundle:Event:chartse }
+        methods:  GET

@@ -53,10 +53,11 @@
 
                     <div class="title text-center mb-4">
                         {{ form_start(delete_form) }}
+                        <a  href="{{ path('print_club', { 'idEnfant': enfant.idEnfant ,'idInscrit':inscription.IdInscrit,'idClub': clubs.idClub}) }}" class="btn btn-primary waves-effect width-md waves-light">Attestation</a>
+
                         <input type="submit" class="btn btn-danger waves-effect width-md waves-light" value="Quitter">
 
-                        <a  href="{{ path('clubParent') }}" class="btn btn-primary waves-effect width-md waves-light">Imprimer</a>
-                        <a  href="{{ path('print_club', { 'idEnfant': enfant.idEnfant ,'idInscrit':inscription.IdInscrit,'idClub': clubs.idClub}) }}" class="btn btn-primary waves-effect width-md waves-light">Retour</a>
+                        <a  href="{{ path('clubParent') }}" class="btn btn-primary waves-effect width-md waves-light">Retour</a>
                         {{ form_end(delete_form) }}
                     </div>
 

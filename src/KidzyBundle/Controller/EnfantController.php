@@ -2,6 +2,7 @@
 
 namespace KidzyBundle\Controller;
 
+use KidzyBundle\Entity\Avis;
 use KidzyBundle\Entity\Enfant;
 use KidzyBundle\Entity\Classe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -169,6 +170,7 @@ class EnfantController extends Controller
 
     public function modifierAction( Request $request,$id)
     {
+
         $em=$this->getDoctrine()->getManager();
         $enfant =$em ->getRepository(Enfant::class) ->find($id);
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();

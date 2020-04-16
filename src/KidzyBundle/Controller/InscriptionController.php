@@ -136,6 +136,8 @@ class InscriptionController extends Controller
         $club = $em->getRepository('KidzyBundle:Club')->find($idClub);
         $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
         $listenfants=$repository->myfinfDomaine($idClub);
+
+
         $inscription = new Inscription();
         $form = $this->createForm('KidzyBundle\Form\InscriptionType', $inscription);
         $form->handleRequest($request);
@@ -153,11 +155,16 @@ class InscriptionController extends Controller
             $this->addFlash('info', 'Enfant inscrit avec succés');
             return $this->redirectToRoute('inscription_enfantAdmin',array('idClub' => $club->getIdClub()));
 
+
+
         }else if ($existe)  {
 
             $this->addFlash('info', 'Enfant inscrit déja');
 
+
             }
+
+
 
         return $this->render('@Kidzy/inscription/new.html.twig', array(
 
@@ -201,12 +208,17 @@ class InscriptionController extends Controller
             $this->addFlash('info', 'Enfant inscrit avec succés');
             return $this->redirectToRoute('clubindexFront');
 
+
+
         }else if ($existe)  {
 
             $this->addFlash('info', 'Enfant inscrit déja');
 
 
-        }
+        }else{ }
+
+
+
         return $this->render('@Kidzy/inscription/newFront.html.twig', array(
 
             'enfant' => $enfant,
