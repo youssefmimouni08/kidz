@@ -28,6 +28,22 @@ class EventController extends Controller
         ));
     }
 
+    public function indexParentAction()
+    {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $idParent = $user->getId();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $listenfants=$repository->myfinfEvent($idParent);
+        var_dump($idParent);
+        var_dump($listenfants);
+        die();
+
+        return $this->render('@Kidzy/event/event.html.twig', array(
+            'event' => $listenfants,
+        ));
+    }
+
+
     /**
      * Creates a new event entity.
      *
@@ -107,13 +123,6 @@ class EventController extends Controller
         return $this->redirectToRoute('event_index');
     }
 
-    /**
-     * Creates a form to delete a event entity.
-     *
-     * @param Event $event The event entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm(Event $event)
     {
         return $this->createFormBuilder()
@@ -122,4 +131,45 @@ class EventController extends Controller
             ->getForm()
         ;
     }
+    public function eventAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('KidzyBundle:Event')->findAll();
+        return $this->render('@Kidzy/event/event.html.twig', array(
+            'event' => $event,
+
+        ));
+    }
+    public function chartseAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('KidzyBundle:Event')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Event::class);
+        $listes= $repository->myfinfnbrese();
+        $data=array();
+        $a=['nomEvent', 'NB'];
+        array_push($data,$a);
+        foreach($listes as $c) {
+
+            $a=array($c['nomEvent'],$c['NB']);
+            array_push($data,$a);
+
+        }
+        $pieChart->getData()->setArrayToDataTable(
+            $data
+        );
+        $pieChart->getOptions()->setTitle('Events ');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('@Kidzy/club/Chartse.html.twig', array('piechart' => $pieChart));
+    }
 }
+

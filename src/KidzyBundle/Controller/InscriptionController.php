@@ -178,27 +178,14 @@ class InscriptionController extends Controller
     public function newFrontAction(Request $request)
 
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $idParent = $user->getId();
-        $enfants = $em->getRepository('KidzyBundle:Enfant')->find($idParent);
-
-
-        $repositoryF = $this->getDoctrine()->getManager()->getRepository(Enfant::class);
-        $enfant=$repositoryF->myfinfEnfant($idParent);
 
         $inscription = new Inscription();
         $form = $this->createForm('KidzyBundle\Form\InscriptionFType', $inscription);
         $form->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
 
-        $editForms = $this->createForm('KidzyBundle\Form\nomEnfantType', $enfants);
-        $editForms->handleRequest($request);
- $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
-        $existe=$repository->myfinfInsc($inscription->getIdEnfant(),$inscription->getIdClub());
 
-        if ($form->isSubmitted() && $form->isSubmitted() &&$form->isValid()&& !$existe) {
+        if ($form->isSubmitted() && $form->isSubmitted()) {
 
             $today = new \DateTime('now');
             $inscription->setDateInscrit($today);
@@ -210,18 +197,13 @@ class InscriptionController extends Controller
 
 
 
-        }else if ($existe)  {
-
-            $this->addFlash('info', 'Enfant inscrit déja');
-
-
         }else{ }
 
 
 
         return $this->render('@Kidzy/inscription/newFront.html.twig', array(
 
-            'enfant' => $enfant,
+
             'inscription' => $inscription,
 
             'form' => $form->createView(),

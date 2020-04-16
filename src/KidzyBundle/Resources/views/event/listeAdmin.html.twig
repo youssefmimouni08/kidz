@@ -17,56 +17,49 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h1>liste des evenements</h1>
+                            <h1>Liste des enfants</h1>
 
                             <table id="datatable" class="table table-bordered dt-responsive nowrap">
                                 <thead>
                                 <tr>
-                                    <th >ID d'evenement</th>
-                                    <th>Nom d'evenement</th>
-                                    <th>Date d'evenement</th>
-                                    <th>Prix d'evenement</th>
-                                    <th >Description d'evenement</th>
-                                    <th>Type d'evenement</th>
-                                    <th>Lieu d'evenement</th>
-                                    <th> </th>
+                                    <th >Noms et prénoms des participants</th>
                                 </tr>
                                 </thead>
 
 
                                 <tbody>
-                                {% for event in event %}
+                                {% for c in liste %}
                                     <tr>
-                                        <td>
-                                            <a href="{{ path('event_show', { 'idEvent': event.idEvent }) }}">{{ event.idEvent }}</a>
-                                        </td>
-                                        <td>{{ event.nomEvent }}</td>
-                                        <td>{{ event.dateEvent| date }}</td>
-                                        <td>{{ event.prixEvent }} dt</td>
-                                        <td>{{ event.descrEvent }}</td>
-                                        <td>{{ event.typeEvent }}</td>
-                                        <td>{{ event.lieuEvent }}</td>
 
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ path('event_show', { 'idEvent': event.idEvent }) }}"><i class="dripicons-pencil"></i> | Afficher Les Details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('event_participants', { 'idEvent': event.idEvent }) }}"><i class="dripicons-blog"></i> | Liste des participants </a>
-                                                </li>
-                                            </ul>
-                                        </td>
+                                        <th>{{ c.nomEnfant }}
+                                            {{ c.prenomEnfant }}</th>
+
+                                        <td>  <a align="center" class="btn btn-primary waves-effect waves-light mr-1" href="">
+                                                Modifier  </a></td>
+
+
                                     </tr>
+
                                 {% endfor %}
+
+
+
                                 </tbody>
                             </table>
 
+
+
+
                             <ul>
-                                <li>
-                                    <a href="{{ path('event_new') }}">Ajouter evenement</a>
-                                </li>
-                            </ul>
+                                <ul align="left">
+                                    <li>
+                                    <h5>   <a align="center" href="{{ path('inscription_newp', {'idEvent':idEvent}) }}">
+                                        Ajouter un enfant</a>
+                                </h5> </li></ul>
+                                <ul align="right">
+                                    <a align="center" class="btn btn-danger waves-effect width-md waves-light"  href ="{{ path('event_index') }}">
+                                        Retour </a>                 </ul>  </ul>
+
                         </div> <!-- end card-box -->
                     </div><!-- end col -->
                 </div>
@@ -93,3 +86,4 @@
     <script src="{{ asset('back/assets/libs/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('back/assets/js/pages/datatables.init.js') }}"></script>
 {% endblock %}
+
