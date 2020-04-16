@@ -26,7 +26,7 @@ class AppKernel extends Kernel
             new SBC\NotificationsBundle\NotificationsBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
-
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Egyg33k\CsvBundle\Egyg33kCsvBundle(),
         ];
 
