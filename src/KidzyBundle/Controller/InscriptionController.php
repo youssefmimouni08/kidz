@@ -20,7 +20,7 @@ class InscriptionController extends Controller
      */
     public function listeAction(Request $request ,$idClub)
     {        $idClub = $request->get('idClub');
-        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class);
+        $repository = $this->getDoctrine()->getManager()->getRepository(Inscription::class) ;
         $listenfants=$repository->myfinfDomaine($idClub);
 
         return $this->render('@Kidzy/inscription/listeAdmin.html.twig', array('liste' => $listenfants,'idClub'=>$idClub));

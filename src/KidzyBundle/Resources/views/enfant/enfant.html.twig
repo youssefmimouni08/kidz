@@ -15,14 +15,41 @@
             </div>
             <!-- end row -->
 
+
             <div class="row">
                 <div class="col-xl-4">
                     <a href="{{ path('enfant_add') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
                        data-overlaySpeed="200" data-overlayColor="#36404a"><i class="mdi mdi-plus-circle-outline"></i> Ajouter votre enfant </a>
                 </div><!-- end col -->
-            </div>
+
             <!-- end row -->
-            <div class="row">
+                <div class="col-md-4" id="searchWrapper">
+            <li class="d-none d-sm-block right">
+
+                <form class="app-search">
+                    <div class="app-search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." name="prenomEnfant" id="prenomEnfant">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit">
+                                    <i class="fe-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            </div>
+            </div>
+            {% for message in app.flashes('success') %}
+
+                <div class="alert alert-success">
+                    {{ message }}
+
+                </div>
+            {% endfor %}
+            <div class="row" id="charactersList">
+
 
                 {% for enfant in parent.enfants %}
 
@@ -75,6 +102,7 @@
 
                             </div>
                         </form>
+
                     </div> <!-- end col -->
                 {% endfor %}
 
@@ -83,4 +111,22 @@
         <!-- end container-fluid -->
 
     </section>
+
+
+
+
+    <script src="{{ asset('back/assets/libs/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/dataTables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/datatables/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('back/assets/libs/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('back/assets/js/pages/datatables.init.js') }}"></script>
 {% endblock %}

@@ -94,7 +94,5 @@ class inscriptionRepository extends EntityRepository
 
         return $query = $qb->getResult();
 
-
-
     }
 }

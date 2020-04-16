@@ -3,11 +3,19 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 /**
  * Event
  *
  * @ORM\Table(name="event")
+ *
+ *
+ * @Vich\Uploadable
  * @ORM\Entity(repositoryClass="KidzyBundle\Repository\inscriptionRepository")
  */
 class Event
@@ -25,13 +33,102 @@ class Event
      * @var string
      *
      * @ORM\Column(name="nom_event", type="string", length=20, nullable=false)
+     *  @Assert\Length(
+     *      min = 5,
+     *      max = 30,
+     *      minMessage = "Le Nom doit contenir au moins {{ limit }} caractéres ",
+     *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractéres "
+     * )
+     * @Assert\NotBlank(message="le champ nom est obligatoire")
      */
     private $nomEvent;
+
+    /**
+     * @var string|null
+     *
+     *
+     * @ORM\Column(name="image_enfant", type="string", length=255, nullable=false)
+     */
+    private $imageEvent;
+
+    /**
+     * @return string|null
+     */
+    public function getImageEvent()
+    {
+        return $this->imageEvent;
+    }
+
+    /**
+     * @param string|null $imageEvent
+     */
+    public function setImageEvent($imageEvent)
+    {
+        $this->imageEvent = $imageEvent;
+    }
+
+
+    /**
+     *
+     * @Vich\UploadableField(mapping="event_image", fileNameProperty="imageEvent")
+     *
+     * @var File|null
+     * @Assert\Image(
+     *     mimeTypes= { "image/png" , "image/jpeg"  },
+     *
+     * )
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        // Only change the updated af if the file is really uploaded to avoid database updates.
+        // This is needed when the file should be set when loading the entity.
+        if ($this->imageFile instanceof UploadedFile ) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
 
     /**
      * @var string
      *
      * @ORM\Column(name="date_event", type="string", length=255, nullable=false)
+     *  @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $dateEvent;
 
@@ -39,6 +136,7 @@ class Event
      * @var float
      *
      * @ORM\Column(name="prix_event", type="float", precision=10, scale=0, nullable=false)
+     *  @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $prixEvent;
 
@@ -46,6 +144,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="descr_event", type="string", length=600, nullable=false)
+     *  @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $descrEvent;
 
@@ -53,6 +152,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="type_event", type="string", length=600, nullable=false)
+     *  @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $typeEvent;
 
@@ -60,6 +160,7 @@ class Event
      * @var string
      *
      * @ORM\Column(name="lieu_event", type="string", length=500, nullable=false)
+     *  @Assert\NotBlank(message="le champ description est obligatoire")
      */
     private $lieuEvent;
 

@@ -12,7 +12,13 @@
                         <div class="card-box">
                             <h4 class="header-title mt-0 mb-3">Details Enfant</h4>
 
+                            {% for message in app.flashes('success') %}
 
+                                <div class="alert alert-success">
+                                    {{ message }}
+
+                                </div>
+                            {% endfor %}
 
                             {% if enfant.imageEnfant %}
 
