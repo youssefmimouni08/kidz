@@ -111,11 +111,12 @@ notifications:
 vich_uploader:
     db_driver: orm
     mappings:
-        enfant_image:
-            uri_prefix: /images/enfants
+        event_image:
+            uri_prefix: /images/enfant
             upload_destination: '%kernel.project_dir%/web/images/enfants'
             namer:
                 service: vich_uploader.namer_uniqid
+
 liip_imagine :
     filter_sets :
 

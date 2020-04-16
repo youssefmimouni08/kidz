@@ -66,6 +66,9 @@
                         <a href="{{ path('pricing') }}" class="nav-link">Pricing</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ path('event') }}" class="nav-link">Evenement</a>
+                    </li>
+                    <li class="nav-item">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <a href="{{ path('fos_user_profile_show') }}" class="nav-link"> Profile </a>
                     </li>

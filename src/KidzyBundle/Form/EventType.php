@@ -2,11 +2,12 @@
 
 namespace KidzyBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Regex;
+
 
 class EventType extends AbstractType
 {
@@ -15,7 +16,16 @@ class EventType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nomEvent')->add('dateEvent')->add('prixEvent')->add('descrEvent')->add('typeEvent')->add('lieuEvent');
+        $builder->add('nomEvent')
+            ->add('imageFile', FileType::class,array('label' => 'Image :','label_attr' => array('idEnfant' => 'imageFile')) ,
+                [
+                    'required'=>false
+                ])
+            ->add('dateEvent')
+            ->add('prixEvent')
+            ->add('descrEvent')
+            ->add('typeEvent')
+            ->add('lieuEvent');
     }/**
      * {@inheritdoc}
      */
