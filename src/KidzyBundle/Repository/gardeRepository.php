@@ -16,6 +16,29 @@ class gardeRepository extends EntityRepository
         return $query=$qb->getResult();
     }
 
+    public function nbreEnfant($idGarde)
+    {
+        $qb = $this->getEntityManager()->createQuery("select count(i.idEnfant) from KidzyBundle:Enfant i JOIN i.idGarde c where  i.idGarde=:idGarde
+        group by c.idGarde ")
+
+            ->setParameter('idGarde', $idGarde);
+
+        return $query = $qb->getSingleScalarResult();
+
+
+
+    }
+
+    public function nbreEnfants()
+    {
+        $qb = $this->getEntityManager()->createQuery(
+            "select c.nomGarde nomGarde , count(i.idEnfant) NB 
+            from KidzyBundle:Enfant i JOIN i.idGarde c  group by c.idGarde");
+
+        return $query = $qb->getResult();
+
+    }
+
 /*
 select id_enf , titre from facture f INNER JOIN frais_packs s on f.id_pack=s.pack_id INNER JOIN frais l ON l.id_frais=s.frais_id WHERE titre="garde"
 

@@ -2,8 +2,10 @@
 
 namespace KidzyBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use KidzyBundle\Entity\Enfant;
 use KidzyBundle\Entity\Garde;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use KidzyBundle\Repository\gardeRepository;
@@ -164,6 +166,53 @@ class GardeController extends Controller
         return $this->render('@Kidzy/garde/newEnfant.html.twig', array(
 
         ));
+    }
+
+    public function chartsAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $garde = $em->getRepository('KidzyBundle:Garde')->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository(Garde::class);
+        $listes= $repository->nbreEnfants();
+        $data=array();
+        $a=['nomGarde', 'NB'];
+        array_push($data,$a);
+        foreach($listes as $c) {
+
+            $a=array($c['nomGarde'],$c['NB']);
+            array_push($data,$a);
+
+        }
+        $pieChart->getData()->setArrayToDataTable(
+            $data
+        );
+        $pieChart->getOptions()->setTitle('Nombre d\'enfant par garderie ');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#0e0c78');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+        return $this->render('@Kidzy/garde/chart.html.twig', array('piechart' => $pieChart));
+    }
+
+    public function printAction(Request $request)
+    {
+
+
+
+        $html = $this->renderView('@Kidzy/garde/print.html.twig', array(
+
+        ));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'ListeEnfant.pdf'
+        );
     }
 
 

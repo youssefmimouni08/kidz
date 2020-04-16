@@ -220,28 +220,30 @@ class EnfantController extends Controller
 */
 
 
-
-    public Function searchAction()
-    {
-        $em=$this->getDoctrine()->getManager();
-        $repository=$this->getDoctrine()->getManager()->getRepository(Enfant::class);
-        $enfants=$repository-> myEnfant();
-        $enfant = $em->getRepository('KidzyBundle:Enfant')->findAll();
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        return ($this->render('@Kidzy/Enfant/search.html.twig',array('enfants' => $enfants ,'parent' => $user ,'enfant' => $enfant)));
-
-
-    }
-
 /*
     public Function searchAction(Request $request)
     {
+        $prenomEnfant = $request->get('prenomEnfant');
         $em=$this->getDoctrine()->getManager();
-        $enfants = $em->getRepository('KidzyBundle:Enfant')->findAll();
+        $repository=$this->getDoctrine()->getManager()->getRepository(Enfant::class);
+        $enfants=$repository->search($prenomEnfant);
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return ($this->render('@Kidzy/Enfant/search.html.twig',array('enfants' => $enfants ,'parent' => $user )));
+
+
+    }
+*/
+
+    public Function searchAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->findAll();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         if($request->isMethod('POST'))
         {
             $prenomEnfant = $request->get('prenomEnfant');
+
             $enfants = $em->getRepository('KidzyBundle:Enfant')->findBy(array('prenomEnfant'=>$prenomEnfant));
         }
         return ($this->render('@Kidzy/Enfant/searchEnfant.html.twig',array('parent' => $user ,'enfants' => $enfants)));
@@ -249,5 +251,5 @@ class EnfantController extends Controller
 
     }
 
-*/
+
 }
