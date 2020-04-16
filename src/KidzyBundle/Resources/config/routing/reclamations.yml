@@ -26,7 +26,7 @@ MesRec:
     path:     /Mesrec
     defaults: { _controller: "KidzyBundle:Reclamations:MesRec" }
 
-print:
+printrec:
     path:     /print/{idRec}
     defaults: { _controller: "KidzyBundle:Reclamations:print" }
 

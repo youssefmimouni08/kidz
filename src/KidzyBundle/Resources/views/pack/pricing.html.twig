@@ -58,6 +58,7 @@
 
                                 <div class="plan-price">
                                     <h4  id="ss" class="mb-3 price">{{ pack.prixPack }}<sup><small>DT</small></sup></h4>
+                                    <div class="plan-duration" id="per">Par mois</div>
                                     <h5 class="plan-duration text-muted font-18">{{ pack.descriptionPack }}</h5>
                                 </div>
                                 <div class="pricing-content p-4 text-muted">
@@ -141,6 +142,7 @@
                 console.log(end)
 
                 x[i++].innerHTML=(total+'<sup><small>DT</small></sup>')
+                document.getElementById("per").innerText = "Par année"
                 var url = '{{ path('buy', {'idPack': pack.idPack, 'amount': ":id", 'due': ":date"}) }}';
                 url = url.replace(':id', total);
                 url = url.replace(':date', end);
@@ -163,6 +165,8 @@
                 end =  day + "-" + month + "-" + year
                 console.log(end)
                 x[i++].innerHTML=(total+'<sup><small>DT</small></sup>')
+                document.getElementById("per").innerText = "Par mois"
+
                 var url = '{{ path('buy', {'idPack': pack.idPack, 'amount': ":id", 'due': ":date"}) }}';
                 url = url.replace(':id', total);
                 url = url.replace(':date', end);

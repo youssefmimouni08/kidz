@@ -51,7 +51,8 @@ class PackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $pack->setPrixPackyear($pack->getPrixPack()-100);
+            $pack->setPrixPackyear(($pack->getPrixPack()*7)-($pack->getPrixPack()*0.2));
+
             $em->persist($pack);
             $em->flush();
 
@@ -90,7 +91,7 @@ class PackController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $pack->setPrixPackyear($pack->getPrixPack()-100);
+            $pack->setPrixPackyear(($pack->getPrixPack()*7)-($pack->getPrixPack()*0.2));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('pack_edit', array('idPack' => $pack->getIdpack()));
@@ -339,6 +340,7 @@ class PackController extends Controller
         }
         return new JsonResponse($output);
     }
+
 
 
 }
