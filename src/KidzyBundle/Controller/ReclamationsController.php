@@ -2,6 +2,7 @@
 
 namespace KidzyBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use KidzyBundle\Entity\Reclamations;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -165,22 +166,24 @@ class ReclamationsController extends Controller
         $a=['etatRec','NB'];
         array_push($data,$a);
         foreach($listes as $c){
-            $a=array($c['etat_rec'],$c['NB']);
+            $a=array($c['etatRec'],$c['NB']);
             array_push($data,$a);
 
     }
-            $pieChart->getData()->setArrayToDataTable(
-                $data
+        $pieChart->getData()->setArrayToDataTable(
+            $data
         );
-            $pieChart->getOptions()->setTitle( 'Reclamations');
-            $pieChart->getOptions()->setHight( 500);
-            $pieChart->getOptions()->setWidth( 900);
-            $pieChart->getOptions()->setTextStyle()->setBold( true);
-            $pieChart->getOptions()->setTextStyle()->setColor( '');
-            $pieChart->getOptions()->setTextStyle()->setItalic( true);
-            $pieChart->getOptions()->setTextStyle()->setBold( true);
-            $pieChart->getOptions()->setTextStyle()->setFontName('Arial');
-            $pieChart->getOptions()->setTextStyle()->setFontSize( 20);
+        $pieChart->getOptions()->setTitle('Clubs ');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+
+
 
         return $this->render('@Kidzy/reclamations/chartsR.html.twig', array('piechart' => $pieChart));
 
