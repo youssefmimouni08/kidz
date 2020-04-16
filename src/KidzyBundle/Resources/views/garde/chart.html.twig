@@ -17,54 +17,21 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h1>Liste des enfants</h1>
 
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap">
-                                <thead>
-                                <tr>
-                                    <th >Nom Prénom</th>
+                            <div id="div_chart"></div>
 
-                                    <th> Actions </th>
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                                {{ gc_draw(piechart, 'div_chart') }}
+                            </script>
 
-                                </tr>
-                                </thead>
-
-
-                                <tbody>
-                                {% for e in listenfants %}
-                                    <tr>
-
-                                        <td> {{ e.nomEnfant }} {{ e.prenomEnfant }}  </td>
-
-                                        <td>
-                                            <ul>
-
-                                                <a href="{{ path('garde_detailEnfant', { 'idGarde': garde.idGarde , 'idEnfant': e.idEnfant }) }}"><i class="dripicons-blog"></i> | Afficher Les Details</a>
-                                            </ul>
-                                        </td>
-
-
-                                    </tr>
-
-                                {% endfor %}
-
-
-
-                                </tbody>
-                            </table>
-
-
-                            <ul >
-                                <div class="button-list d-flex justify-content-start">
-                                    <a  href="{{ path('garde_index') }}" class="btn btn-primary waves-effect width-md waves-light">Retour</a>
-
-                                </div>
-                            </ul>
 
                         </div> <!-- end card-box -->
                     </div><!-- end col -->
                 </div>
-                <!-- end row -->
+
+
+          <!-- end row -->
             </div> <!-- container-fluid -->
 
         </div> <!-- content -->
@@ -87,5 +54,4 @@
     <script src="{{ asset('back/assets/libs/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('back/assets/js/pages/datatables.init.js') }}"></script>
 {% endblock %}
-
 

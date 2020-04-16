@@ -7,6 +7,7 @@ use KidzyBundle\Entity\Enfant;
 use KidzyBundle\Entity\Classe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use KidzyBundle\Repository\enfantRepository;
 
 class EnfantController extends Controller
 {
@@ -61,8 +62,9 @@ class EnfantController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($enfant);
             $em->flush();
-        }
 
+        }
+        $this->addFlash('success','Enfant supprimé avec succès ');
         return $this->redirectToRoute('enfant_index');
     }
 
@@ -74,6 +76,7 @@ class EnfantController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success','Enfant modifié avec succès ');
 
             return $this->redirectToRoute('enfant_edit', array('idEnfant' =>$enfant->getIdEnfant()));
         }
@@ -101,6 +104,8 @@ class EnfantController extends Controller
             $enfant->setUpdatedAt($today);
             $em->persist($enfant);
             $em->flush();
+            $this->addFlash('success','Enfant ajouté avec succès ');
+
 
             return $this->redirectToRoute('enfant_show', array('idEnfant' => $enfant->getIdEnfant()));
         }
@@ -125,22 +130,29 @@ class EnfantController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
+        $classes = $em->getRepository('KidzyBundle:Classe')->find('idClasse');
         $user = $this->getUser();
         if ($request->isMethod("POST")) {
-            $enfant->setImageEnfant($request->get('imageFile'));
+
+            $enfant->setImageFile($request->files->get('imageFile') );
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-           $enfant->setIdClasse($classe);
+            $enfant->setIdClasse('idClasse');
             $enfant->setDatenEnfant($request->get('datenEnfant'));
             $enfant->setIdParent($user);
+            $today = new \DateTime('now');
+            $enfant->setUpdatedAt($today);
 
             $em->persist($enfant);
             $em->flush();
 
+            $this->addFlash('success','Enfant ajouté avec succès ');
+
+
             return $this->redirectToRoute('enfant');
         }
 
-        return $this->render('@Kidzy/enfant/add.html.twig', array('classe' => $classe   ));
+        return $this->render('@Kidzy/enfant/add.html.twig', array('classe' => $classe ,'enfant' => $enfant  ));
     }
 
 
@@ -152,6 +164,7 @@ class EnfantController extends Controller
         $enfant =$em ->getRepository(Enfant::class) ->find($idEnfant);
         $em->remove($enfant);
         $em->flush();
+        $this->addFlash('success','Enfant supprimé avec succès ');
         return $this->redirectToRoute("enfant" );
     }
 
@@ -161,17 +174,82 @@ class EnfantController extends Controller
         $em=$this->getDoctrine()->getManager();
         $enfant =$em ->getRepository(Enfant::class) ->find($id);
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
+        $classes = $em->getRepository('KidzyBundle:Classe')->find('idClasse');
         if ($request->isMethod('POST')) {
-            $enfant->setImageEnfant($request->get('imageFile'));
+            $enfant->setImageFile($request->files->get('imageFile') );
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-           // $enfant->setIdClasse($request->get('idClasse'));
+            //$enfant->setIdClasse($classes);
             $enfant->setDatenEnfant($request->get('datenEnfant'));
+            $today = new \DateTime('now');
+            $enfant->setUpdatedAt($today);
 
             $em->flush();
+            $this->addFlash('success','Enfant modifié avec succès ');
             return $this->redirectToRoute('enfant');
         }
         return $this->render('@Kidzy/enfant/modifier.html.twig',array('enfant'=>$enfant , 'classe' => $classe));
+
+    }
+/*
+    public function addAction(Request $request)
+    {
+        $enfant = new Enfant();
+        $form = $this->createForm('KidzyBundle\Form\EnfantType', $enfant);
+
+        $form->handleRequest($request);
+        $user = $this->getUser();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $enfant->setIdParent($user);
+            $today = new \DateTime('now');
+            $enfant->setUpdatedAt($today);
+
+            $em->persist($enfant);
+            $em->flush();
+            $this->addFlash('success','Enfant ajouté avec succès ');
+
+
+            return $this->redirectToRoute('enfant');
+        }
+
+        return $this->render('@Kidzy/enfant/add.html.twig', array(
+            'enfant' => $enfant,
+
+            'form' => $form->createView(),
+        ));
+    }
+*/
+
+
+/*
+    public Function searchAction(Request $request)
+    {
+        $prenomEnfant = $request->get('prenomEnfant');
+        $em=$this->getDoctrine()->getManager();
+        $repository=$this->getDoctrine()->getManager()->getRepository(Enfant::class);
+        $enfants=$repository->search($prenomEnfant);
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return ($this->render('@Kidzy/Enfant/search.html.twig',array('enfants' => $enfants ,'parent' => $user )));
+
+
+    }
+*/
+
+    public Function searchAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $enfant = $em->getRepository('KidzyBundle:Enfant')->findAll();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        if($request->isMethod('POST'))
+        {
+            $prenomEnfant = $request->get('prenomEnfant');
+
+            $enfants = $em->getRepository('KidzyBundle:Enfant')->findBy(array('prenomEnfant'=>$prenomEnfant));
+        }
+        return ($this->render('@Kidzy/Enfant/searchEnfant.html.twig',array('parent' => $user ,'enfants' => $enfants)));
+
 
     }
 

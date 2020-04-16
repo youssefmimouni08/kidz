@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Garde
  *
  * @ORM\Table(name="garde")
- * @ORM\Entity
+ *  @ORM\Entity(repositoryClass="KidzyBundle\Repository\gardeRepository")
  */
 class Garde
 {

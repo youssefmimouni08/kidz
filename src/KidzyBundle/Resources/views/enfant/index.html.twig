@@ -19,6 +19,15 @@
                         <div class="card-box">
                             <h1>Enfant list</h1>
 
+                            {% for message in app.flashes('success') %}
+
+                                <div class="alert alert-success">
+                                    {{ message }}
+
+                                </div>
+                            {% endfor %}
+
+
                             <table id="datatable" class="table table-bordered dt-responsive nowrap">
                                 <thead>
                                 <tr>

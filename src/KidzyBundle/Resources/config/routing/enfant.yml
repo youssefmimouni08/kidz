@@ -41,3 +41,7 @@ enfant_supprimer:
     path:     /{idEnfant}/supprimer
     defaults: { _controller: "KidzyBundle:Enfant:supprimer" }
 
+enfant_search:
+    path:     /search
+    defaults: { _controller: "KidzyBundle:Enfant:search" }
+

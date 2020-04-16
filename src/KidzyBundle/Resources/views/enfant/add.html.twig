@@ -33,7 +33,7 @@
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Image :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="imageFile">
+                                    <input type ="file" class="form-control"name="imageFile">
 
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="col-sm-7">
                                     <p class="text-muted font-13"><strong>Prenom :</strong> </p>
 
-                                    <input type ="text" class="form-control"name="prenomEnfant">
+                                    <input type ="text" class="form-control"name="prenomEnfant"  >
 
                                 </div>
                             </div>
@@ -58,9 +58,13 @@
                                     <p class="text-muted font-13"><strong>Classe :</strong> </p>
 
                                     <select class="form-control" id="idClasse" name="idClasse">
+
                                         {% for classes in classe %}
+
+
                                             <option  value="{{ classes.idClasse }}">{{ classes.libelleCla}}</option>
                                         {% endfor %}
+
                                     </select>
 
                                 </div>
@@ -94,4 +98,5 @@
         <!-- end container-fluid -->
     </section>
 {% endblock %}
+
 

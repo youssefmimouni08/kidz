@@ -39,7 +39,7 @@ class EnfantType extends AbstractType
                     'choice_label'=>'nomGarde',
                     'multiple'=>false
                 ),
-                array('label' => 'Garderie :','label_attr' => array('idEnfant' => 'idClasse')))
+                array('label' => 'Garderie :','label_attr' => array('idEnfant' => 'idGarde')))
 
 
             ->add('idParent', null, array('label' => 'L\'enfant du Mr\Mme :','label_attr' => array('idEnfant' => 'idParent.prenom')));
