@@ -27,7 +27,7 @@ class AppKernel extends Kernel
             new Yectep\PhpSpreadsheetBundle\PhpSpreadsheetBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
-
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Egyg33k\CsvBundle\Egyg33kCsvBundle(),
         ];
 
