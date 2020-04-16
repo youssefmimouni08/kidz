@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="avis", indexes={@ORM\Index(name="fk_id_peer", columns={"id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\avisRepository")
+ *
  */
 class Avis
 {
@@ -33,7 +35,6 @@ class Avis
      *
      * @ORM\Column(name="description_avis", type="string", length=600, nullable=false)
      * @Assert\NotBlank(message="le champ description est obligatoire")
-     * @Assert\Length(min=5,max=50)
      */
     private $descriptionAvis;
 

@@ -62,9 +62,12 @@
                             <div class="button-list d-flex justify-content-start">
                                 <a  href="{{ path('reclamations_index') }}" class="btn btn-primary waves-effect width-md waves-light">Retour</a>
                                 <a  href="{{ path('reclamations_edit', { 'idRec': rec.idRec }) }}" class="btn btn-secondary waves-effect width-md">Modifier</a>
+                                <a  href="{{ path('print', { 'idRec': rec.idRec }) }}" class="btn btn-primary waves-effect width-md waves-light">Imprimer</a>
                                 {{ form_start(delete_form) }}
                                 <input type="submit" class="btn btn-danger waves-effect width-md waves-light" value="Supprimer">
+
                                 {{ form_end(delete_form) }}
+
                             </div>
 
 

@@ -55,16 +55,17 @@ class ClubController extends Controller
             'club' => $club,
         ));
     }
-    public function indexParentAction()
+    public function indexParentAction(Request $request)
     {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $idParent = $user->getId();
-
         $repository = $this->getDoctrine()->getManager()->getRepository(Club::class);
         $listenfants=$repository->myfinfClub($idParent);
+        $club=$this->get('knp_paginator')->paginate($listenfants,$request->query->get('page', 1),3);
 
 
         return $this->render('@Kidzy/club/ClubFront.html.twig', array(
-            'club' => $listenfants,
+            'club' => $listenfants,            'club' => $club,
+
         ));
     }
     /**
@@ -208,7 +209,7 @@ public function newAction(Request $request)
 
         return new PdfResponse(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'clubn.pdf'
+            'club.pdf'
         );
     }
 }
