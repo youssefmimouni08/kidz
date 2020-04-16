@@ -2,10 +2,15 @@
 
 namespace KidzyBundle\Controller;
 
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use KidzyBundle\Entity\Reclamations;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use KidzyBundle\Form\ReclamationsType;
+use KidzyBundle\Form\ReclamationsAType;
+use UserBundle\Entity\User;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+
 
 class ReclamationsController extends Controller
 {
@@ -81,14 +86,18 @@ class ReclamationsController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-    public function MesRecAction()
+    public function MesRecAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $rec = $em->getRepository('KidzyBundle:Reclamations')->findAll();
+        $recc= $this->get('knp_paginator')->paginate($rec, $request->query->get( 'page',  1), 2);
         return $this->render('@Kidzy/reclamations/Mesrec.html.twig', array(
             'parent' => $user,
-            'rec' => $rec
+            'rec' => $rec,
+            'rec' => $recc,
+
+
 
 
 
@@ -102,7 +111,7 @@ class ReclamationsController extends Controller
             $reclamation = new Reclamations();
             $form = $this->createForm('KidzyBundle\Form\ReclamationsType', $reclamation);
             $form->handleRequest($request);
-
+            $em=$this->getDoctrine()->getManager();
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $reclamation->setId($user);
@@ -119,6 +128,65 @@ class ReclamationsController extends Controller
 
             return $this->render('@Kidzy/reclamations/new.html.twig', array('form' => $form->createView()));
         }
+
+
+    }
+    public function printAction(Request $request)
+    {
+
+        $idRec = $request->get('idRec');
+        $em = $this->getDoctrine()->getManager();
+
+        $reclamation = $em->getRepository('KidzyBundle:Reclamations')->find($idRec);
+
+
+
+
+        $html = $this->renderView('@Kidzy/reclamations/print.html.twig', array(
+            'reclamation'  => $reclamation,
+
+
+        ));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'reclamation.pdf'
+        );
+    }
+
+    public function chartsRAction()
+    {
+        $pieChart = new PieChart();
+        $em = $this->getDoctrine()->getManager();
+
+        $reclamation= $em->getRepository('KidzyBundle:Reclamations')->findAll();
+        $repository= $this->getDoctrine()->getManager()->getRepository(Reclamations::class);
+        $listes= $repository->myfindrec();
+        $data=array();
+        $a=['etatRec','NB'];
+        array_push($data,$a);
+        foreach($listes as $c){
+            $a=array($c['etatRec'],$c['NB']);
+            array_push($data,$a);
+
+    }
+        $pieChart->getData()->setArrayToDataTable(
+            $data
+        );
+        $pieChart->getOptions()->setTitle('Clubs ');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+
+
+
+
+        return $this->render('@Kidzy/reclamations/chartsR.html.twig', array('piechart' => $pieChart));
+
 
 
     }

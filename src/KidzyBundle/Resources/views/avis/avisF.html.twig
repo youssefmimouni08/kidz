@@ -8,12 +8,10 @@
                 <div class="col-lg-6">
                     <div class="title text-center mb-4">
                         <h6 class="text-primary small-title"></h6>
-                        <h4>LES AVIS</h4>
+                        <h4>Les Avis </h4>
                     </div>
                 </div>
             </div>
-            <!-- end row -->
-
             <div class="row">
                 <div class="col-xl-4">
                     <a href="{{ path('avis_new') }}" class="btn btn-success btn-md waves-effect waves-light mb-3" data-animation="fadein" data-plugin="custommodal"
@@ -22,45 +20,33 @@
                        data-overlaySpeed="200" data-overlayColor="#e83e8c"><i class="pt-4"></i> Consulter mes avis </a>
                 </div>
             </div>
-            <!-- end row -->
             <div class="row">
 
                 {% for enfant in avis %}
+                    <div class="col-md-6 col-xl-3">
 
+                        <div class="card">
 
-                    <div class="col-lg-4">
-                        <form action="">
-
-                            <div class="pricing-plans bg-white text-center p-4 mt-4">
-                                <div class="dropdown float-right">
-
-
-                                </div>
-                                <div>
-
-
-                                    <div class="text-left">
-                                        <p class="text-muted font-13"><strong>Nom  :</strong> <span class="ml-2"> {{ enfant.id}}   </span></p>
-
-                                        <p class="text-muted font-13"><strong>Description:</strong><span class="ml-2">{{ enfant.descriptionAvis}} </span></p>
-
-                                        <p class="text-muted font-13"><strong>Date :</strong> <span class="ml-2"> {{ enfant.dateAvis |date}}</span></p>
-
-
-                                    </div>
-
-
-
-                                </div>
-
+                            <div class="card-body">
+                                <h4 class="card-title">Nom</h4>
+                                <p class="card-text">{{ enfant.id}}</p>
                             </div>
-                        </form>
-                    </div> <!-- end col -->
+                            <div class="card-body">
+                                <h4 class="card-title">Description</h4>
+                                <p class="card-text">{{ enfant.descriptionAvis}}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ enfant.dateAvis |date}}</li>
+                            </ul>
+
+                        </div>
+
+                    </div>
                 {% endfor %}
 
+                <!-- end container-fluid -->
             </div>
+            <div class="text-center" style="">{{ knp_pagination_render(avis) }} </div>
         </div>
-        <!-- end container-fluid -->
-
     </section>
 {% endblock %}

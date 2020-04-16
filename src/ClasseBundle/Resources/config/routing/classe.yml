@@ -25,3 +25,4 @@ classe_delete:
 classe_export:
     path:     admin/export
     defaults: { _controller: "ClasseBundle:Classe:export" }
+

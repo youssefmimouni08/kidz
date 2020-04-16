@@ -8,25 +8,29 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InscriptionType extends AbstractType
+class InscriptionFrontType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $idParent =null;
         $builder->add('descriptionInscrit')->add('idEnfant',EntityType::class,
                 array(
+                    'required' => false,
                     'class'=>'KidzyBundle:Enfant',
-                    'choice_label'=>'prenomEnfant',
-                    'multiple'=>false
-                ))->add('idClub',EntityType::class,
-                array(
-                    'class'=>'KidzyBundle:Club',
-                    'choice_label'=>'nomClub',
-                    'multiple'=>false
-                ));
+                    'choice_label'=>'nomEnfant',
+                    'multiple'=>true,
+                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) use ($idParent) {
+                        $er->myfinfEnfant($idParent);
 
+                    }
+
+
+                ));
     }/**
      * {@inheritdoc}
      */

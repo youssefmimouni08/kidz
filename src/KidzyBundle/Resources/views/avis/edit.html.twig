@@ -13,35 +13,35 @@
             </div>
         </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box">
-                            <h4 class="header-title mt-0 mb-3"></h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+                        <h4 class="header-title mt-0 mb-3"></h4>
 
-                            {{ form_start(edit_form, {'attr': {'class': 'form-horizontal' , 'role' : 'form' , 'novalidate': 'novalidate' }}) }}
-                            <div class="form-group row">
-                                {{ form_label(edit_form.descriptionAvis ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
-                                <div class="col-sm-7">
-                                    {{ form_widget(edit_form.descriptionAvis, {'attr': {'class': 'form-control' , 'placeholder': 'Titre'}}) }}
-                                </div>
-                                {{ form_errors(edit_form.descriptionAvis) }}
+                        {{ form_start(edit_form, {'attr': {'class': 'form-horizontal' , 'role' : 'form' , 'novalidate': 'novalidate' }}) }}
+                        <div class="form-group row">
+                            {{ form_label(edit_form.descriptionAvis ,null , {'label_attr': {'class': 'col-sm-4 col-form-label'}}) }}
+                            <div class="col-sm-7">
+                                {{ form_widget(edit_form.descriptionAvis, {'attr': {'class': 'form-control' , 'placeholder': 'Titre'}}) }}
                             </div>
+                            {{ form_errors(edit_form.descriptionAvis) }}
+                        </div>
 
-                            <div class="button-list d-flex justify-content-start">
-                                {{ form_widget(edit_form) }}
-                                <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Confirmer">
-                                {{ form_end(edit_form) }}
+                        <div class="button-list d-flex justify-content-start">
+                            {{ form_widget(edit_form) }}
+                            <input type="submit" class="btn btn-primary waves-effect waves-light mr-1" value="Confirmer">
+                            {{ form_end(edit_form) }}
 
-                            </div>
+                        </div>
 
 
-                        </div> <!-- end card-box -->
-                    </div><!-- end col -->
-                </div>
-                <!-- end row -->
-            </div> <!-- container-fluid -->
+                    </div> <!-- end card-box -->
+                </div><!-- end col -->
+            </div>
+            <!-- end row -->
+        </div> <!-- container-fluid -->
 
         </div> <!-- content -->
-    </div>
-</section>
+        </div>
+    </section>
 {% endblock %}

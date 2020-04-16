@@ -17,51 +17,15 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
-                            <h1>Réclamations list</h1>
 
-                            <table id="datatable" class="table table-bordered dt-responsive nowrap">
-                                <thead>
-                                <tr>
-                                    <th >ID Rec</th>
-                                    <th>Nom parent</th>
-                                    <th>Date Rec</th>
-                                    <th>Description Rec</th>
-                                    <th>Nom maitresse</th>
-                                    <th> </th>
-                                </tr>
-                                </thead>
+                            <div id="div_chart"></div>
+
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                                {{ gc_draw(piechart, 'div_chart') }}
+                            </script>
 
 
-                                <tbody>
-                                {% for rec in rec %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('reclamations_show', { 'idRec': rec.idRec }) }}">{{ rec.idRec }}</a>
-                                        </td>
-                                        <td>{{ rec.id }}</td>
-                                        <td>{{ rec.dateRec|date }} </td>
-                                        <td>{{ rec.descriptionRec }}</td>
-                                        <td>{{ rec.idM }}</td>
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ path('reclamations_show', { 'idRec': rec.idRec }) }}"><i class="dripicons-blog"></i> | Afficher Les Details</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ path('reclamations_edit', { 'idRec': rec.idRec }) }}"><i class="dripicons-pencil"></i> | Modifier</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-
-                            <ul>
-                                <li>
-                                    <a href="{{ path('chartsR') }}">Consulter statistique</a>
-                                </li>
-                            </ul>
                         </div> <!-- end card-box -->
                     </div><!-- end col -->
                 </div>
@@ -88,3 +52,4 @@
     <script src="{{ asset('back/assets/libs/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('back/assets/js/pages/datatables.init.js') }}"></script>
 {% endblock %}
+

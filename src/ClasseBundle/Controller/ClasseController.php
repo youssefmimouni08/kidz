@@ -3,12 +3,10 @@
 namespace ClasseBundle\Controller;
 
 use KidzyBundle\Entity\Classe;
-use PhpOffice\PhpSpreadsheetBundle;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use \PhpOffice\PhpSpreadsheet\Writer;
-use \PhpOffice\PhpSpreadsheet\Reader;
+
 
 
 /**
@@ -31,26 +29,12 @@ class ClasseController extends Controller
             'classes' => $classes,
         ));
     }
-
     /**
      * Creates a new classe entity.
      *
      */
     public function newAction(Request $request)
     {
-
-
-//        $webDirectory = $this->get('kernel')->getProjectDir() . '/web';
-//        $excelFilepath =  $webDirectory . '/testing.xlsx';
-//        $spreadsheet = $this->get('phpoffice.spreadsheet')->createSpreadsheet();
-//        $spreadsheet->getActiveSheet()->setCellValue('A1', 'Hello world');
-//
-//        $writerXlsx = $this->get('phpoffice.spreadsheet')->createWriter($spreadsheet, 'Xlsx');
-//        $writerXlsx->save($excelFilepath);
-//        $readerXlsx  = $this->get('phpoffice.spreadsheet')->createReader('Xlsx');
-//        $sheet = $readerXlsx->load($excelFilepath);
-//        $data = $this->createDataFromSpreadsheet($sheet);
-
         $classe = new Classe();
         $form = $this->createForm('ClasseBundle\form\ClasseType', $classe);
         $form->handleRequest($request);
