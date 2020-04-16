@@ -2,12 +2,14 @@
 
 namespace KidzyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reclamations
  *
  * @ORM\Table(name="reclamations", indexes={@ORM\Index(name="jhjlh", columns={"id_M"}), @ORM\Index(name="id", columns={"id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\reclamationsRepository")
  */
 class Reclamations
 {
@@ -39,6 +41,7 @@ class Reclamations
      * @var string
      *
      * @ORM\Column(name="description_rec", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="le champ description réclamation est obligatoire")
      */
     private $descriptionRec;
 
@@ -46,6 +49,7 @@ class Reclamations
      * @var string
      *
      * @ORM\Column(name="reponse_rec", type="string", length=600, nullable=true)
+     * @Assert\NotBlank(message="le champ réponse réclamation est obligatoire")
      */
     private $reponseRec;
 
