@@ -3,6 +3,7 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * Classe
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="classe")
  * @ORM\Entity
  */
-class Classe
+class Classe implements JsonSerializable
 {
     /**
      * @var integer
@@ -117,7 +118,7 @@ class Classe
      */
     public function addEnfant(\KidzyBundle\Entity\Enfant $enfant)
     {
-        $this->enfant[] = $enfant;
+        $this->enfants[] = $enfant;
 
         return $this;
     }
@@ -129,7 +130,7 @@ class Classe
      */
     public function removeEnfant(\KidzyBundle\Entity\Enfant $enfant)
     {
-        $this->enfant->removeElement($enfant);
+        $this->enfants->removeElement($enfant);
     }
 
     /**
@@ -139,6 +140,19 @@ class Classe
      */
     public function getEnfant()
     {
-        return $this->enfant;
+        return $this->enfants;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return
+            [
+                'id'   => $this->getIdClasse(),
+                'libelle' => $this->getLibelleCla(),
+                'desctiption' => $this->getDescription()
+            ];
     }
 }

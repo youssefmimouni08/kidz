@@ -3,6 +3,7 @@
 namespace KidzyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * PackFrais
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="pack_frais", indexes={@ORM\Index(name="fk_id_pack", columns={"id_pack"}), @ORM\Index(name="fk_id_frais_pack", columns={"id_frais"})})
  * @ORM\Entity
  */
-class PackFrais
+class PackFrais implements JsonSerializable
 {
     /**
      * @var integer
@@ -99,5 +100,17 @@ class PackFrais
     public function getIdPack()
     {
         return $this->idPack;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return
+            [
+                'idpack'   => $this->getIdPack(),
+                'idfrais' => $this->getIdFrais()
+            ];
     }
 }

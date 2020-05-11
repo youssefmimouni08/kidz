@@ -259,9 +259,7 @@ class Pack implements JsonSerializable
         return $this->factures;
     }
 
-    /**
-     * @inheritDoc
-     */
+
     public function jsonSerialize()
     {
         return
@@ -269,6 +267,7 @@ class Pack implements JsonSerializable
                 'idpack'   => $this->getIdPack(),
                 'nom_pack' => $this->getNomPack(),
                 'prix_pack' => $this->getPrixPack(),
+                'prix_pack_year' => $this->getPrixPackyear(),
                 'description' => $this ->getDescriptionPack()
             ];
     }

@@ -44,7 +44,7 @@ charts:
     path:     /admin/chart
     defaults: { _controller: "KidzyBundle:Garde:charts" }
     methods:  GET
-print:
+print_garde:
     path:     /print
     defaults: { _controller: "KidzyBundle:Garde:print" }
 

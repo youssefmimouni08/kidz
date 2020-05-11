@@ -84,15 +84,7 @@ public function newAction(Request $request)
             $em = $this->getDoctrine()->getManager();
             $em->persist($club);
             $em->flush();
-            $notifications=new Notification();
-            $notifications->setTitle('nouveau Club')
-                ->setDescription($club->getNomClub())
-                ->setRoute('user')
-                ->setParameters(array('id'=>$club->getIdClub()));
-            $em->persist($notifications);
-            $em->flush();
-            $pusher = $this->get('mrad.pusher.notificaitons');
-            $pusher->trigger($notifications);
+
 
             return $this->redirectToRoute('club_show', array('idClub' => $club->getIdClub()));
         }

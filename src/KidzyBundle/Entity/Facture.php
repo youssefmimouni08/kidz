@@ -154,29 +154,23 @@ class Facture implements JsonSerializable
     {
         return $this->dateFacture;
     }
-    /**
-     * Set due_dateFacture
-     *
-     * @param string $due_dateFacture
-     *
-     * @return Facture
-     */
-    public function setDue_dateFacture($due_dateFacture)
-    {
-        $this->due_dateFacture = $due_dateFacture;
-
-        return $this;
-    }
 
     /**
-     * Get due_dateFacture
-     *
      * @return string
      */
-    public function getDue_dateFacture()
+    public function getDueDateFacture(): string
     {
         return $this->due_dateFacture;
     }
+
+    /**
+     * @param string $due_dateFacture
+     */
+    public function setDueDateFacture(string $due_dateFacture)
+    {
+        $this->due_dateFacture = $due_dateFacture;
+    }
+    
 
     /**
      * Set paye
@@ -282,7 +276,8 @@ class Facture implements JsonSerializable
                 'parent' => $this->getIdParent(),
                 'pack' => $this ->getPack(),
                 'total' =>$this ->getTotal(),
-                'date facture' =>$this ->getDateFacture(),
+                'start date facture' =>$this ->getDateFacture(),
+                'End date facture' =>$this ->getDueDateFacture(),
                 'paye'=>$this->getPaye(),
                 'status'=>$this->getStatus()
             ];

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Egyg33k\CsvBundle\Egyg33kCsvBundle(),
+            new KidzyApiBundle\KidzyApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

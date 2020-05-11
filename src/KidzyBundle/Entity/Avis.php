@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Avis
  *
  * @ORM\Table(name="avis", indexes={@ORM\Index(name="fk_id_peer", columns={"id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="KidzyBundle\Repository\avisRepository")
  *
  *
  */

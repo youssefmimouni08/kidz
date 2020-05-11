@@ -97,7 +97,8 @@ class EnfantController extends Controller
         $enfant = new Enfant();
         $form = $this->createForm('KidzyBundle\Form\EnfantType', $enfant);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
+        $parent = $em->getRepository('UserBundle:User')->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $today = new \DateTime('now');
@@ -111,6 +112,7 @@ class EnfantController extends Controller
         }
 
         return $this->render('@Kidzy/enfant/new.html.twig', array(
+            'parents'=>$parent,
             'enfant' => $enfant,
             'form' => $form->createView(),
         ));
@@ -130,14 +132,16 @@ class EnfantController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $classe = $em->getRepository('KidzyBundle:Classe')->findAll();
-        $classes = $em->getRepository('KidzyBundle:Classe')->find('idClasse');
+
+
+
         $user = $this->getUser();
         if ($request->isMethod("POST")) {
 
             $enfant->setImageFile($request->files->get('imageFile') );
             $enfant->setNomEnfant($request->get('nomEnfant'));
             $enfant->setPrenomEnfant($request->get('prenomEnfant'));
-            $enfant->setIdClasse('idClasse');
+            $enfant->setIdClasse(1);
             $enfant->setDatenEnfant($request->get('datenEnfant'));
             $enfant->setIdParent($user);
             $today = new \DateTime('now');

@@ -109,7 +109,7 @@ class ReclamationsController extends Controller
         {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $reclamation = new Reclamations();
-            $form = $this->createForm('KidzyBundle\Form\ReclamationsType', $reclamation);
+            $form = $this->createForm('KidzyBundle\Form\ReclamationsAType', $reclamation);
             $form->handleRequest($request);
             $em=$this->getDoctrine()->getManager();
             if ($form->isSubmitted() && $form->isValid()) {

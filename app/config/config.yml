@@ -5,6 +5,7 @@ imports:
     - { resource: "@KidzyBundle/Resources/config/services.yml" }
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@ClasseBundle/Resources/config/services.yml" }
+    - { resource: "@KidzyApiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -111,24 +112,26 @@ notifications:
 vich_uploader:
     db_driver: orm
     mappings:
-        event_image:
-            uri_prefix: /images/enfant
+        enfant_image:
+            uri_prefix: /images/enfants
             upload_destination: '%kernel.project_dir%/web/images/enfants'
             namer:
                 service: vich_uploader.namer_uniqid
-
+        event_image:
+          uri_prefix: /images/enfant
+          upload_destination: '%kernel.project_dir%/web/images/enfants'
+          namer:
+            service: vich_uploader.namer_uniqid
 liip_imagine :
     filter_sets :
-
         # the name of the "filter set"
         thumb :
-
             # adjust the image quality to 75%
             quality : 75
-
             # list of transformations to apply (the "filters")
             filters :
                 thumbnail  : { size : [100, 100], mode : outbound }
+
 cmen_google_charts:
     version: "current"
 

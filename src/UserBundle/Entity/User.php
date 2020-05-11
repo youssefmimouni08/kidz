@@ -82,6 +82,8 @@ class User extends BaseUser implements JsonSerializable
 
     protected $cin;
 
+
+
     /**
      * @ORM\OneToMany(targetEntity="KidzyBundle\Entity\Facture", mappedBy="idParent")
      */

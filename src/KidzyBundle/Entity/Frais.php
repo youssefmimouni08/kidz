@@ -5,6 +5,7 @@ namespace KidzyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
 
 
 /**
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="frais")
  * @ORM\Entity
  */
-class Frais
+class Frais implements JsonSerializable
 {
     /**
      * @var integer
@@ -113,6 +114,19 @@ class Frais
     public function __toString()
     {
         return $this->titre . ' - ' . $this->prix . ' DT';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return
+            [
+                'idfrais'   => $this->getIdFrais(),
+                'titre' => $this->getTitre(),
+                'prix_frais' => $this->getPrix()
+            ];
     }
 
 

@@ -18,7 +18,7 @@
 
 </head>
 <body class="left-side-menu-dark">
-{# Call NotificationsBundles's assets #}
+{# Call NotificationsBundles's assets
 {{ notifications_assets() }}
 <script>
     /**
@@ -36,7 +36,7 @@
     channel.bind("my-event", function(data) {
         console.log('from messages channel', data);
     });
-</script>
+</script>#}
 
 <div id="preloader">
     <div id="status">
@@ -118,7 +118,9 @@
             </ul>
 
             <!-- LOGO -->
-            <div class="logo-box">
+            <div class="logo-box" style="width: 260px!important;">
+                <img src="{{ asset('front/images/unnamed.png') }}" alt="" class="logo-light"
+                     style="display: inline-block ;padding-left: 97px;padding-top: 5px!important " height="55"/>
             </div>
 
             <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
@@ -137,7 +139,7 @@
     {% endblock %}
 
     {% block sidebar %}
-        <div class="left-side-menu">
+        <div class="left-side-menu" style="width: 260px!important;">
 
             <div class="slimscroll-menu">
 
@@ -177,14 +179,14 @@
                             </li>
                             <li>
                                 <a href="{{ path('enfant_index') }}">
-                                    <i class="mdi mdi-currency-usd"></i>
+                                    <i class="mdi mdi-human-child"></i>
                                     <span> Gestion Des Enfants </span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="{{ path('garde_index') }}">
-                                    <i class="mdi mdi-currency-usd"></i>
+                                    <i class="mdi mdi-home"></i>
                                     <span> Gestion Du Garderie </span>
                                 </a>
                             </li>
@@ -211,31 +213,31 @@
                             </li>
                             <li>
                                 <a href="{{ path('classe_index') }}">
-                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <i class="mdi mdi-math-compass"></i>
                                     <span> Gestion Des Classes </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ path('reclamations_index') }}">
-                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <i class="mdi mdi-message-text"></i>
                                     <span> Gestion Des Réclamations </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ path('avis_index') }}">
-                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <i class="mdi mdi-telegram"></i>
                                     <span> Gestion Des Avis </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ path('club') }}">
-                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <i class="mdi mdi-palette-outline"></i>
                                     <span> Gestion des clubs </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ path('event_index') }}">
-                                    <i class="mdi mdi-file-table-outline"></i>
+                                    <i class="mdi mdi-camera-wireless-outline"></i>
                                     <span> Gestion Des evenements </span>
                                 </a>
                             </li>

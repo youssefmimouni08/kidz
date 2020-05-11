@@ -1,3 +1,7 @@
+kidzy_api:
+    resource: "@KidzyApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 classe:
     resource: "@ClasseBundle/Resources/config/routing.yml"
     prefix:   /Classe

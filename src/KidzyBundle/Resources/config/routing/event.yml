@@ -28,15 +28,15 @@ eventParent:
 event_participants:
     path:     /listeParticipants
     defaults: { _controller: KidzyBundle:Participation:liste}
-inscription_newFront:
+inscriptionevent_newFront:
     path:   admin/newFront
     defaults: { _controller: KidzyBundle:Participation:newFront }
     methods:  [GET, POST]
-inscription_newp:
+inscriptionevent_newp:
     path:   admin/{idEvent}/newp
     defaults: { _controller: KidzyBundle:Participation:newp }
     methods:  [GET, POST]
-inscription_enfantAdmin:
+inscriptionevent_enfantAdmin:
     path:     admin/{idEvent}/liste
     defaults: { _controller: KidzyBundle:Participation:liste }
     methods:  [GET, POST]

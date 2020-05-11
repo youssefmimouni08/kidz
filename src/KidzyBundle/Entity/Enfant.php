@@ -4,6 +4,7 @@ namespace KidzyBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -15,11 +16,11 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Table(name="enfant", indexes={@ORM\Index(name="fk_id_p", columns={"id"}), @ORM\Index(name="fk_id_classe", columns={"id_classe"})})
  * @ORM\Entity(repositoryClass="KidzyBundle\Repository\inscriptionRepository")
  *
- * @ORM\Entity(repositoryClass="KidzyBundle\Repository\enfantRepository")
+ *
  *
  * @Vich\Uploadable
  */
-class Enfant
+class Enfant implements JsonSerializable
 {
     /**
      * @var integer
@@ -382,7 +383,7 @@ class Enfant
      *
      * @return Enfant
      */
-    public function setIdParent(\UserBundle\Entity\User $idParent = null)
+    public function setIdParent(\UserBundle\Entity\User $idParent)
     {
         $this->idParent = $idParent;
 
@@ -453,4 +454,17 @@ class Enfant
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return
+            [
+                'id'   => $this->getIdEnfant(),
+                'nom' => $this->getNomEnfant(),
+                'prenom' => $this->getPrenomEnfant(),
+                'parent' => $this ->getIdParent()
+            ];
+    }
 }

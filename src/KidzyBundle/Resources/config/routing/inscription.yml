@@ -1,4 +1,3 @@
-
 inscription_enfantAdmin:
     path:     admin/{idClub}/liste
     defaults: { _controller: KidzyBundle:Inscription:liste }
